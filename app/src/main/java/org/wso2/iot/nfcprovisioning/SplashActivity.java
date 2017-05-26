@@ -48,11 +48,9 @@ public class SplashActivity extends AppCompatActivity {
     private void startActivity() {
         if (!Preference.hasPreferenceKey(this, Constants.TOKEN_EXPIRED) &&
                 Constants.AUTHENTICATOR_IN_USE.equals(Constants.MUTUAL_SSL_AUTHENTICATOR)) {
-            instantiatedActivityClass = AuthenticationActivity.class;
+            instantiatedActivityClass = ProvisioningActivity.class;
         } else {
             instantiatedActivityClass = AuthenticationActivity.class;
-
-          //  instantiatedActivityClass = ProvisioningActivity.class;
         }
         Intent intent = new Intent(getApplicationContext(), instantiatedActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -873,11 +873,11 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
 
 
         private void loadProvisioningActivity() {
-//        Intent intent = new Intent(AuthenticationActivity.this, ProvisioningActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.putExtra(Constants.USERNAME, usernameVal);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(AuthenticationActivity.this, ProvisioningActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(Constants.USERNAME, usernameVal);
+        startActivity(intent);
+        finish();
     }
 
     private void cancelEntry() {

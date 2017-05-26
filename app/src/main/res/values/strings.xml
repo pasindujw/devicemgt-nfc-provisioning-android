@@ -73,5 +73,7 @@
     <string name="title_head_authentication_error">Authentication Failed</string>
     <string name="error_authentication_failed">Incorrect login information. Please try again.</string>
     <string name="error_for_all_unknown_authentication_failures">Cannot proceed the authentication. Please contact administrator.</string>
+    <string name="nfc_bump_hint">Tap the device you want to bump!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
