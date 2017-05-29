@@ -1,7 +1,9 @@
 package org.wso2.iot.nfcprovisioning;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,11 +20,13 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
     private static Class<?> instantiatedActivityClass = null;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        context = SplashActivity.this;
 
         String footerText = String.format(
                 getResources().getString(R.string.footer_text),
@@ -40,13 +44,14 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                PreferenceManager.setDefaultValues(context, R.xml.preferences, false);
                 startActivity();
             }
         }, AUTO_HIDE_DELAY_MILLIS);
     }
 
     private void startActivity() {
-        if (!Preference.hasPreferenceKey(this, Constants.TOKEN_EXPIRED) &&
+        if (!Preference.hasPreferenceKey(this, Constants.TOKEN_EXPIRED) ||
                 Constants.AUTHENTICATOR_IN_USE.equals(Constants.MUTUAL_SSL_AUTHENTICATOR)) {
             instantiatedActivityClass = ProvisioningActivity.class;
         } else {

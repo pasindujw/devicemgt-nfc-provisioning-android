@@ -52,6 +52,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     private EditText etUsername;
     private EditText etDomain;
     private EditText etPassword;
+    private EditText etServerIP;
     private Context context;
     private String username;
     private String usernameVal;
@@ -79,6 +80,12 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         setContentView(R.layout.activity_authentication);
 
         deviceInfo = new DeviceInfo(context);
+        etServerIP = (EditText) findViewById(R.id.serverIP);
+
+        if(Constants.DEFAULT_HOST != null && !Constants.DEFAULT_HOST.equals("")){
+            etServerIP.setText(Constants.DEFAULT_HOST);
+        }
+
         etDomain = (EditText) findViewById(R.id.organization);
         etUsername = (EditText) findViewById(R.id.username);
         etPassword = (EditText) findViewById(R.id.password);
@@ -134,7 +141,21 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
 //            textViewSignUp.setVisibility(View.GONE);
 //        }
 
+        etServerIP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                enableSubmitIfReady();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableSubmitIfReady();
+            }
+        });
 
         etUsername.addTextChangedListener(new TextWatcher() {
             @Override
@@ -201,8 +222,12 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
 
         @Override
         public void onClick(View view) {
-            if (etUsername.getText() != null && !etUsername.getText().toString().trim().isEmpty() &&
+            if (etServerIP.getText() != null && !etUsername.getText().toString().trim().isEmpty() &&
+                    etUsername.getText() != null && !etUsername.getText().toString().trim().isEmpty() &&
                     etPassword.getText() != null && !etPassword.getText().toString().trim().isEmpty()) {
+
+                String serverIP = etServerIP.getText().toString().trim();
+                Preference.putString(context, Constants.PreferenceFlag.IP, serverIP);
 
                 passwordVal = etPassword.getText().toString().trim();
                 usernameVal = etUsername.getText().toString().trim();
@@ -214,13 +239,15 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
 //                }
             } else {
                 if (etUsername.getText() != null && !etUsername.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(context,
-                            getResources().getString(R.string.toast_error_password),
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(context,
-                            getResources().getString(R.string.toast_error_username),
-                            Toast.LENGTH_LONG).show();
+                    etUsername.setError(getResources().getString(R.string.error_username));
+                }
+
+                if (etPassword.getText() != null && !etPassword.getText().toString().trim().isEmpty()) {
+                    etPassword.setError(getResources().getString(R.string.error_password));
+                }
+
+                if (etServerIP.getText() != null && !etServerIP.getText().toString().trim().isEmpty()) {
+                    etServerIP.setError(getResources().getString(R.string.error_server_ip));
                 }
             }
         }
@@ -251,6 +278,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             usernameVal +=
                     getResources().getString(R.string.intent_extra_at) +
                             etDomain.getText().toString().trim();
+            getClientCredentials();
         }
          else {
             getClientCredentials();
@@ -374,7 +402,8 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
      * @param clientSecret client secret value to access APIs.
      */
     private void initializeIDPLib(String clientKey, String clientSecret) {
-        String serverIP = Constants.DEFAULT_HOST;
+        String serverIP = Preference.getString(context.getApplicationContext(),
+                Constants.PreferenceFlag.IP);
 
         if (serverIP != null && !serverIP.isEmpty()) {
             ServerConfig utils = new ServerConfig();
@@ -427,9 +456,10 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                         }
                     });
                     Preference.removePreference(context, Constants.TOKEN_EXPIRED);
-                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    mNotificationManager.cancel(Constants.TOKEN_EXPIRED, Constants.SIGN_IN_NOTIFICATION_ID);
-                    finish();
+//                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//                    mNotificationManager.cancel(Constants.TOKEN_EXPIRED, Constants.SIGN_IN_NOTIFICATION_ID);
+                    loadProvisioningActivity();
+//                    finish();
                 } else {
                     Preference.putString(context, Constants.USERNAME, username);
                     // Check network connection availability before calling the API.
@@ -781,22 +811,22 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
 //        alertDialog.show();
 //    }
 
-    private void showErrorMessage(String message, String title) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(message);
-        builder.setTitle(title);
-        builder.setCancelable(true);
-        builder.setPositiveButton(getResources().getString(R.string.button_ok),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        cancelEntry();
-                        dialog.dismiss();
-                    }
-                }
-        );
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
+//    private void showErrorMessage(String message, String title) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        builder.setMessage(message);
+//        builder.setTitle(title);
+//        builder.setCancelable(true);
+//        builder.setPositiveButton(getResources().getString(R.string.button_ok),
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        cancelEntry();
+//                        dialog.dismiss();
+//                    }
+//                }
+//        );
+//        AlertDialog alert = builder.create();
+//        alert.show();
+//    }
 
 
 //    private void showAgreement(final String licenseText, final String title) {
@@ -880,16 +910,16 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         finish();
     }
 
-    private void cancelEntry() {
-        Preference.putBoolean(context, Constants.PreferenceFlag.IS_AGREED, false);
-        Preference.putBoolean(context, Constants.PreferenceFlag.REGISTERED, false);
-        Preference.putString(context, Constants.PreferenceFlag.IP, null);
-
-        Intent intentIP = new Intent(AuthenticationActivity.this, SplashActivity.class);
-        intentIP.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intentIP);
-        finish();
-    }
+//    private void cancelEntry() {
+//        Preference.putBoolean(context, Constants.PreferenceFlag.IS_AGREED, false);
+//        Preference.putBoolean(context, Constants.PreferenceFlag.REGISTERED, false);
+//        Preference.putString(context, Constants.PreferenceFlag.IP, null);
+//
+//        Intent intentIP = new Intent(AuthenticationActivity.this, SplashActivity.class);
+//        intentIP.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intentIP);
+//        finish();
+//    }
 
     /**
      * Validation done to see if the username and password fields are properly
@@ -900,17 +930,18 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         boolean isReady = false;
 
         if (etUsername.getText().toString().length() >= 1 &&
-                etPassword.getText().toString().length() >= 1) {
+                etPassword.getText().toString().length() >= 1 &&
+                etServerIP.getText().toString().length() >= 1) {
             isReady = true;
         }
 
         if (isReady) {
-            btnSignIn.setBackgroundResource(R.drawable.btn_orange);
-            btnSignIn.setTextColor(ContextCompat.getColor(this, R.color.white));
+//            btnSignIn.setBackgroundResource(R.drawable.btn_orange);
+//            btnSignIn.setTextColor(ContextCompat.getColor(this, R.color.white));
             btnSignIn.setEnabled(true);
         } else {
-            btnSignIn.setBackgroundResource(R.drawable.btn_grey);
-            btnSignIn.setTextColor(ContextCompat.getColor(this, R.color.black));
+//            btnSignIn.setBackgroundResource(R.drawable.btn_grey);
+//            btnSignIn.setTextColor(ContextCompat.getColor(this, R.color.black));
             btnSignIn.setEnabled(false);
         }
     }
@@ -1026,12 +1057,9 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
      * This method is used to retrieve consumer-key and consumer-secret.
      */
     private void getClientCredentials() {
-        String ipSaved = Constants.DEFAULT_HOST;
-        String prefIP = Preference.getString(context.getApplicationContext(),
+        String ipSaved = Preference.getString(context.getApplicationContext(),
                 Constants.PreferenceFlag.IP);
-        if (prefIP != null) {
-            ipSaved = prefIP;
-        }
+
         String authenticationTitle;
         if (currentTenant != null) {
             authenticationTitle = String.format(

@@ -88,11 +88,12 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:paddingTop="0dp">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
 
                 <EditText
                     android:id="@+id/serverIP"
@@ -105,7 +106,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
 
                 <EditText
                     android:id="@+id/organization"
@@ -120,7 +122,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
 
                 <AutoCompleteTextView
                     android:id="@+id/username"
@@ -137,7 +140,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/light_grey">
+                app:passwordToggleTint="@color/light_grey"
+                app:errorEnabled="true">
 
                 <EditText
                     android:id="@+id/password"
@@ -156,7 +160,7 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/action_sign_in"
                 android:textColor="@color/white" 
                 android:backgroundTint="@color/colorButton"

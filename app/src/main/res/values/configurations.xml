@@ -1,0 +1,11 @@
+<resources>
+    <string name="package_name">org.wso2.iot.agent</string>
+    <string name="package_download_location">http://192.168.3.12:0000/client.apk</string>
+    <string name="package_checksum">w34532hj2354jh33</string>
+    <string name="wifi_ssid">Dialog 4G</string>
+    <string name="wifi_security_type" >NONE</string>
+    <string name="wifi_password">sodfofewfsacs</string>
+    <string name="time_zone">Asia/Colombo</string>
+    <string name="locale">en_US</string>
+    <string name="encryption">false</string>
+</resources>

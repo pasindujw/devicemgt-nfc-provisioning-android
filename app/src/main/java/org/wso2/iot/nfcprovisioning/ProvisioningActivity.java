@@ -1,5 +1,6 @@
 package org.wso2.iot.nfcprovisioning;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,7 +38,8 @@ public class ProvisioningActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProvisioningActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:

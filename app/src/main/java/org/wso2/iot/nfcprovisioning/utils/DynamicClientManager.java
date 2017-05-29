@@ -193,7 +193,7 @@ public class DynamicClientManager implements APIResultCallBack {
                     headers.put("Accept", "application/json");
                     headers.put("User-Agent", Constants.USER_AGENT);
                     if (username != null && password != null) {
-                        String basicAuthValue = basicAuthValue = "Basic " +
+                        String basicAuthValue = "Basic " +
                                 new String(Base64.encodeBase64((username + ":" + password)
                                         .getBytes()));
                         headers.put("Authorization", basicAuthValue);

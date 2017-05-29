@@ -47,7 +47,9 @@ public class ServerConfig {
 //			serverURL = getProtocolFromPreferences(context) + getHostFromPreferences(context) + COLON +
 //			            getPortFromPreferences(context);
 //		}
-		return Constants.DEFAULT_HOST ;
+		//return Constants.DEFAULT_HOST ;
+		return Preference.getString(context.getApplicationContext(),
+				Constants.PreferenceFlag.IP);
 	}
 
 	public void setServerURL(Context context, String serverURL) {
@@ -61,7 +63,9 @@ public class ServerConfig {
 //			APIServerURL = getProtocolFromPreferences(context) + getHostFromPreferences(context) + COLON +
 //			               getPortFromPreferences(context);
 //		}
-		return Constants.DEFAULT_HOST;
+		//return Constants.DEFAULT_HOST;
+		return Preference.getString(context.getApplicationContext(),
+				Constants.PreferenceFlag.IP);
 	}
 
 //	public String getProtocolFromPreferences (Context context) {

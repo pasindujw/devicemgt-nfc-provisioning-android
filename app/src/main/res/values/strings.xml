@@ -49,9 +49,10 @@
 
     <string name="date_util_suffix">ago</string>
 
-    <!-- TOAST MESSAGES -->
-    <string name="toast_error_username">Please enter username</string>
-    <string name="toast_error_password">Please enter password</string>
+    <!-- LOGIN ERROR MESSAGES -->
+    <string name="error_username">Please enter username</string>
+    <string name="error_password">Please enter password</string>
+    <string name="error_server_ip">Please enter Server IP</string>
 
     <!-- INTENT EXTRAS -->
     <string name="intent_extra_at">\/@</string>
@@ -75,5 +76,34 @@
     <string name="error_for_all_unknown_authentication_failures">Cannot proceed the authentication. Please contact administrator.</string>
     <string name="nfc_bump_hint">Tap the device you want to bump!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- PREFERENCE VALUES -->
+    <string name="pref_title_package_name">Package Name</string>
+    <string name="pref_key_package_name">prefKeyPackageName</string>
+    <string name="pref_key_package_download_location">prefKeyPackageDownloadLocation</string>
+    <string name="pref_title_package_download_location">Package Download Location</string>
+    <string name="pref_dialog_title_package_name">Enter package name</string>
+    <string name="pref_dialog_title_package_download_location">Enter download location</string>
+    <string name="pref_title_package_checksum">Package Checksum</string>
+    <string name="pref_key_package_checksum">prefKeyPackageChecksum</string>
+    <string name="pref_dialog_title_package_checksum">Enter Checksum</string>
+    <string name="pref_key_wifi_ssid">prefKeyWiFiSSID</string>
+    <string name="pref_title_wifi_name">Network Name</string>
+    <string name="pref_dialog_title_wifi_name">Enter network name</string>
+    <string name="pref_key_wifi_security_type">prefKeyWiFiSecurityType</string>
+    <string name="pref_title_wifi_security_type">Security</string>
+    <string name="pref_dialog_title_wifi_security_type">Select security type</string>
+    <string name="pref_key_wifi_password">prefKeyWiFiPassword</string>
+    <string name="pref_title_wifi_password">Network Password</string>
+    <string name="pref_dialog_title_wifi_password">Enter network password</string>
+    <string name="pref_key_time_zone">prefKeyTimeZone</string>
+    <string name="pref_title_time_zone">Time Zone</string>
+    <string name="pref_dialog_title_time_zone">Select time zone</string>
+    <string name="pref_key_locale">prefKeyLocale</string>
+    <string name="pref_title_language">Language</string>
+    <string name="pref_dialog_title_language">Select language</string>
+    <string name="pref_key_encryption">prefKeyEncryption</string>
+    <string name="pref_title_encryption">Encryption</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

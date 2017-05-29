@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <org.wso2.iot.nfcprovisioning.utils.EditTextPreference
+        android:key="@string/pref_key_package_name"
+        android:title="@string/pref_title_package_name"
+        android:summary="%s"
+        android:defaultValue="@string/package_name"
+        android:dialogTitle="@string/pref_dialog_title_package_name" />
+
+    <org.wso2.iot.nfcprovisioning.utils.EditTextPreference
+        android:key="@string/pref_key_package_download_location"
+        android:title="@string/pref_title_package_download_location"
+        android:summary="%s"
+        android:defaultValue="@string/package_download_location"
+        android:dialogTitle="@string/pref_dialog_title_package_download_location" />
+
+    <org.wso2.iot.nfcprovisioning.utils.EditTextPreference
+        android:key="@string/pref_key_package_checksum"
+        android:title="@string/pref_title_package_checksum"
+        android:summary="%s"
+        android:defaultValue="@string/package_checksum"
+        android:dialogTitle="@string/pref_dialog_title_package_checksum" />
+
+    <org.wso2.iot.nfcprovisioning.utils.EditTextPreference
+        android:key="@string/pref_key_wifi_ssid"
+        android:title="@string/pref_title_wifi_name"
+        android:summary="%s"
+        android:defaultValue="@string/wifi_ssid"
+        android:dialogTitle="@string/pref_dialog_title_wifi_name" />
+
+    <ListPreference
+        android:key="@string/pref_key_wifi_security_type"
+        android:title="@string/pref_title_wifi_security_type"
+        android:dialogTitle="@string/pref_dialog_title_wifi_security_type"
+        android:entries="@array/wifi_security_types"
+        android:entryValues="@array/wifi_security_type_values"
+        android:defaultValue="@string/wifi_security_type"
+        android:summary="%s"/>
+
+    <org.wso2.iot.nfcprovisioning.utils.EditTextPreference
+        android:dependency="@string/pref_key_wifi_security_type"
+        android:key="@string/pref_key_wifi_password"
+        android:title="@string/pref_title_wifi_password"
+        android:summary="%s"
+        android:password="true"
+        android:defaultValue="@string/wifi_password"
+        android:dialogTitle="@string/pref_dialog_title_wifi_password"
+        />
+
+    <ListPreference
+        android:key="@string/pref_key_time_zone"
+        android:title="@string/pref_title_time_zone"
+        android:dialogTitle="@string/pref_dialog_title_time_zone"
+        android:entries="@array/wifi_security_types"
+        android:entryValues="@array/wifi_security_type_values"
+        android:defaultValue="@string/wifi_security_type"
+        android:summary="%s"/>
+
+    <ListPreference
+        android:key="@string/pref_key_locale"
+        android:title="@string/pref_title_language"
+        android:dialogTitle="@string/pref_dialog_title_language"
+        android:entries="@array/languages"
+        android:entryValues="@array/language_values"
+        android:defaultValue="@string/locale"
+        android:summary="%s"/>
+
+    <SwitchPreference
+        android:key="@string/pref_key_encryption"
+        android:title="@string/pref_title_encryption"
+        android:defaultValue="@string/encryption" />
+
+</PreferenceScreen>

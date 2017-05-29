@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.wso2.iot.nfcprovisioning">
 
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -29,6 +30,16 @@
         <activity android:name=".ProvisioningActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/SettingsScreenTheme"
+            android:parentActivityName="org.wso2.iot.nfcprovisioning.ProvisioningActivity"
+            android:label="@string/title_activity_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.wso2.iot.nfcprovisioning.ProvisioningActivity" />
+        </activity>
     </application>
 
 </manifest>

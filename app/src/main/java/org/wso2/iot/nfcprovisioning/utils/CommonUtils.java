@@ -259,7 +259,9 @@ public class CommonUtils {
 	 * @throws AndroidAgentException
 	 */
 	public static void unRegisterClientApp(Context context, APIResultCallBack apiCallBack) throws AndroidAgentException {
-		String serverIP = Constants.DEFAULT_HOST;
+		String serverIP = Preference.getString(context.getApplicationContext(),
+				Constants.PreferenceFlag.IP);
+		// Constants.DEFAULT_HOST;
 //		String prefIP = Preference.getString(context.getApplicationContext(), Constants.PreferenceFlag.IP);
 //		if (prefIP != null) {
 //			serverIP = prefIP;
