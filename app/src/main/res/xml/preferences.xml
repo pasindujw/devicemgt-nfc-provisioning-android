@@ -47,13 +47,13 @@
         android:dialogTitle="@string/pref_dialog_title_wifi_password"
         />
 
-    <ListPreference
+    <org.wso2.iot.nfcprovisioning.utils.TimeZoneListPreference
         android:key="@string/pref_key_time_zone"
         android:title="@string/pref_title_time_zone"
         android:dialogTitle="@string/pref_dialog_title_time_zone"
-        android:entries="@array/wifi_security_types"
-        android:entryValues="@array/wifi_security_type_values"
-        android:defaultValue="@string/wifi_security_type"
+        android:entries="@array/timezones"
+        android:entryValues="@array/timezone_values"
+        android:defaultValue="@string/time_zone"
         android:summary="%s"/>
 
     <ListPreference

@@ -449,12 +449,12 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             if (status.trim().equals(Constants.Status.SUCCESSFUL)) {
                 CommonDialogUtils.stopProgressDialog(progressDialog);
                 if (isReLogin) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, R.string.authentication_successful, Toast.LENGTH_LONG).show();
-                        }
-                    });
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(context, R.string.authentication_successful, Toast.LENGTH_LONG).show();
+//                        }
+//                    });
                     Preference.removePreference(context, Constants.TOKEN_EXPIRED);
 //                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 //                    mNotificationManager.cancel(Constants.TOKEN_EXPIRED, Constants.SIGN_IN_NOTIFICATION_ID);
@@ -463,6 +463,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 } else {
                     Preference.putString(context, Constants.USERNAME, username);
                     // Check network connection availability before calling the API.
+                    Preference.putBoolean(this, Constants.IS_REGISTERED,true);
                     loadProvisioningActivity();
                 }
             } else if (status.trim().equals(Constants.Status.AUTHENTICATION_FAILED)) {

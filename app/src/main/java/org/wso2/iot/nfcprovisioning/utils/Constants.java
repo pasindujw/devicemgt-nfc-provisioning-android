@@ -6,7 +6,6 @@ package org.wso2.iot.nfcprovisioning.utils;
 
 public class Constants {
     //TODO: add def host
-    public static final String TOKEN_EXPIRED = "token_expired";
     public static final String AGENT_PACKAGE = "org.wso2.iot.nfcprovisioning";
     public static final String OAUTH_AUTHENTICATOR = "OAUTH_AUTHENTICATOR";
     public static final String MUTUAL_SSL_AUTHENTICATOR = "MUTUAL_SSL_AUTHENTICATOR";
@@ -31,6 +30,8 @@ public class Constants {
     public final static String API_APPLICATION_NAME_PREFIX = "cdmf_android_";//TODO:check for alternate prefix
     public static final String STATUS = "status";
     public static final String RESPONSE = "response";
+    public static final String TOKEN_EXPIRED = "token_expired";
+    public static final String IS_REGISTERED = "is_registered";
 
     /**
      * Request codes.
@@ -40,6 +41,7 @@ public class Constants {
     public static final int DYNAMIC_CLIENT_REGISTER_REQUEST_CODE = 302;
     public static final int UNREGISTER_REQUEST_CODE = 305;
     public static final int AUTHENTICATION_REQUEST_CODE = 311;
+    public static final int TOKEN_VERIFICATION_REQUEST_CODE = 306;
 
 
     public final class PreferenceFlag {

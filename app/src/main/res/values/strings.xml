@@ -105,5 +105,7 @@
     <string name="pref_key_encryption">prefKeyEncryption</string>
     <string name="pref_title_encryption">Encryption</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="msg_need_to_sign_in">Authentication failed. Please sign in again.</string>
+    <string name="nfc_comment">WSO2 NFC provisioning</string>
 
 </resources>
