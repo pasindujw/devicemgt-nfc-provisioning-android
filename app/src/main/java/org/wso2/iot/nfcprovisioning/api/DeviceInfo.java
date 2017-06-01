@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  * 
  * WSO2 Inc. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,96 +18,23 @@
 package org.wso2.iot.nfcprovisioning.api;
 
 import android.annotation.SuppressLint;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.res.Resources;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 
-
-import org.wso2.iot.nfcprovisioning.R;
-import org.wso2.iot.nfcprovisioning.utils.Preference;
-
-import java.util.List;
-
 /**
- * This class represents all the device information related APIs.
+ * This class represents the device id information related API.
  */
 @SuppressLint("HardwareIds")
 public class DeviceInfo {
+
 	private Context context;
-	private Resources resources;
 	private TelephonyManager telephonyManager;
-	private DevicePolicyManager devicePolicyManager;
-	//private ComponentName cdmDeviceAdmin;
 
 	public DeviceInfo(Context context) {
 		this.context = context;
-		this.resources = context.getResources();
 		this.telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-		this.devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-	}
-
-	/**
-	 * Returns the network operator name.
-	 * @return - Network operator name.
-	 */
-	public String getNetworkOperatorName() {
-		return telephonyManager.getSimOperatorName();
-	}
-
-	/**
-	 * Returns the device model.
-	 * @return - Device model.
-	 */
-	public String getDeviceModel() {	
-		return Build.MODEL;
-	}
-
-	/**
-	 * Returns the device manufacturer.
-	 * @return - Device manufacturer.
-	 */
-	public String getDeviceManufacturer() {
-		return Build.MANUFACTURER;
-	}
-
-	/**
-	 * Returns the device OS build date.
-	 * @return - OS build date.
-	 */
-	public String getOSBuildDate() {
-		return String.valueOf(Build.TIME);
-	}
-
-	/**
-	 * Returns the OS version.
-	 * @return - Device OS version.
-	 */
-	public String getOsVersion() {
-		return Build.VERSION.RELEASE;
-	}
-
-	/**
-	 * Returns the SDK Version number.
-	 * @return - Device android SDK version number.
-	 */
-	public int getSdkVersion() {
-		return Build.VERSION.SDK_INT;
-	}
-
-	/**
-	 * Returns the device name.
-	 * @return - Device name.
-	 */
-	public String getDeviceName() {
-		return Build.DEVICE;
 	}
 
 	/**
@@ -128,102 +55,4 @@ public class DeviceInfo {
 		
 		return deviceId;
 	}
-
-	/**
-	 * Returns the IMSI Number.
-	 * @return - Device IMSI number.
-	 */
-	public String getIMSINumber() {
-		return telephonyManager.getSubscriberId();
-	}
-
-	/**
-	 * Returns the device WiFi MAC.
-	 * @return - Device WiFi MAC.
-	 */
-//	public String getMACAddress() {
-//		WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-//		WifiInfo wInfo = wifiManager.getConnectionInfo();
-//		return wInfo.getMacAddress();
-//	}
-
-	/**
-	 * Returns the Email address of the device owner.
-	 * @return - Device owner email address.
-	 */
-	public String getEmail() {
-		return Preference.getString(context,
-		                            resources.getString(R.string.shared_pref_username));
-	}
-
-	/**
-	 * Returns true if the device is a Rooted device.
-	 * @return - Device rooted status.
-	 */
-//	public boolean isRooted() {
-//		return RootChecker.isDeviceRooted();
-//	}
-
-	/**
-	 * Returns the SIM serial number.
-	 * @return - Device SIM serial number.
-	 */
-	public String getSimSerialNumber() {
-		return telephonyManager.getSimSerialNumber();
-	}
-
-	/**
-	 * Returns the hardware serial number.
-	 * @return - Hardware serial number.
-	 */
-	public String getDeviceSerialNumber() {
-		return Build.SERIAL;
-	}
-
-	/**
-	 * Returns all the sensors available on the device as a List.
-	 * @return - List of all the sensors available on the device.
-	 */
-	public List<Sensor> getAllSensors() {
-		SensorManager sensorManager =
-                              (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-		
-		return sensorManager.getSensorList(Sensor.TYPE_ALL);
-	}
-
-	/**
-	 * This method is used to check the status of storage encryption.
-	 * @return Returns the current status.
-	 */
-//	public boolean isEncryptionEnabled() {
-//		if (isDeviceAdminActive()) {
-//			switch (devicePolicyManager.getStorageEncryptionStatus()) {
-//				case DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE:
-//					return true;
-//				case DevicePolicyManager.ENCRYPTION_STATUS_INACTIVE:
-//					return false;
-//				case DevicePolicyManager.ENCRYPTION_STATUS_ACTIVATING:
-//					return false;
-//				default:
-//					return false;
-//			}
-//		}
-//		return false;
-//	}
-
-	/**
-	 * This method is used to get the status of the current activated passcode.
-	 * @return Returns true if sufficient.
-	 */
-//	public boolean isPasscodeEnabled() {
-//		if (isDeviceAdminActive()) {
-//			return devicePolicyManager.isActivePasswordSufficient();
-//		}
-//		return false;
-//	}
-
-//	private boolean isDeviceAdminActive() {
-//		return devicePolicyManager.isAdminActive(cdmDeviceAdmin);
-//	}
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  */
 
 package org.wso2.iot.nfcprovisioning.beans;
-
 
 import org.wso2.iot.nfcprovisioning.utils.AndroidAgentException;
 import org.wso2.iot.nfcprovisioning.utils.CommonUtils;

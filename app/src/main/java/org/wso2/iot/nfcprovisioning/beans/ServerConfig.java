@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  * 
  * WSO2 Inc. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,85 +18,21 @@
 package org.wso2.iot.nfcprovisioning.beans;
 
 import android.content.Context;
-
 import org.wso2.iot.nfcprovisioning.utils.Constants;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
-
 
 /**
  * This class represents the server configuration parameters.
  */
 public class ServerConfig {
-	private String serverIP;
-	private String serverURL;
-	private String APIServerURL;
-	private static final String COLON = ":";
 
-	public String getServerIP() {
-		return serverIP;
-	}
-
-	public void setServerIP(String serverIP) {
-		this.serverIP = serverIP;
-	}
-
-	public String getServerURL(Context context) {
-//		if (Constants.DEFAULT_HOST != null && getHostFromPreferences(context).contains(Constants.DEFAULT_HOST)) {
-//			serverURL = Constants.DEFAULT_HOST;
-//		} else {
-//			serverURL = getProtocolFromPreferences(context) + getHostFromPreferences(context) + COLON +
-//			            getPortFromPreferences(context);
-//		}
-		//return Constants.DEFAULT_HOST ;
+	public static String getServerURL(Context context) {
 		return Preference.getString(context.getApplicationContext(),
 				Constants.PreferenceFlag.IP);
 	}
 
-	public void setServerURL(Context context, String serverURL) {
-		this.serverURL = serverURL;
-	}
-
-	public String getAPIServerURL(Context context) {
-//		if (Constants.DEFAULT_HOST != null) {
-//			APIServerURL = Constants.DEFAULT_HOST;
-//		} else {
-//			APIServerURL = getProtocolFromPreferences(context) + getHostFromPreferences(context) + COLON +
-//			               getPortFromPreferences(context);
-//		}
-		//return Constants.DEFAULT_HOST;
+	public static String getAPIServerURL(Context context) {
 		return Preference.getString(context.getApplicationContext(),
 				Constants.PreferenceFlag.IP);
-	}
-
-//	public String getProtocolFromPreferences (Context context) {
-//		if (Preference.getString(context, Constants.PreferenceFlag.PROTOCOL) != null) {
-//			return Preference.getString(context, Constants.PreferenceFlag.PROTOCOL);
-//		} else {
-//			return Constants.SERVER_PROTOCOL;
-//		}
-//	}
-//
-//	public String getPortFromPreferences (Context context) {
-//		if (Preference.getString(context, Constants.PreferenceFlag.PORT) != null) {
-//			return Preference.getString(context, Constants.PreferenceFlag.PORT);
-//		} else {
-//			return Constants.API_SERVER_PORT;
-//		}
-//	}
-//
-//	public String getHostFromPreferences (Context context) {
-//		if (Preference.getString(context, Constants.PreferenceFlag.IP) != null) {
-//			return Preference.getString(context, Constants.PreferenceFlag.IP);
-//		} else if (serverIP != null) {
-//			return serverIP;
-//		} else if (Constants.DEFAULT_HOST != null) {
-//			return Constants.DEFAULT_HOST;
-//		} else {
-//			return "";
-//		}
-//	}
-
-	public void setAPIServerURL(String aPIServerURL) {
-		APIServerURL = aPIServerURL;
 	}
 }

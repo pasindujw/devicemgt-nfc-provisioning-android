@@ -20,9 +20,11 @@ package org.wso2.iot.nfcprovisioning.utils;
 import android.content.Context;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
-
 import java.util.TimeZone;
 
+/**
+ * This class is extended to get the summary easily
+ */
 public class TimeZoneListPreference extends ListPreference {
     public TimeZoneListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,16 +36,12 @@ public class TimeZoneListPreference extends ListPreference {
 
     @Override
     public CharSequence getSummary() {
-
         String tzId = getValue();
         TimeZone zone = TimeZone.getTimeZone(tzId);
         int offset = zone.getRawOffset() / 1000;
         int hour = offset / 3600;
         int minutes = (offset % 3600) / 60;
-
         String val = String.format("GMT%+d:%02d %s", hour, minutes, TimeZone.getTimeZone(tzId).getDisplayName());
-
         return val.replaceAll( ":-", ":");
-
     }
 }

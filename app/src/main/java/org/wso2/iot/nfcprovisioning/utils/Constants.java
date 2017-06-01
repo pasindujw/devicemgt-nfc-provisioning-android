@@ -1,11 +1,25 @@
+/*
+ * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.wso2.iot.nfcprovisioning.utils;
 
-/**
- * Created by janak on 5/25/17.
- */
-
 public class Constants {
-    //TODO: add def host
+
+    public static final boolean DEBUG_MODE_ENABLED = true;//BuildConfig.DEBUG_MODE_ENABLED;
     public static final String AGENT_PACKAGE = "org.wso2.iot.nfcprovisioning";
     public static final String OAUTH_AUTHENTICATOR = "OAUTH_AUTHENTICATOR";
     public static final String MUTUAL_SSL_AUTHENTICATOR = "MUTUAL_SSL_AUTHENTICATOR";
@@ -16,11 +30,9 @@ public class Constants {
     public final static String API_APPLICATION_REGISTRATION_CONTEXT = API_APPLICATION_CONTEXT +
             "/register";
     public final static String API_APPLICATION_UNREGISTRATION_CONTEXT = API_APPLICATION_CONTEXT +
-            "/unregister";
-
+            "/unregister";//TODO:check unregister requirement
     public static final String USER_AGENT = "Mozilla/5.0 ( compatible ), Android";
-
-    public static final String DEFAULT_HOST ="http://10.10.10.151:8280";//TODO: check how to implement def host
+    public static final String DEFAULT_HOST = "http://192.168.8.103:8280";
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET = "client_secret";
     public static final String CLIENT_NAME = "client_name";
@@ -36,11 +48,7 @@ public class Constants {
     /**
      * Request codes.
      */
-    public static final int REGISTER_REQUEST_CODE = 300;
-    public static final int IS_REGISTERED_REQUEST_CODE = 301;
     public static final int DYNAMIC_CLIENT_REGISTER_REQUEST_CODE = 302;
-    public static final int UNREGISTER_REQUEST_CODE = 305;
-    public static final int AUTHENTICATION_REQUEST_CODE = 311;
     public static final int TOKEN_VERIFICATION_REQUEST_CODE = 306;
 
 
@@ -48,28 +56,18 @@ public class Constants {
         private PreferenceFlag() {
             throw new AssertionError();
         }
-        public static final String REG_ID = "regId";
-        public static final String REGISTERED = "registered";
+
         public static final String IP = "ip";
-        public static final String DEVICE_ACTIVE = "deviceActive";
-        public static final String PORT = "serverPort";
-        public static final String PROTOCOL = "serverProtocol";
-        public static final String APPLIED_POLICY = "appliedPolicy";
-        public static final String IS_AGREED = "isAgreed";
-        public static final String NOTIFIER_TYPE = "notifierType";
-        public static final String CURRENT_INSTALLING_APP = "installingApplication";
-        public static final String LOCAL_NOTIFIER_INVOKED_PREF_KEY = "localNotificationInvoked";
-        public static final String DEVICE_ID_PREFERENCE_KEY = "deviceId";
-        public static final String LAST_SERVER_CALL = "lastServerCall";
     }
 
     /**
      * Sub Status codes
      */
     public final class Status {
-        private Status(){
+        private Status() {
             throw new AssertionError();
         }
+
         public static final String SUCCESSFUL = "200";
         public static final String CREATED = "201";
         public static final String ACCEPT = "202";

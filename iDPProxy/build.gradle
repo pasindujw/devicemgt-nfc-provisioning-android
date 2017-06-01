@@ -61,7 +61,7 @@ android {
             buildConfigField "String", "KEYSTORE_LOCATION", "null"
             // APPLICATION_PACKAGE: If a modification of the agent's package name is done, this must
             // be altered.
-            buildConfigField "String", "APPLICATION_PACKAGE", "\"org.wso2.iot.agent\""
+            buildConfigField "String", "APPLICATION_PACKAGE", "\"org.wso2.iot.nfcprovisioning\""
         }
 
         staging {
@@ -95,7 +95,7 @@ android {
             buildConfigField "String", "KEYSTORE_LOCATION", "null"
             // APPLICATION_PACKAGE: If a modification of the agent's package name is done, this must
             // be altered.
-            buildConfigField "String", "APPLICATION_PACKAGE", "\"org.wso2.iot.agent\""
+            buildConfigField "String", "APPLICATION_PACKAGE", "\"org.wso2.iot.nfcprovisioning\""
             debuggable true
         }
 
@@ -131,7 +131,7 @@ android {
             buildConfigField "String", "KEYSTORE_LOCATION", "null"
             // APPLICATION_PACKAGE: If a modification of the agent's package name is done, this must
             // be altered.
-            buildConfigField "String", "APPLICATION_PACKAGE", "\"org.wso2.iot.agent\""
+            buildConfigField "String", "APPLICATION_PACKAGE", "\"org.wso2.iot.nfcprovisioning\""
 
         }
     }

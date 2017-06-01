@@ -1,16 +1,29 @@
+/*
+ * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.wso2.iot.nfcprovisioning;
 
-import android.app.AlertDialog;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,16 +33,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.wso2.iot.agent.proxy.IdentityProxy;
 import org.wso2.iot.agent.proxy.beans.CredentialInfo;
 import org.wso2.iot.agent.proxy.interfaces.APIAccessCallBack;
 import org.wso2.iot.agent.proxy.interfaces.APIResultCallBack;
+import org.wso2.iot.nfcprovisioning.api.TenantResolverCallback;
+import org.wso2.iot.nfcprovisioning.api.TenantResolverHandler;
 import org.wso2.iot.nfcprovisioning.beans.ApiRegistrationProfile;
-import org.wso2.iot.nfcprovisioning.beans.ServerConfig;
 import org.wso2.iot.nfcprovisioning.utils.CommonDialogUtils;
 import org.wso2.iot.nfcprovisioning.utils.CommonUtils;
 import org.wso2.iot.nfcprovisioning.utils.Constants;
@@ -38,7 +50,8 @@ import org.wso2.iot.nfcprovisioning.beans.Tenant;
 import org.wso2.iot.nfcprovisioning.utils.AndroidAgentException;
 import org.wso2.iot.nfcprovisioning.utils.DynamicClientManager;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,7 +59,7 @@ import java.util.Map;
  * and handles authentication.
  */
 public class AuthenticationActivity extends AppCompatActivity implements APIAccessCallBack,
-        APIResultCallBack{
+        APIResultCallBack {
 
     private Button btnSignIn;
     private EditText etUsername;
@@ -71,40 +84,30 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
-
         setContentView(R.layout.activity_authentication);
 
         deviceInfo = new DeviceInfo(context);
         etServerIP = (EditText) findViewById(R.id.serverIP);
-
-        if(Constants.DEFAULT_HOST != null && !Constants.DEFAULT_HOST.equals("")){
-            etServerIP.setText(Constants.DEFAULT_HOST);
-        }
-
         etDomain = (EditText) findViewById(R.id.organization);
         etUsername = (EditText) findViewById(R.id.username);
         etPassword = (EditText) findViewById(R.id.password);
-        etDomain.setFocusable(true);
-        etDomain.requestFocus();
         btnSignIn = (Button) findViewById(R.id.username_sign_in_button);
         btnSignIn.setOnClickListener(onClickAuthenticate);
         btnSignIn.setEnabled(false);
-
-        // change button color background till user enters a valid input
-        btnSignIn.setBackgroundResource(R.drawable.btn_grey);
-        btnSignIn.setTextColor(ContextCompat.getColor(this, R.color.black));
-//        TextView textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        if (Constants.DEFAULT_HOST != null && !Constants.DEFAULT_HOST.equals("")) {
+            etServerIP.setText(Constants.DEFAULT_HOST);
+            etDomain.setFocusable(true);
+            etDomain.requestFocus();
+        } else {
+            etServerIP.setFocusable(true);
+            etServerIP.requestFocus();
+        }
 
         if (Preference.hasPreferenceKey(context, Constants.TOKEN_EXPIRED)) {
             etDomain.setEnabled(false);
-          //  etDomain.setTextColor(ContextCompat.getColor(this, R.color.black));
+            etDomain.setTextColor(ContextCompat.getColor(this, R.color.black));
             etUsername.setEnabled(false);
-          //  etUsername.setTextColor(ContextCompat.getColor(this, R.color.black));
+            etUsername.setTextColor(ContextCompat.getColor(this, R.color.black));
             etPassword.setFocusable(true);
             etPassword.requestFocus();
             String tenantedUserName = Preference.getString(context, Constants.USERNAME);
@@ -112,34 +115,10 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             etUsername.setText(tenantedUserName.substring(0, tenantSeparator));
             etDomain.setText(tenantedUserName.substring(tenantSeparator + 1, tenantedUserName.length()));
             isReLogin = true;
-//            textViewSignIn.setText(R.string.msg_need_to_sign_in);
         } else if (Constants.CLOUD_MANAGER != null) {
             isCloudLogin = true;
             etDomain.setVisibility(View.GONE);
-//            textViewSignIn.setText(R.string.txt_sign_in_cloud);
         }
-
-//        if (Preference.getBoolean(context, Constants.PreferenceFlag.DEVICE_ACTIVE) && !isReLogin) {
-//            Intent intent = new Intent(AuthenticationActivity.this, AlreadyRegisteredActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//            finish();
-//            return;
-//        }
-
-//        TextView textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
-//        if (!isReLogin && Constants.SIGN_UP_URL != null) {
-//            Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
-//                @Override
-//                public String transformUrl(Matcher match, String url) {
-//                    return Constants.SIGN_UP_URL;
-//                }
-//            };
-//            Pattern pattern = Pattern.compile(getResources().getString(R.string.txt_sign_up_linkify));
-//            Linkify.addLinks(textViewSignUp, pattern, null, null, transformFilter);
-//        } else {
-//            textViewSignUp.setVisibility(View.GONE);
-//        }
 
         etServerIP.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,11 +168,10 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             }
         });
 
-
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         if (progressDialog != null) {
             progressDialog.show();
@@ -201,7 +179,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
@@ -211,7 +189,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.onDestroy();
         CommonDialogUtils.stopProgressDialog(progressDialog);
@@ -232,11 +210,11 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 passwordVal = etPassword.getText().toString().trim();
                 usernameVal = etUsername.getText().toString().trim();
 
-//                if (isCloudLogin) {
-//                    obtainTenantDomain(usernameVal, passwordVal);
-//                } else {
+                if (isCloudLogin) {
+                    obtainTenantDomain(usernameVal, passwordVal);
+                } else {
                     proceedToAuthentication();
-//                }
+                }
             } else {
                 if (etUsername.getText() != null && !etUsername.getText().toString().trim().isEmpty()) {
                     etUsername.setError(getResources().getString(R.string.error_username));
@@ -279,81 +257,78 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                     getResources().getString(R.string.intent_extra_at) +
                             etDomain.getText().toString().trim();
             getClientCredentials();
-        }
-         else {
+        } else {
             getClientCredentials();
         }
     }
 
-//    private void obtainTenantDomain(String username, String password) {
-//        // Check network connection availability before calling the API.
-//        currentTenant = null;
-//        if (CommonUtils.isNetworkAvailable(context)) {
-//            progressDialog = ProgressDialog.show(context,
-//                    getResources().getString(R.string.dialog_authenticate),
-//                    getResources().getString(R.string.dialog_message_please_wait), true);
-//            IdentityProxy.getInstance().setContext(this.getApplicationContext());
-//            TenantResolverHandler tenantResolverHandler = new TenantResolverHandler(new TenantResolverCallback() {
-//                @Override
-//                public void onTenantResolved(final List<Tenant> tenants) {
-//                    if (tenants.isEmpty()) {
-//                        showEnrollmentFailedErrorMessage(getResources().getString(R.string.dialog_tenants_not_available));
-//                    } else if (tenants.size() == 1) {
-//                        currentTenant = tenants.get(0);
-//                        CommonDialogUtils.stopProgressDialog(progressDialog);
-//                        etDomain.setText(currentTenant.getTenantDomain());
-//                        proceedToAuthentication();
-//                    } else {
-//                        CommonDialogUtils.stopProgressDialog(progressDialog);
-//                        List<String> tenantNames = new ArrayList<>();
-//                        for (Tenant t : tenants) {
-//                            tenantNames.add(t.getDisplayName());
-//                        }
-//                        CommonDialogUtils.getAlertDialogWithSingleChoices(context,
-//                                getResources().getString(R.string.dialog_select_tenant),
-//                                tenantNames.toArray(new String[0]),
-//                                new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        currentTenant = tenants.get(which);
-//                                        etDomain.setText(currentTenant.getTenantDomain());
-//                                        proceedToAuthentication();
-//                                        dialog.dismiss();
-//                                    }
-//                                }).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onAuthenticationSuccess() {
-//                    CommonDialogUtils.stopProgressDialog(progressDialog);
-//                    progressDialog = ProgressDialog.show(context,
-//                            getResources().getString(R.string.dialog_tenant_resolving),
-//                            getResources().getString(R.string.dialog_message_please_wait), true);
-//                }
-//
-//                @Override
-//                public void onAuthenticationFail() {
-//                    showAuthenticationError();
-//                }
-//
-//                @Override
-//                public void onFailure(AndroidAgentException exception) {
-//                    showEnrollmentFailedErrorMessage(exception.getMessage());
-//                }
-//            });
-//            tenantResolverHandler.resolveTenantDomain(username, password);
-//        } else {
-//            CommonDialogUtils.showNetworkUnavailableMessage(context);
-//        }
-//    }
+    private void obtainTenantDomain(String username, String password) {
+        // Check network connection availability before calling the API.
+        currentTenant = null;
+        if (CommonUtils.isNetworkAvailable(context)) {
+            progressDialog = ProgressDialog.show(context,
+                    getResources().getString(R.string.dialog_authenticate),
+                    getResources().getString(R.string.dialog_message_please_wait), true);
+            IdentityProxy.getInstance().setContext(this.getApplicationContext());
+            TenantResolverHandler tenantResolverHandler = new TenantResolverHandler(new TenantResolverCallback() {
+                @Override
+                public void onTenantResolved(final List<Tenant> tenants) {
+                    if (tenants.isEmpty()) {
+                        showEnrollmentFailedErrorMessage(getResources().getString(R.string.dialog_tenants_not_available));
+                    } else if (tenants.size() == 1) {
+                        currentTenant = tenants.get(0);
+                        CommonDialogUtils.stopProgressDialog(progressDialog);
+                        etDomain.setText(currentTenant.getTenantDomain());
+                        proceedToAuthentication();
+                    } else {
+                        CommonDialogUtils.stopProgressDialog(progressDialog);
+                        List<String> tenantNames = new ArrayList<>();
+                        for (Tenant t : tenants) {
+                            tenantNames.add(t.getDisplayName());
+                        }
+                        CommonDialogUtils.getAlertDialogWithSingleChoices(context,
+                                getResources().getString(R.string.dialog_select_tenant),
+                                tenantNames.toArray(new String[0]),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        currentTenant = tenants.get(which);
+                                        etDomain.setText(currentTenant.getTenantDomain());
+                                        proceedToAuthentication();
+                                        dialog.dismiss();
+                                    }
+                                }).show();
+                    }
+                }
+
+                @Override
+                public void onAuthenticationSuccess() {
+                    CommonDialogUtils.stopProgressDialog(progressDialog);
+                    progressDialog = ProgressDialog.show(context,
+                            getResources().getString(R.string.dialog_tenant_resolving),
+                            getResources().getString(R.string.dialog_message_please_wait), true);
+                }
+
+                @Override
+                public void onAuthenticationFail() {
+                    showAuthenticationError();
+                }
+
+                @Override
+                public void onFailure(AndroidAgentException exception) {
+                    showEnrollmentFailedErrorMessage(exception.getMessage());
+                }
+            });
+            tenantResolverHandler.resolveTenantDomain(username, password);
+        } else {
+            CommonDialogUtils.showNetworkUnavailableMessage(context);
+        }
+    }
 
     /**
      * Start authentication process.
      */
     private void startAuthentication() {
-//        Preference.putString(context, Constants.DEVICE_TYPE, deviceType);
-
         // Check network connection availability before calling the API.
         if (CommonUtils.isNetworkAvailable(context)) {
             String clientId = Preference.getString(context, Constants.CLIENT_ID);
@@ -406,9 +381,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 Constants.PreferenceFlag.IP);
 
         if (serverIP != null && !serverIP.isEmpty()) {
-            ServerConfig utils = new ServerConfig();
-            utils.setServerIP(serverIP);
-            String serverURL = utils.getServerURL(context) + Constants.OAUTH_ENDPOINT;
+            String serverURL = serverIP + Constants.OAUTH_ENDPOINT;
             Editable tenantDomain = etDomain.getText();
 
             if (tenantDomain != null && !tenantDomain.toString().trim().isEmpty()) {
@@ -449,21 +422,11 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             if (status.trim().equals(Constants.Status.SUCCESSFUL)) {
                 CommonDialogUtils.stopProgressDialog(progressDialog);
                 if (isReLogin) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(context, R.string.authentication_successful, Toast.LENGTH_LONG).show();
-//                        }
-//                    });
                     Preference.removePreference(context, Constants.TOKEN_EXPIRED);
-//                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-//                    mNotificationManager.cancel(Constants.TOKEN_EXPIRED, Constants.SIGN_IN_NOTIFICATION_ID);
                     loadProvisioningActivity();
-//                    finish();
                 } else {
                     Preference.putString(context, Constants.USERNAME, username);
-                    // Check network connection availability before calling the API.
-                    Preference.putBoolean(this, Constants.IS_REGISTERED,true);
+                    Preference.putBoolean(this, Constants.IS_REGISTERED, true);
                     loadProvisioningActivity();
                 }
             } else if (status.trim().equals(Constants.Status.AUTHENTICATION_FAILED)) {
@@ -478,163 +441,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         } else {
             showAuthCommonErrorMessage();
         }
-
     }
-
-    /**
-     * Initialize get device license agreement. Check if the user has already
-     * agreed to license agreement
-     */
-//    private void getLicense() {
-//        boolean isAgreed = Preference.getBoolean(context, Constants.PreferenceFlag.IS_AGREED);
-//        deviceType = Preference.getString(context, Constants.DEVICE_TYPE);
-//
-//        if(deviceType == null) {
-//            deviceType = Constants.DEFAULT_OWNERSHIP;
-//            Preference.putString(context, Constants.DEVICE_TYPE,
-//                    deviceType);
-//        }
-//
-//        if (deviceType != null && Constants.OWNERSHIP_BYOD.equals(deviceType.trim())) {
-//
-//            if (!isAgreed) {
-//                final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
-//                    @Override
-//                    public void onCancel(DialogInterface arg0) {
-//                        CommonDialogUtils.getAlertDialogWithOneButtonAndTitle(context,
-//                                getResources().getString(R.string.error_enrollment_failed_detail),
-//                                getResources().getString(R.string.error_enrollment_failed),
-//                                getResources().getString(R.string.button_ok), null);
-//                    }
-//                };
-//
-//                AuthenticationActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        progressDialog = CommonDialogUtils.showProgressDialog(context,
-//                                getResources().getString(
-//                                        R.string.dialog_license_agreement),
-//                                getResources().getString(
-//                                        R.string.dialog_please_wait),
-//                                cancelListener);
-//                    }
-//                });
-//
-//                // Check network connection availability before calling the API.
-//                if (CommonUtils.isNetworkAvailable(context)) {
-//                    getLicenseFromServer();
-//                } else {
-//                    CommonDialogUtils.stopProgressDialog(progressDialog);
-//                    CommonDialogUtils.showNetworkUnavailableMessage(context);
-//                }
-//
-//            } else {
-//                checkManifestPermissions();
-//            }
-//        } else if (deviceType != null){
-//            checkManifestPermissions();
-//        }
-//
-//    }
-
-    /**
-     * Retriever license agreement details from the server.
-     */
-//    private void getLicenseFromServer() {
-//        String ipSaved = Constants.DEFAULT_HOST;
-//        String prefIP = Preference.getString(context.getApplicationContext(), Constants.PreferenceFlag.IP);
-//        if (prefIP != null) {
-//            ipSaved = prefIP;
-//        }
-//
-//        if (ipSaved != null && !ipSaved.isEmpty()) {
-//            ServerConfig utils = new ServerConfig();
-//            utils.setServerIP(ipSaved);
-//            CommonUtils.callSecuredAPI(AuthenticationActivity.this,
-//                    utils.getAPIServerURL(context) + Constants.LICENSE_ENDPOINT,
-//                    Constants.HTTP_METHODS.GET, null, AuthenticationActivity.this,
-//                    Constants.LICENSE_REQUEST_CODE
-//            );
-//        } else {
-//            Log.e(TAG, "There is no valid IP to contact the server");
-//        }
-//    }
-
-
-
-    /**
-     * Retriever configurations from the server.
-     */
-//    private void checkManifestPermissions(){
-//        if (ActivityCompat.checkSelfPermission(AuthenticationActivity.this, android.Manifest.permission.READ_PHONE_STATE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            ActivityCompat.requestPermissions(AuthenticationActivity.this,
-//                    new String[]{android.Manifest.permission.READ_PHONE_STATE,
-//                            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-//                            android.Manifest.permission.ACCESS_FINE_LOCATION,
-//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                    110);
-//        }else{
-//            getConfigurationsFromServer();
-//        }
-//    }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,
-//                                           @NonNull String[] permissions,
-//                                           @NonNull int[] grantResults) {
-//        if(requestCode == 110){
-//            getConfigurationsFromServer();
-//        }
-//    }
-
-
-    /**
-     * Retriever configurations from the server.
-     */
-//    private void getConfigurationsFromServer() {
-//        final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
-//
-//            @Override
-//            public void onCancel(DialogInterface arg0) {
-//                CommonDialogUtils.getAlertDialogWithOneButtonAndTitle(context,
-//                        getResources().getString(R.string.error_enrollment_failed_detail),
-//                        getResources().getString(R.string.error_enrollment_failed),
-//                        getResources().getString(R.string.button_ok), null);
-//            }
-//        };
-//        AuthenticationActivity.this.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                progressDialog =
-//                        CommonDialogUtils.showProgressDialog(context,
-//                                getResources().getString(
-//                                        R.string.dialog_sender_id),
-//                                getResources().getString(
-//                                        R.string.dialog_please_wait),
-//                                cancelListener);
-//            }
-//        });
-//
-//        String ipSaved = Constants.DEFAULT_HOST;
-//        String prefIP = Preference.getString(context.getApplicationContext(), Constants.PreferenceFlag.IP);
-//        if (prefIP != null) {
-//            ipSaved = prefIP;
-//        }
-//
-//        if (ipSaved != null && !ipSaved.isEmpty()) {
-//            ServerConfig utils = new ServerConfig();
-//            utils.setServerIP(ipSaved);
-//            CommonUtils.callSecuredAPI(AuthenticationActivity.this,
-//                    utils.getAPIServerURL(context) + Constants.CONFIGURATION_ENDPOINT,
-//                    Constants.HTTP_METHODS.GET, null, AuthenticationActivity.this,
-//                    Constants.CONFIGURATION_REQUEST_CODE
-//            );
-//        } else {
-//            Log.e(TAG, "There is no valid IP to contact the server");
-//        }
-//    }
 
     @Override
     public void onReceiveAPIResult(Map<String, String> result, int requestCode) {
@@ -661,7 +468,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 }
             } else if (Constants.Status.UNAUTHORIZED.equals(responseStatus)) {
                 showAuthenticationError();
-            } else if (!Constants.Status.SUCCESSFUL.equals(responseStatus)){
+            } else if (!Constants.Status.SUCCESSFUL.equals(responseStatus)) {
                 if (result.containsKey(Constants.RESPONSE)) {
                     showEnrollmentFailedErrorMessage("Code: " + responseStatus + "\nError: " + result.get(Constants.RESPONSE));
                 } else {
@@ -673,237 +480,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         }
     }
 
-//    /**
-//     * Manipulates the Configuration response received from server.
-//     *
-//     * @param result the result of the configuration request
-//     */
-//    private void manipulateConfigurationResponse(Map<String, String> result) {
-//        boolean proceedNext = true;
-//        String responseStatus;
-//        CommonDialogUtils.stopProgressDialog(progressDialog);
-//
-//        if (result != null) {
-//            responseStatus = result.get(Constants.STATUS);
-//            if (Constants.Status.SUCCESSFUL.equals(responseStatus)) {
-//                String configurationResponse = result.get(Constants.RESPONSE);
-//
-//                if (configurationResponse != null) {
-//                    try {
-//                        JSONObject config = new JSONObject(configurationResponse);
-//                        if (!config.isNull(context.getString(R.string.shared_pref_configuration))) {
-//                            JSONArray configList = new JSONArray(config.getString(context.getString(R.string.
-//                                    shared_pref_configuration)));
-//                            for (int i = 0; i < configList.length(); i++) {
-//                                JSONObject param = new JSONObject(configList.get(i).toString());
-//                                if(param.getString(context.getString(R.string.shared_pref_config_key)).trim().equals(
-//                                        Constants.PreferenceFlag.NOTIFIER_TYPE)){
-//                                    String type = param.getString(context.getString(R.string.shared_pref_config_value)).trim();
-//                                    if(type.equals(String.valueOf(Constants.NOTIFIER_CHECK))) {
-//                                        Preference.putString(context, Constants.PreferenceFlag.NOTIFIER_TYPE,
-//                                                Constants.NOTIFIER_FCM);
-//                                    }else{
-//                                        Preference.putString(context, Constants.PreferenceFlag.NOTIFIER_TYPE,
-//                                                Constants.NOTIFIER_LOCAL);
-//                                    }
-//                                } else if(param.getString(context.getString(R.string.shared_pref_config_key)).trim().
-//                                        equals(context.getString(R.string.shared_pref_frequency)) && !param.getString(
-//                                        context.getString(R.string.shared_pref_config_value)).trim().isEmpty()){
-//                                    Preference.putInt(context, getResources().getString(R.string.shared_pref_frequency),
-//                                            Integer.valueOf(param.getString(context.getString(R.string.shared_pref_config_value)).trim()));
-//                                } else if(param.getString(context.getString(R.string.shared_pref_config_key)).trim().
-//                                        equals(context.getString(R.string.shared_pref_gcm))){
-//                                    Preference.putString(context, getResources().getString(R.string.shared_pref_sender_id),
-//                                            param.getString(context.getString(R.string.shared_pref_config_value)).trim());
-//                                }
-//                            }
-//                            String notifierType = Preference.getString(context, Constants.PreferenceFlag.NOTIFIER_TYPE);
-//                            if (notifierType == null || notifierType.isEmpty()) {
-//                                setDefaultNotifier();
-//                            }
-//                        }
-//
-//                    } catch (JSONException e) {
-//                        Log.e(TAG, "Error parsing configuration response JSON", e);
-//                        setDefaultNotifier();
-//                    }
-//                } else {
-//                    Log.e(TAG, "Empty configuration response");
-//                    setDefaultNotifier();
-//                }
-//            } else if (Constants.Status.UNAUTHORIZED.equals(responseStatus)) {
-//                String response = result.get(Constants.RESPONSE);
-//                Log.e(TAG, "Unauthorized :" + response);
-//                showAuthenticationError();
-//                proceedNext = false;
-//            } else if (Constants.Status.INTERNAL_SERVER_ERROR.equals(responseStatus)) {
-//                Log.e(TAG, "Empty configuration response.");
-//                setDefaultNotifier();
-//            } else {
-//                Log.e(TAG, "Empty configuration response.");
-//                setDefaultNotifier();
-//            }
-//
-//        } else {
-//            Log.e(TAG, "Empty configuration response.");
-//            setDefaultNotifier();
-//        }
-//        if(proceedNext) {
-//            if (!CommonUtils.isServiceRunning(context, LocationService.class)){
-//                Intent serviceIntent = new Intent(context, LocationService.class);
-//                context.startService(serviceIntent);
-//            }
-//            loadNextActivity();
-//        }
-//    }
-
-//    private void setDefaultNotifier(){
-//        Preference.putString(context, Constants.PreferenceFlag.NOTIFIER_TYPE, Constants.NOTIFIER_LOCAL);
-//        Preference.putInt(context, getResources().getString(R.string.shared_pref_frequency),
-//                Constants.DEFAULT_INTERVAL);
-//    }
-
-
-
-//    private void manipulateLicenseResponse(Map<String, String> result) {
-//        String responseStatus;
-//        CommonDialogUtils.stopProgressDialog(progressDialog);
-//
-//        if (result != null) {
-//            responseStatus = result.get(Constants.STATUS);
-//            if (Constants.Status.SUCCESSFUL.equals(responseStatus)) {
-//                String licenseAgreement = result.get(Constants.RESPONSE);
-//
-//                if (licenseAgreement != null) {
-//                    Preference.putString(context, getResources().getString(R.string.shared_pref_eula), licenseAgreement);
-//                    showAgreement(licenseAgreement, Constants.EULA_TITLE);
-//                } else {
-//                    CommonUtils.clearClientCredentials(context);
-//                    showErrorMessage(
-//                            getResources().getString(R.string.error_enrollment_failed_detail),
-//                            getResources().getString(R.string.error_enrollment_failed));
-//                }
-//
-//            } else if (Constants.Status.INTERNAL_SERVER_ERROR.equals(responseStatus)) {
-//                CommonUtils.clearClientCredentials(context);
-//                showInternalServerErrorMessage();
-//            } else if (Constants.Status.UNAUTHORIZED.equals(responseStatus)) {
-//                String response = result.get(Constants.RESPONSE);
-//                Log.e(TAG, "Unauthorized :" + response);
-//                showAuthenticationError();
-//            } else {
-//                CommonUtils.clearClientCredentials(context);
-//                showEnrollmentFailedErrorMessage(responseStatus);
-//            }
-//
-//        } else {
-//            CommonUtils.clearClientCredentials(context);
-//            showEnrollmentFailedErrorMessage(null);
-//        }
-//    }
-
-//    private void showNoSystemAppDialog(){
-//        AlertDialog.Builder alertDialog =
-//                CommonDialogUtils.getAlertDialogWithNeutralButtonAndTitle(context,
-//                        getResources().getString(R.string.dialog_title_system_app_required),
-//                        getResources().getString(R.string.dialog_system_app_required),
-//                        getResources().getString(R.string.ok),
-//                        dialogClickListener);
-//        alertDialog.show();
-//    }
-
-//    private void showErrorMessage(String message, String title) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setMessage(message);
-//        builder.setTitle(title);
-//        builder.setCancelable(true);
-//        builder.setPositiveButton(getResources().getString(R.string.button_ok),
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        cancelEntry();
-//                        dialog.dismiss();
-//                    }
-//                }
-//        );
-//        AlertDialog alert = builder.create();
-//        alert.show();
-//    }
-
-
-//    private void showAgreement(final String licenseText, final String title) {
-//        AuthenticationActivity.this.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                final Dialog dialog = new Dialog(context, R.style.Dialog);
-//                dialog.setContentView(R.layout.dialog_license);
-//                dialog.setCancelable(false);
-//
-//                WebView webView = (WebView) dialog.findViewById(R.id.webViewLicense);
-//                webView.loadDataWithBaseURL(null, licenseText, Constants.MIME_TYPE,
-//                        Constants.ENCODING_METHOD, null);
-//
-//                TextView textViewTitle = (TextView) dialog.findViewById(R.id.textViewDeviceNameTitle);
-//                textViewTitle.setText(title);
-//
-//                Button btnAgree = (Button) dialog.findViewById(R.id.dialogButtonOK);
-//                Button btnCancel = (Button) dialog.findViewById(R.id.dialogButtonCancel);
-//
-//                btnAgree.setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Preference.putBoolean(context, Constants.PreferenceFlag.IS_AGREED, true);
-//                        dialog.dismiss();
-//                        //load the next intent based on ownership type
-//                        checkManifestPermissions();
-//                    }
-//                });
-//
-//                btnCancel.setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-//                        CommonUtils.clearClientCredentials(context);
-//                        cancelEntry();
-//                    }
-//                });
-//
-//                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-//                    @Override
-//                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-//                        if (keyCode == KeyEvent.KEYCODE_SEARCH &&
-//                                event.getRepeatCount() == Constants.DEFAULT_REPEAT_COUNT) {
-//                            return true;
-//                        } else if (keyCode == KeyEvent.KEYCODE_BACK &&
-//                                event.getRepeatCount() == Constants.DEFAULT_REPEAT_COUNT) {
-//                            return true;
-//                        }
-//                        return false;
-//                    }
-//                });
-//
-//                dialog.show();
-//            }
-//        });
-//    }
-
-//    private void loadPinCodeActivity() {
-//        Intent intent = new Intent(AuthenticationActivity.this, PinCodeActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.putExtra(Constants.USERNAME, usernameVal);
-//        startActivity(intent);
-//        finish();
-//    }
-
-//    private void loadRegistrationActivity() {
-//        Intent intent = new Intent(AuthenticationActivity.this, RegistrationActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.putExtra(Constants.USERNAME, usernameVal);
-//        startActivity(intent);
-//        finish();
-//    }
-
-
-        private void loadProvisioningActivity() {
+    private void loadProvisioningActivity() {
         Intent intent = new Intent(AuthenticationActivity.this, ProvisioningActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(Constants.USERNAME, usernameVal);
@@ -911,38 +488,20 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         finish();
     }
 
-//    private void cancelEntry() {
-//        Preference.putBoolean(context, Constants.PreferenceFlag.IS_AGREED, false);
-//        Preference.putBoolean(context, Constants.PreferenceFlag.REGISTERED, false);
-//        Preference.putString(context, Constants.PreferenceFlag.IP, null);
-//
-//        Intent intentIP = new Intent(AuthenticationActivity.this, SplashActivity.class);
-//        intentIP.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intentIP);
-//        finish();
-//    }
-
     /**
      * Validation done to see if the username and password fields are properly
      * entered.
      */
     private void enableSubmitIfReady() {
-
         boolean isReady = false;
-
         if (etUsername.getText().toString().length() >= 1 &&
                 etPassword.getText().toString().length() >= 1 &&
                 etServerIP.getText().toString().length() >= 1) {
             isReady = true;
         }
-
         if (isReady) {
-//            btnSignIn.setBackgroundResource(R.drawable.btn_orange);
-//            btnSignIn.setTextColor(ContextCompat.getColor(this, R.color.white));
             btnSignIn.setEnabled(true);
         } else {
-//            btnSignIn.setBackgroundResource(R.drawable.btn_grey);
-//            btnSignIn.setTextColor(ContextCompat.getColor(this, R.color.black));
             btnSignIn.setEnabled(false);
         }
     }
@@ -992,7 +551,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                         senderIdFailedClickListener);
             }
         });
-
     }
 
     /**
@@ -1019,7 +577,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     /**
      * Shows credentials error message for authentication.
      */
-    private void showAuthenticationError(){
+    private void showAuthenticationError() {
         CommonDialogUtils.stopProgressDialog(progressDialog);
         this.runOnUiThread(new Runnable() {
             @Override
@@ -1060,7 +618,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     private void getClientCredentials() {
         String ipSaved = Preference.getString(context.getApplicationContext(),
                 Constants.PreferenceFlag.IP);
-
         String authenticationTitle;
         if (currentTenant != null) {
             authenticationTitle = String.format(
@@ -1073,8 +630,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         progressDialog = ProgressDialog.show(context, authenticationTitle, getResources().
                 getString(R.string.dialog_message_please_wait), true);
         if (ipSaved != null && !ipSaved.isEmpty()) {
-            ServerConfig utils = new ServerConfig();
-            utils.setServerIP(ipSaved);
             String applicationName = Constants.API_APPLICATION_NAME_PREFIX +
                     deviceInfo.getDeviceId();
             ApiRegistrationProfile apiRegistrationProfile = new ApiRegistrationProfile();
@@ -1084,7 +639,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             apiRegistrationProfile.setTags(SUBSCRIBED_API);
             DynamicClientManager dynamicClientManager = new DynamicClientManager();
             try {
-                dynamicClientManager.getClientCredentials(usernameVal, passwordVal, utils, context,
+                dynamicClientManager.getClientCredentials(usernameVal, passwordVal, context,
                         AuthenticationActivity.this, apiRegistrationProfile);
                 Preference.putString(context, Constants.CLIENT_NAME, applicationName);
             } catch (AndroidAgentException e) {
@@ -1098,29 +653,4 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             showEnrollmentFailedErrorMessage(message);
         }
     }
-
-//    /**
-//     * This method is used to bypass the intents based on the
-//     * ownership type.
-//     */
-//    private void loadNextActivity() {
-//        if (Constants.OWNERSHIP_BYOD.equalsIgnoreCase(deviceType)) {
-//            loadPinCodeActivity();
-//        } else {
-//            loadRegistrationActivity();
-//        }
-//    }
-
-//    @Override
-//    public void onAuthenticated(boolean status, int requestCode) {
-//        if (requestCode == Constants.AUTHENTICATION_REQUEST_CODE) {
-//            if (status ) {
-//                loadProvisioningActivity();
-//            }
-//        }
-//    }
-
-
-
 }
-

@@ -23,12 +23,14 @@ import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-
 import org.wso2.iot.nfcprovisioning.utils.AppCompatPreferenceActivity;
 import org.wso2.iot.nfcprovisioning.utils.EditTextPreference;
 
-
+/**
+ * Activity that handles the initial configurations of the provisioning values
+ */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
     ListPreference wifiSecurityTypePref;
     EditTextPreference wifiPasswordPref;
     PreferenceScreen preferenceScreen;
@@ -38,27 +40,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         setupActionBar();
-
-        wifiPasswordPref = (EditTextPreference)findPreference(getResources().getString(R.string.pref_key_wifi_password));
+        wifiPasswordPref = (EditTextPreference) findPreference(getResources().getString(R.string.pref_key_wifi_password));
         preferenceScreen = getPreferenceScreen();
-
-        wifiSecurityTypePref = (ListPreference)findPreference(getResources().getString(R.string.pref_key_wifi_security_type));
-
+        wifiSecurityTypePref = (ListPreference) findPreference(getResources().getString(R.string.pref_key_wifi_security_type));
         addRemoveWiFiPasswordPref(wifiSecurityTypePref.getValue());
-
         wifiSecurityTypePref.setOnPreferenceChangeListener(new
-                                                       Preference.OnPreferenceChangeListener() {
-                                                           public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                                               addRemoveWiFiPasswordPref(newValue.toString());
-                                                               return true;
-                                                           }
-                                                       });
+                                                                   Preference.OnPreferenceChangeListener() {
+                                                                       public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                                                           addRemoveWiFiPasswordPref(newValue.toString());
+                                                                           return true;
+                                                                       }
+                                                                   });
     }
 
-    private void addRemoveWiFiPasswordPref(String val){
-        if(val.equals("NONE")) {
+    private void addRemoveWiFiPasswordPref(String val) {
+        if (val.equals("NONE")) {
             preferenceScreen.removePreference(wifiPasswordPref);
-        }else{
+        } else {
             preferenceScreen.addPreference(wifiPasswordPref);
         }
     }
@@ -76,7 +74,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish(); //TODO: check proper way to handle onUpSelected
+        finish();
         return true;
     }
 }

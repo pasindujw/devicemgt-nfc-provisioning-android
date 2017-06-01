@@ -1,10 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ ~ Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~ WSO2 Inc. licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied.  See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+-->
+
+<!--This file holds the initial configurations for NFC provisioning-->
 <resources>
     <string name="package_name">org.wso2.iot.agent</string>
-    <string name="package_download_location">http://192.168.3.12:0000/client.apk</string>
-    <string name="package_checksum">w34532hj2354jh33</string>
+    <string name="package_download_location">http://192.168.8.103:8000/client-debug.apk</string>
+    <string name="package_checksum">KU9JQgKuw7pQpe5OW-vh-wQ5b5Y</string>
     <string name="wifi_ssid">Dialog 4G</string>
-    <string name="wifi_security_type" >NONE</string>
-    <string name="wifi_password">sodfofewfsacs</string>
+    <string name="wifi_security_type" >WPA</string>
+    <string name="wifi_password">D2L3HTAGY1N</string>
     <string name="time_zone">Asia/Colombo</string>
     <string name="locale">en_US</string>
     <string name="encryption">false</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- ~ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~ Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  ~
  ~ WSO2 Inc. licenses this file to you under the Apache License,
  ~ Version 2.0 (the "License"); you may not use this file except
@@ -17,15 +17,6 @@
  ~ under the License.
 -->
 <resources>
-<!--TODO: check on AppBaseTheme-->
-    <!--&lt;!&ndash;-->
-        <!--Base application theme for API 14+. This theme completely replaces-->
-        <!--AppBaseTheme from BOTH res/values/styles.xml and-->
-        <!--res/values-v11/styles.xml on API 14+ devices.-->
-    <!--&ndash;&gt;-->
-    <!--<style name="AppBaseTheme" parent="android:Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; API 14 theme customizations can go here. &ndash;&gt;-->
-    <!--</style>-->
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
