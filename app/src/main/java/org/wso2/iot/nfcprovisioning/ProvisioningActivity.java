@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -104,7 +106,7 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     public void onReceiveTokenResult(Token token, String status, String message) {
         if (Constants.REQUEST_SUCCESSFUL.equals(status)) {
             this.token = token.getAccessToken();
-        } else if (Constants.ACCESS_FAILURE.equals(status)) {
+        } else {
             Log.w(TAG, "Bad request: " + message);
             Preference.putBoolean(context, org.wso2.iot.nfcprovisioning.utils.Constants.TOKEN_EXPIRED, true);
             Toast.makeText(context, context.getResources().getString(R.string.msg_need_to_sign_in),
@@ -147,13 +149,12 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                         value = "\"" + value + "\"";
                     }
                 } else //noinspection deprecation
-                    if (e.getKey().equals(
-                            DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME)
-                            && Build.VERSION.SDK_INT >= 23) {
-                        continue;
-                    } else {
+//                    if (e.getKey().equals(
+//                            DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME)
+//                            && Build.VERSION.SDK_INT >= 23) {
+//                        continue;
+//                    } else {
                         value = e.getValue();
-                    }
                 properties.put(e.getKey(), value);
             }
         }
@@ -177,28 +178,30 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     }
 
     Map<String, String > getProvisioningValues(){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Map<String, String > valuesMap = new HashMap<>();
 
-        valuesMap.put(
-                DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME, getResources().getString(R.string.package_name));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION, getResources().getString(R.string.package_download_location));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_CHECKSUM, getResources().getString(R.string.package_checksum));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SSID, getResources().getString(R.string.wifi_ssid));
+        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME, sharedPref.getString(getResources().getString(R.string.pref_key_package_name),"") );
+        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION,  sharedPref.getString(getResources().getString(R.string.pref_key_package_download_location),""));
+        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_CHECKSUM, sharedPref.getString(getResources().getString(R.string.pref_key_package_checksum),""));
+        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SSID, sharedPref.getString(getResources().getString(R.string.pref_key_wifi_ssid),""));
 
-        String wifiSecurityType = getResources().getString(R.string.wifi_security_type);
+        String wifiSecurityType = sharedPref.getString(getResources().getString(R.string.pref_key_wifi_security_type),"");
         valuesMap.put(
                 DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SECURITY_TYPE, wifiSecurityType);
         if(!wifiSecurityType.equals("NONE")) {
             valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_PASSWORD, getResources().getString(R.string.wifi_password));
         }
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_TIME_ZONE, getResources().getString(R.string.time_zone));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_LOCALE, getResources().getString(R.string.locale));
+        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_TIME_ZONE, sharedPref.getString(getResources().getString(R.string.pref_key_time_zone),""));
+        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_LOCALE, sharedPref.getString(getResources().getString(R.string.pref_key_locale),""));
 
 
         if (Build.VERSION.SDK_INT >= 23) {
             valuesMap.put(
-                    DevicePolicyManager.EXTRA_PROVISIONING_SKIP_ENCRYPTION, (getResources().getString(R.string.encryption).equalsIgnoreCase("true")?"false":"true"));
+                    DevicePolicyManager.EXTRA_PROVISIONING_SKIP_ENCRYPTION, (sharedPref.getBoolean(getResources().getString(R.string.pref_key_encryption),false)?"false":"true"));
         }
+
+        Log.e(TAG,valuesMap.toString());
         return valuesMap;
     }
 
