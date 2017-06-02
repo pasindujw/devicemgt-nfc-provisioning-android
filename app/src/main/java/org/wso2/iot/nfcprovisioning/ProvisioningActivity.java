@@ -102,7 +102,13 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     @Override
     protected void onResume() {
         super.onResume();
-        verifyToken();
+
+        if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
+                (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
+            //On oauth authentication mode token is always verified
+            //when app resumes to maintain a valid token
+            verifyToken();
+        }
     }
 
     @Override
@@ -126,6 +132,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Properties properties = new Properties();
         Map<String, String> provisioningValues = getProvisioningValues();
+
+        //Adds the access token to the provisioning values if authentication mode is oauth
         if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
                 (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
             Properties props = new Properties();
