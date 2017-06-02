@@ -98,6 +98,7 @@ public class Constants {
 	public static final String INTERNAL_SERVER_ERROR = "500";
 	public static final String ACCESS_FAILURE = "400";
 	public static final String REQUEST_SUCCESSFUL = "200";
+	public static final String SERVER_UNREACHABLE = "0";
 	public static final int HTTP = BuildConfig.API_HTTP_SERVER_PORT;
 	public static final int HTTPS = BuildConfig.API_HTTPS_SERVER_PORT;
 	public static final String BKS = "BKS";

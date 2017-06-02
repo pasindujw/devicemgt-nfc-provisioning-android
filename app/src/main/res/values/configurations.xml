@@ -18,6 +18,9 @@
 -->
 
 <!--This file holds the initial configurations for NFC provisioning-->
+
+<!--This configuration will only be set on fresh installs.
+Uninstall the app and reinstall if you do any changes here-->
 <resources>
     <string name="package_name">org.wso2.iot.agent</string>
     <string name="package_download_location">http://192.168.8.103:8000/client-debug.apk</string>

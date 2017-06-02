@@ -19,8 +19,10 @@ package org.wso2.iot.nfcprovisioning;
 
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -28,6 +30,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -36,12 +39,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.skyfishjy.library.RippleBackground;
 import org.wso2.iot.agent.proxy.IdentityProxy;
 import org.wso2.iot.agent.proxy.beans.Token;
 import org.wso2.iot.agent.proxy.interfaces.TokenCallBack;
 import org.wso2.iot.agent.proxy.utils.Constants;
+import org.wso2.iot.nfcprovisioning.utils.CommonUtils;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -59,6 +65,12 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     private static final String TAG = ProvisioningActivity.class.getSimpleName();
     private Context context;
     private String token;
+    private RelativeLayout activityProvisioning;
+    private Snackbar snackbar;
+    private RippleBackground rippleBackground;
+    private ConnectionChangeReceiver connectionChangeReceiver;
+    private boolean isConnectionChangeReceiverRegistered = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +82,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
 
-        final RippleBackground rippleBackground = (RippleBackground) findViewById(R.id.content);
+        activityProvisioning =  (RelativeLayout)findViewById(R.id.activity_provisioning);
+        rippleBackground = (RippleBackground) findViewById(R.id.content);
         rippleBackground.startRippleAnimation();
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
@@ -105,17 +118,97 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
 
         if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
                 (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
+
+            if (!isConnectionChangeReceiverRegistered) {
+                if (connectionChangeReceiver == null)
+                    connectionChangeReceiver = new ConnectionChangeReceiver();
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+                registerReceiver(connectionChangeReceiver, intentFilter);
+                isConnectionChangeReceiverRegistered = true;
+            }
+
             //On oauth authentication mode token is always verified
             //when app resumes to maintain a valid token
-            verifyToken();
+            if (CommonUtils.isNetworkAvailable(context)) {
+                verifyToken();
+            }else {
+                snackbar = Snackbar
+                        .make(activityProvisioning, "Network connectivity unavailable", Snackbar.LENGTH_INDEFINITE);
+                snackbar.show();
+
+                if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
+                    rippleBackground.stopRippleAnimation();
+                }
+            }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        token = null;
+        if (isConnectionChangeReceiverRegistered) {
+            unregisterReceiver(connectionChangeReceiver);
+            connectionChangeReceiver = null;
+            isConnectionChangeReceiverRegistered = false;
+        }
+        super.onPause();
     }
 
     @Override
     public void onReceiveTokenResult(Token token, String status, String message) {
         if (Constants.REQUEST_SUCCESSFUL.equals(status)) {
             this.token = token.getAccessToken();
-        } else {//TODO: Test auth fail
+
+            if (snackbar != null && snackbar.isShown()){
+                snackbar.dismiss();
+            }
+
+            if(rippleBackground!=null && !rippleBackground.isRippleAnimationRunning()){
+                rippleBackground.startRippleAnimation();
+            }
+
+        } else if (Constants.INTERNAL_SERVER_ERROR.equals(status)){
+
+            this.token = null;
+
+            if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
+                rippleBackground.stopRippleAnimation();
+            }
+
+            snackbar = Snackbar
+                    .make(activityProvisioning, "Internal server error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                           verifyToken();
+                        }
+                    });
+            snackbar.setActionTextColor(getResources().getColor(R.color.red));
+
+            snackbar.show();
+
+        } else if (Constants.SERVER_UNREACHABLE.equals(status)){
+
+            this.token = null;
+
+            if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
+                rippleBackground.stopRippleAnimation();
+            }
+
+            snackbar = Snackbar
+                    .make(activityProvisioning, "Server unreachable", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            verifyToken();
+                        }
+                    });
+            snackbar.setActionTextColor(getResources().getColor(R.color.red));
+
+            snackbar.show();
+
+        } else /*if (Constants.ACCESS_FAILURE.equals(status)) */{
             Log.w(TAG, "Bad request: " + message);
             Preference.putBoolean(context, org.wso2.iot.nfcprovisioning.utils.Constants.TOKEN_EXPIRED, true);
             Toast.makeText(context, context.getResources().getString(R.string.msg_need_to_sign_in),
@@ -136,6 +229,11 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         //Adds the access token to the provisioning values if authentication mode is oauth
         if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
                 (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
+
+            if (token == null) {
+                return null;
+            }
+
             Properties props = new Properties();
             props.put("android.app.extra.token", token);
             StringWriter sw = new StringWriter();
@@ -218,5 +316,16 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         IdentityProxy.getInstance().requestToken(IdentityProxy.getInstance().getContext(), this,
                 clientKey,
                 clientSecret);
+    }
+
+    public class ConnectionChangeReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive( Context context, Intent intent )
+        {
+            if (CommonUtils.isNetworkAvailable(context)) {
+                verifyToken();
+            }
+        }
     }
 }

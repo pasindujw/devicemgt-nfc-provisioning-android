@@ -20,7 +20,7 @@ package org.wso2.iot.nfcprovisioning.utils;
 public class Constants {
 
     public static final boolean DEBUG_MODE_ENABLED = true;//BuildConfig.DEBUG_MODE_ENABLED;
-    public static final String AGENT_PACKAGE = "org.wso2.iot.nfcprovisioning";
+    public static final String APP_PACKAGE = "org.wso2.iot.nfcprovisioning";
     public static final String OAUTH_AUTHENTICATOR = "OAUTH_AUTHENTICATOR";
     public static final String MUTUAL_SSL_AUTHENTICATOR = "MUTUAL_SSL_AUTHENTICATOR";
     public static final String AUTHENTICATOR_IN_USE = OAUTH_AUTHENTICATOR;
@@ -32,7 +32,7 @@ public class Constants {
     public final static String API_APPLICATION_UNREGISTRATION_CONTEXT = API_APPLICATION_CONTEXT +
             "/unregister";//TODO:check unregister requirement
     public static final String USER_AGENT = "Mozilla/5.0 ( compatible ), Android";
-    public static final String DEFAULT_HOST = "http://192.168.8.103:8280";
+    public static final String DEFAULT_HOST = "http://10.10.10.151:8280";
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET = "client_secret";
     public static final String CLIENT_NAME = "client_name";

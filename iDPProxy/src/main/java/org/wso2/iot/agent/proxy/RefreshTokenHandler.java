@@ -86,6 +86,8 @@ public class RefreshTokenHandler {
 															  Log.w(TAG, error.toString() + " Status code: " + error.networkResponse.statusCode);
 															  processTokenResponse(String.valueOf(error.networkResponse.statusCode),
 																	  new String(error.networkResponse.data));
+														  } else {
+															  processTokenResponse(null, null);
 														  }
 			                                          }
 		                                          })
@@ -171,6 +173,8 @@ public class RefreshTokenHandler {
 							responseBody.getString(Constants.ERROR_DESCRIPTION_LABEL);
 					identityProxy.receiveNewAccessToken(responseCode, errorDescription, token);
 				}
+			} else {
+				identityProxy.receiveNewAccessToken(Constants.SERVER_UNREACHABLE, null, token);
 			}
 		} catch (JSONException e) {
 			identityProxy.receiveNewAccessToken(responseCode, null, token);
