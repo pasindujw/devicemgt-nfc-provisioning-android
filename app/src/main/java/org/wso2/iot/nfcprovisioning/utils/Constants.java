@@ -44,6 +44,7 @@ public class Constants {
     public static final String RESPONSE = "response";
     public static final String TOKEN_EXPIRED = "token_expired";
     public static final String IS_REGISTERED = "is_registered";
+    public static final boolean USE_REMOTE_CONFIG = true;
 
     /**
      * Request codes.

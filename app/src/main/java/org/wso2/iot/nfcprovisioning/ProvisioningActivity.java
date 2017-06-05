@@ -17,6 +17,7 @@
  */
 package org.wso2.iot.nfcprovisioning;
 
+import android.annotation.NonNull;
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
@@ -42,6 +43,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.skyfishjy.library.RippleBackground;
 import org.wso2.iot.agent.proxy.IdentityProxy;
 import org.wso2.iot.agent.proxy.beans.Token;
@@ -68,6 +74,7 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     private RelativeLayout activityProvisioning;
     private Snackbar snackbar;
     private RippleBackground rippleBackground;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,15 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         if (nfcAdapter != null) {
             nfcAdapter.setNdefPushMessageCallback(this, activity);
         }
+
+        if (org.wso2.iot.nfcprovisioning.utils.Constants.USE_REMOTE_CONFIG){
+            mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+            FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder( )
+                    .setDeveloperModeEnabled (true)
+                    .build();
+            mFirebaseRemoteConfig.setConfigSettings (configSettings);
+        }
     }
 
     @Override
@@ -97,15 +113,71 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 startActivity(intent);
                 return true;
 
+            case R.id.action_remote_config:
+                getRemoteConfig();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void getRemoteConfig(){
+        mFirebaseRemoteConfig.fetch(0)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(context, "Remote config added",
+                                    Toast.LENGTH_SHORT).show();
+
+                            // After config data is successfully fetched, it must be activated before newly fetched
+                            // values are returned.
+                            mFirebaseRemoteConfig.activateFetched();
+                        } else {
+                            Toast.makeText(context, "Remote config failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        setRemoteConfigValues();
+                    }
+                });
+    }
+
+    private void setRemoteConfigValues() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getResources().getString(R.string.pref_key_package_name),
+                mFirebaseRemoteConfig.getString("prov_package_name"));
+        editor.putString(getResources().getString(R.string.pref_key_package_download_location),
+                mFirebaseRemoteConfig.getString("prov_package_download_location"));
+        editor.putString(getResources().getString(R.string.pref_key_package_checksum),
+                mFirebaseRemoteConfig.getString("prov_package_checksum"));
+        editor.putString(getResources().getString(R.string.pref_key_wifi_ssid),
+                mFirebaseRemoteConfig.getString("prov_package_wifi_ssid"));
+        editor.putString(getResources().getString(R.string.pref_key_wifi_security_type),
+                mFirebaseRemoteConfig.getString("prov_wifi_security_type"));
+        editor.putString(getResources().getString(R.string.pref_key_wifi_password),
+                mFirebaseRemoteConfig.getString("prov_wifi_password"));
+        editor.putString(getResources().getString(R.string.pref_key_time_zone),
+                mFirebaseRemoteConfig.getString("prov_time_zone"));
+        editor.putString(getResources().getString(R.string.pref_key_locale),
+                mFirebaseRemoteConfig.getString("prov_locale"));
+        editor.putBoolean(getResources().getString(R.string.pref_key_encryption),
+                mFirebaseRemoteConfig.getBoolean("prov_encryption"));
+        editor.apply();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_bar_menu, menu);
+
+        if (org.wso2.iot.nfcprovisioning.utils.Constants.USE_REMOTE_CONFIG){
+            MenuItem itemC = menu.findItem(R.id.action_settings);
+           // itemC.setVisible(false);
+            MenuItem itemS = menu.findItem(R.id.action_remote_config);
+            itemS.setVisible(true);
+        }
         return true;
     }
 
@@ -287,7 +359,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         String wifiSecurityType = sharedPref.getString(getResources().getString(R.string.pref_key_wifi_security_type), "");
         valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SECURITY_TYPE, wifiSecurityType);
         if (!wifiSecurityType.equals("NONE")) {
-            valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_PASSWORD, getResources().getString(R.string.wifi_password));
+            valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_PASSWORD,
+                    sharedPref.getString(getResources().getString(R.string.pref_key_wifi_password), ""));
         }
         valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_TIME_ZONE, sharedPref.getString(getResources().getString(R.string.pref_key_time_zone), ""));
         valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_LOCALE, sharedPref.getString(getResources().getString(R.string.pref_key_locale), ""));
