@@ -68,9 +68,6 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     private RelativeLayout activityProvisioning;
     private Snackbar snackbar;
     private RippleBackground rippleBackground;
-    private ConnectionChangeReceiver connectionChangeReceiver;
-    private boolean isConnectionChangeReceiverRegistered = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,39 +116,15 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
                 (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
 
-            if (!isConnectionChangeReceiverRegistered) {
-                if (connectionChangeReceiver == null)
-                    connectionChangeReceiver = new ConnectionChangeReceiver();
-                IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-                registerReceiver(connectionChangeReceiver, intentFilter);
-                isConnectionChangeReceiverRegistered = true;
-            }
-
             //On oauth authentication mode token is always verified
             //when app resumes to maintain a valid token
-            if (CommonUtils.isNetworkAvailable(context)) {
-                verifyToken();
-            }else {
-                snackbar = Snackbar
-                        .make(activityProvisioning, "Network connectivity unavailable", Snackbar.LENGTH_INDEFINITE);
-                snackbar.show();
-
-                if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
-                    rippleBackground.stopRippleAnimation();
-                }
-            }
+            verifyToken();
         }
     }
 
     @Override
     protected void onPause() {
         token = null;
-        if (isConnectionChangeReceiverRegistered) {
-            unregisterReceiver(connectionChangeReceiver);
-            connectionChangeReceiver = null;
-            isConnectionChangeReceiverRegistered = false;
-        }
         super.onPause();
     }
 
@@ -205,6 +178,26 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                         }
                     });
             snackbar.setActionTextColor(getResources().getColor(R.color.red));
+
+            snackbar.show();
+
+        } else if (Constants.NO_CONNECTION.equals(status)){
+
+            this.token = null;
+
+            if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
+                rippleBackground.stopRippleAnimation();
+            }
+
+            snackbar = Snackbar
+                    .make(activityProvisioning, "Network connectivity unavailable", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            verifyToken();
+                        }
+                    });
+            snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
 
             snackbar.show();
 
@@ -316,16 +309,5 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         IdentityProxy.getInstance().requestToken(IdentityProxy.getInstance().getContext(), this,
                 clientKey,
                 clientSecret);
-    }
-
-    public class ConnectionChangeReceiver extends BroadcastReceiver
-    {
-        @Override
-        public void onReceive( Context context, Intent intent )
-        {
-            if (CommonUtils.isNetworkAvailable(context)) {
-                verifyToken();
-            }
-        }
     }
 }

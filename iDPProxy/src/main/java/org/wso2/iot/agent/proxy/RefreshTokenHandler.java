@@ -21,6 +21,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -60,6 +62,12 @@ public class RefreshTokenHandler {
 	}
 
 	public void obtainNewAccessToken() {
+
+		if(!isNetworkAvailable()){
+			processTokenResponse(Constants.NO_CONNECTION, null);
+			return;
+		}
+
 		if(Constants.DEBUG_ENABLED) {
 			Log.d(TAG, "Renewing tokens.");
 		}
@@ -166,6 +174,8 @@ public class RefreshTokenHandler {
 				identityProxy
 						.receiveNewAccessToken(responseCode, Constants.SUCCESS_RESPONSE, token);
 
+			} else if (Constants.NO_CONNECTION.equals(responseCode)){
+				identityProxy.receiveNewAccessToken(responseCode, null, token);
 			} else if (responseCode != null) {
 				if (result != null) {
 					JSONObject responseBody = new JSONObject(result);
@@ -180,5 +190,12 @@ public class RefreshTokenHandler {
 			identityProxy.receiveNewAccessToken(responseCode, null, token);
 			Log.e(TAG, "Invalid JSON." + e);
 		}
+	}
+
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager =
+				(ConnectivityManager)  IdentityProxy.getInstance().getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+		return (info != null && info.isConnected());
 	}
 }
