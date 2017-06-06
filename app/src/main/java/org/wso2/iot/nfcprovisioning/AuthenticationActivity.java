@@ -26,7 +26,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -39,19 +38,14 @@ import org.wso2.iot.agent.proxy.IdentityProxy;
 import org.wso2.iot.agent.proxy.beans.CredentialInfo;
 import org.wso2.iot.agent.proxy.interfaces.APIAccessCallBack;
 import org.wso2.iot.agent.proxy.interfaces.APIResultCallBack;
-import org.wso2.iot.nfcprovisioning.api.TenantResolverCallback;
-import org.wso2.iot.nfcprovisioning.api.TenantResolverHandler;
 import org.wso2.iot.nfcprovisioning.beans.ApiRegistrationProfile;
 import org.wso2.iot.nfcprovisioning.utils.CommonDialogUtils;
 import org.wso2.iot.nfcprovisioning.utils.CommonUtils;
 import org.wso2.iot.nfcprovisioning.utils.Constants;
 import org.wso2.iot.nfcprovisioning.api.DeviceInfo;
-import org.wso2.iot.nfcprovisioning.beans.Tenant;
 import org.wso2.iot.nfcprovisioning.utils.AndroidAgentException;
 import org.wso2.iot.nfcprovisioning.utils.DynamicClientManager;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -72,13 +66,9 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     private String passwordVal;
     private ProgressDialog progressDialog;
     private boolean isReLogin = false;
-    private boolean isCloudLogin = false;
-    private int kioskExit;
-
     private DeviceInfo deviceInfo;
     private static final String TAG = AuthenticationActivity.class.getSimpleName();
     private static final String[] SUBSCRIBED_API = new String[]{"android"};
-    private Tenant currentTenant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +94,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         }
 
         if (Preference.hasPreferenceKey(context, Constants.TOKEN_EXPIRED)) {
-            etDomain.setEnabled(false);
             etDomain.setTextColor(ContextCompat.getColor(this, R.color.black));
-            etUsername.setEnabled(false);
             etUsername.setTextColor(ContextCompat.getColor(this, R.color.black));
             etPassword.setFocusable(true);
             etPassword.requestFocus();
@@ -115,59 +103,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             etUsername.setText(tenantedUserName.substring(0, tenantSeparator));
             etDomain.setText(tenantedUserName.substring(tenantSeparator + 1, tenantedUserName.length()));
             isReLogin = true;
-        } else if (Constants.CLOUD_MANAGER != null) {
-            isCloudLogin = true;
-            etDomain.setVisibility(View.GONE);
         }
-
-        etServerIP.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                enableSubmitIfReady();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                enableSubmitIfReady();
-            }
-        });
-
-        etUsername.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                enableSubmitIfReady();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                enableSubmitIfReady();
-            }
-        });
-
-        etPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                enableSubmitIfReady();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                enableSubmitIfReady();
-            }
-        });
-
     }
 
     @Override
@@ -210,11 +146,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 passwordVal = etPassword.getText().toString().trim();
                 usernameVal = etUsername.getText().toString().trim();
 
-                if (isCloudLogin) {
-                    obtainTenantDomain(usernameVal, passwordVal);
-                } else {
-                    proceedToAuthentication();
-                }
+                proceedToAuthentication();
             } else {
                 if (etUsername.getText() != null && !etUsername.getText().toString().trim().isEmpty()) {
                     etUsername.setError(getResources().getString(R.string.error_username));
@@ -231,26 +163,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         }
     };
 
-    private DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    getClientCredentials();
-                    dialog.dismiss();
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    dialog.dismiss();
-                    break;
-                case DialogInterface.BUTTON_NEUTRAL:
-                    dialog.dismiss();
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
     private void proceedToAuthentication() {
         if (etDomain.getText() != null && !etDomain.getText().toString().trim().isEmpty()) {
             usernameVal +=
@@ -259,69 +171,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             getClientCredentials();
         } else {
             getClientCredentials();
-        }
-    }
-
-    private void obtainTenantDomain(String username, String password) {
-        // Check network connection availability before calling the API.
-        currentTenant = null;
-        if (CommonUtils.isNetworkAvailable(context)) {
-            progressDialog = ProgressDialog.show(context,
-                    getResources().getString(R.string.dialog_authenticate),
-                    getResources().getString(R.string.dialog_message_please_wait), true);
-            IdentityProxy.getInstance().setContext(this.getApplicationContext());
-            TenantResolverHandler tenantResolverHandler = new TenantResolverHandler(new TenantResolverCallback() {
-                @Override
-                public void onTenantResolved(final List<Tenant> tenants) {
-                    if (tenants.isEmpty()) {
-                        showEnrollmentFailedErrorMessage(getResources().getString(R.string.dialog_tenants_not_available));
-                    } else if (tenants.size() == 1) {
-                        currentTenant = tenants.get(0);
-                        CommonDialogUtils.stopProgressDialog(progressDialog);
-                        etDomain.setText(currentTenant.getTenantDomain());
-                        proceedToAuthentication();
-                    } else {
-                        CommonDialogUtils.stopProgressDialog(progressDialog);
-                        List<String> tenantNames = new ArrayList<>();
-                        for (Tenant t : tenants) {
-                            tenantNames.add(t.getDisplayName());
-                        }
-                        CommonDialogUtils.getAlertDialogWithSingleChoices(context,
-                                getResources().getString(R.string.dialog_select_tenant),
-                                tenantNames.toArray(new String[0]),
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        currentTenant = tenants.get(which);
-                                        etDomain.setText(currentTenant.getTenantDomain());
-                                        proceedToAuthentication();
-                                        dialog.dismiss();
-                                    }
-                                }).show();
-                    }
-                }
-
-                @Override
-                public void onAuthenticationSuccess() {
-                    CommonDialogUtils.stopProgressDialog(progressDialog);
-                    progressDialog = ProgressDialog.show(context,
-                            getResources().getString(R.string.dialog_tenant_resolving),
-                            getResources().getString(R.string.dialog_message_please_wait), true);
-                }
-
-                @Override
-                public void onAuthenticationFail() {
-                    showAuthenticationError();
-                }
-
-                @Override
-                public void onFailure(AndroidAgentException exception) {
-                    showEnrollmentFailedErrorMessage(exception.getMessage());
-                }
-            });
-            tenantResolverHandler.resolveTenantDomain(username, password);
-        } else {
-            CommonDialogUtils.showNetworkUnavailableMessage(context);
         }
     }
 
@@ -488,24 +337,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         finish();
     }
 
-    /**
-     * Validation done to see if the username and password fields are properly
-     * entered.
-     */
-    private void enableSubmitIfReady() {
-        boolean isReady = false;
-        if (etUsername.getText().toString().length() >= 1 &&
-                etPassword.getText().toString().length() >= 1 &&
-                etServerIP.getText().toString().length() >= 1) {
-            isReady = true;
-        }
-        if (isReady) {
-            btnSignIn.setEnabled(true);
-        } else {
-            btnSignIn.setEnabled(false);
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && !isReLogin) {
@@ -618,15 +449,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     private void getClientCredentials() {
         String ipSaved = Preference.getString(context.getApplicationContext(),
                 Constants.PreferenceFlag.IP);
-        String authenticationTitle;
-        if (currentTenant != null) {
-            authenticationTitle = String.format(
-                    getResources().getString(R.string.dialog_registering),
-                    currentTenant.getDisplayName()
-            );
-        } else {
-            authenticationTitle = getResources().getString(R.string.dialog_authenticate);
-        }
+        String authenticationTitle = getResources().getString(R.string.dialog_authenticate);
         progressDialog = ProgressDialog.show(context, authenticationTitle, getResources().
                 getString(R.string.dialog_message_please_wait), true);
         if (ipSaved != null && !ipSaved.isEmpty()) {

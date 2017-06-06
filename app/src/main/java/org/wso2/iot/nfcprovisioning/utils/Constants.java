@@ -17,10 +17,12 @@
  */
 package org.wso2.iot.nfcprovisioning.utils;
 
+import org.wso2.iot.nfcprovisioning.BuildConfig;
+
 public class Constants {
 
-    public static final boolean DEBUG_MODE_ENABLED = true;//BuildConfig.DEBUG_MODE_ENABLED;
-    public static final String APP_PACKAGE = "org.wso2.iot.nfcprovisioning";
+    public static final boolean DEBUG_MODE_ENABLED = BuildConfig.DEBUG_MODE_ENABLED;
+    public static final String APP_PACKAGE = BuildConfig.APP_PACKAGE;
     public static final String OAUTH_AUTHENTICATOR = "OAUTH_AUTHENTICATOR";
     public static final String MUTUAL_SSL_AUTHENTICATOR = "MUTUAL_SSL_AUTHENTICATOR";
     public static final String AUTHENTICATOR_IN_USE = OAUTH_AUTHENTICATOR;
@@ -32,19 +34,17 @@ public class Constants {
     public final static String API_APPLICATION_UNREGISTRATION_CONTEXT = API_APPLICATION_CONTEXT +
             "/unregister";//TODO:check unregister requirement
     public static final String USER_AGENT = "Mozilla/5.0 ( compatible ), Android";
-    public static final String DEFAULT_HOST = "http://10.10.10.151:8280";
+    public static final String DEFAULT_HOST = BuildConfig.DEFAULT_HOST;
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET = "client_secret";
     public static final String CLIENT_NAME = "client_name";
     public static final String USERNAME = "username";
-    public static final String CLOUD_MANAGER = null;//TODO:check cloud login
-    public static final int SIGN_IN_NOTIFICATION_ID = 0;
     public final static String API_APPLICATION_NAME_PREFIX = "cdmf_android_";//TODO:check for alternate prefix
     public static final String STATUS = "status";
     public static final String RESPONSE = "response";
     public static final String TOKEN_EXPIRED = "token_expired";
     public static final String IS_REGISTERED = "is_registered";
-    public static final boolean USE_REMOTE_CONFIG = true;
+    public static final boolean USE_REMOTE_CONFIG = BuildConfig.USE_REMOTE_CONFIG;
 
     /**
      * Request codes.

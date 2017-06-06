@@ -19,6 +19,7 @@
 package org.wso2.iot.agent.proxy.clients;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -65,7 +66,10 @@ public class OAuthSSLClient implements CommunicationClient {
                 Log.e(TAG, message);
                 throw new IDPTokenManagerException(message);
             }
-            if (Constants.SERVER_PROTOCOL.equalsIgnoreCase("https://")) {
+            SharedPreferences mainPref = IdentityProxy.getInstance().getContext().
+                    getSharedPreferences(Constants.APPLICATION_PACKAGE, Context.MODE_PRIVATE);
+            String defaultIP = mainPref.getString(Constants.IP, null);
+            if (defaultIP != null && defaultIP.contains("https://")) {/*Constants.SERVER_PROTOCOL.equalsIgnoreCase("https://")*/
                 KeyStore localTrustStore = KeyStore.getInstance("BKS");
                 if (Constants.TRUSTSTORE_LOCATION != null) {
                     inStream = new FileInputStream(new File(Constants.TRUSTSTORE_LOCATION));

@@ -20,10 +20,8 @@ package org.wso2.iot.nfcprovisioning;
 import android.annotation.NonNull;
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -43,7 +41,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -53,7 +50,6 @@ import org.wso2.iot.agent.proxy.IdentityProxy;
 import org.wso2.iot.agent.proxy.beans.Token;
 import org.wso2.iot.agent.proxy.interfaces.TokenCallBack;
 import org.wso2.iot.agent.proxy.utils.Constants;
-import org.wso2.iot.nfcprovisioning.utils.CommonUtils;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -171,7 +167,6 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_bar_menu, menu);
-
         if (org.wso2.iot.nfcprovisioning.utils.Constants.USE_REMOTE_CONFIG){
             MenuItem itemC = menu.findItem(R.id.action_settings);
            // itemC.setVisible(false);
