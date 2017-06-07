@@ -24,7 +24,7 @@ import android.preference.PreferenceScreen;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import org.wso2.iot.nfcprovisioning.utils.AppCompatPreferenceActivity;
-import org.wso2.iot.nfcprovisioning.utils.EditTextPreference;
+import org.wso2.iot.nfcprovisioning.uielements.EditTextPreference;
 
 /**
  * Activity that handles the initial configurations of the provisioning values

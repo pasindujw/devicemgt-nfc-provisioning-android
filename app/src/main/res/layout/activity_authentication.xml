@@ -86,12 +86,13 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="0dp">
+            android:paddingTop="20dp">
 
-            <android.support.design.widget.TextInputLayout
+            <org.wso2.iot.nfcprovisioning.uielements.TextInputLayoutWithHelpText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                app:helperText="@string/server_ip_helper_text"
+                app:helperTextColor="@color/light_grey">
 
                 <EditText
                     android:id="@+id/serverIP"
@@ -100,12 +101,11 @@
                     android:hint="@string/prompt_serverIP"
                     android:inputType="text" />
 
-            </android.support.design.widget.TextInputLayout>
+            </org.wso2.iot.nfcprovisioning.uielements.TextInputLayoutWithHelpText>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/organization"
@@ -120,8 +120,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
                     android:id="@+id/username"
@@ -137,7 +136,6 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/light_grey">
 
@@ -158,10 +156,11 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="35dp"
                 android:text="@string/action_sign_in"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_orange"/>
+                android:background="@drawable/btn_orange"
+                android:fontFamily="sans-serif-medium"/>
 
 
         </LinearLayout>

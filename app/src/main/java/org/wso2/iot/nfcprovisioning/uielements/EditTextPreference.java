@@ -15,7 +15,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.wso2.iot.nfcprovisioning.utils;
+package org.wso2.iot.nfcprovisioning.uielements;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -31,10 +31,12 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="prompt_organization">Organization (optional)</string>
-    <string name="prompt_serverIP">Server IP</string>
+    <string name="prompt_serverIP">Server Address</string>
     <string name="button_ok">OK</string>
     <string name="title_activity_settings">Settings</string>
     <string name="nfc_comment">WSO2 NFC provisioning</string>
+    <string name="server_ip_helper_text">example: http://www.abc.com:8280</string>
+
 
     <!-- Date Util -->
     <string name="date_util_term_less">less than</string>

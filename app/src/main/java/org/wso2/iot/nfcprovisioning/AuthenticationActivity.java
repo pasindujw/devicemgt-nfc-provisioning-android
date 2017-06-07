@@ -32,6 +32,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.wso2.iot.agent.proxy.IdentityProxy;
@@ -83,7 +85,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         etPassword = (EditText) findViewById(R.id.password);
         btnSignIn = (Button) findViewById(R.id.username_sign_in_button);
         btnSignIn.setOnClickListener(onClickAuthenticate);
-        btnSignIn.setEnabled(false);
         if (Constants.DEFAULT_HOST != null && !Constants.DEFAULT_HOST.equals("")) {
             etServerIP.setText(Constants.DEFAULT_HOST);
             etDomain.setFocusable(true);
@@ -126,7 +127,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
 
     @Override
     protected void onDestroy() {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.onDestroy();
         CommonDialogUtils.stopProgressDialog(progressDialog);
         progressDialog = null;
@@ -148,16 +148,15 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
 
                 proceedToAuthentication();
             } else {
-                if (etUsername.getText() != null && !etUsername.getText().toString().trim().isEmpty()) {
-                    etUsername.setError(getResources().getString(R.string.error_username));
-                }
-
-                if (etPassword.getText() != null && !etPassword.getText().toString().trim().isEmpty()) {
-                    etPassword.setError(getResources().getString(R.string.error_password));
-                }
-
-                if (etServerIP.getText() != null && !etServerIP.getText().toString().trim().isEmpty()) {
-                    etServerIP.setError(getResources().getString(R.string.error_server_ip));
+                if (etServerIP.getText() != null && etServerIP.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(context, getResources().getString(R.string.error_server_ip),
+                            Toast.LENGTH_LONG).show();
+                } else if (etUsername.getText() != null && etUsername.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(context, getResources().getString(R.string.error_username),
+                            Toast.LENGTH_LONG).show();
+                } else if (etPassword.getText() != null && etPassword.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(context, getResources().getString(R.string.error_password),
+                            Toast.LENGTH_LONG).show();
                 }
             }
         }
