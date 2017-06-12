@@ -120,5 +120,8 @@
     <string name="pref_dialog_title_language">Select language</string>
     <string name="pref_key_encryption">prefKeyEncryption</string>
     <string name="pref_title_encryption">Encryption</string>
+    <string name="pref_key_kiosk_app_download_location">prefKeyKioskAppDownloadLocation</string>
+    <string name="pref_title_kiosk_app_download_location">Kiosk App Download Location</string>
+    <string name="pref_dialog_title_kiosk_app_download_location">Enter download location</string>
 
 </resources>

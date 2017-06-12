@@ -87,4 +87,11 @@
         android:title="@string/pref_title_encryption"
         android:defaultValue="@string/encryption" />
 
+    <org.wso2.iot.nfcprovisioning.uielements.EditTextPreference
+        android:key="@string/pref_key_kiosk_app_download_location"
+        android:title="@string/pref_title_kiosk_app_download_location"
+        android:summary="%s"
+        android:defaultValue="@string/kiosk_app_download_location"
+        android:dialogTitle="@string/pref_dialog_title_kiosk_app_download_location" />
+
 </PreferenceScreen>

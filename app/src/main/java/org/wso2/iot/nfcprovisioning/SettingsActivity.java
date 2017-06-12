@@ -25,6 +25,7 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import org.wso2.iot.nfcprovisioning.utils.AppCompatPreferenceActivity;
 import org.wso2.iot.nfcprovisioning.uielements.EditTextPreference;
+import org.wso2.iot.nfcprovisioning.utils.Constants;
 
 /**
  * Activity that handles the initial configurations of the provisioning values
@@ -51,6 +52,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                                            return true;
                                                                        }
                                                                    });
+        if (!Constants.PUSH_KIOSK_APP) {
+            EditTextPreference kioskAppUrlPref = (EditTextPreference) findPreference(getResources()
+                    .getString(R.string.pref_key_kiosk_app_download_location));
+            preferenceScreen.removePreference(kioskAppUrlPref);
+        }
     }
 
     private void addRemoveWiFiPasswordPref(String val) {

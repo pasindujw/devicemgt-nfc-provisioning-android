@@ -71,6 +71,7 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     private Snackbar snackbar;
     private RippleBackground rippleBackground;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         activityProvisioning =  (RelativeLayout)findViewById(R.id.activity_provisioning);
         rippleBackground = (RippleBackground) findViewById(R.id.content);
         rippleBackground.startRippleAnimation();
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
         if (nfcAdapter != null) {
@@ -160,6 +163,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 mFirebaseRemoteConfig.getString("prov_locale"));
         editor.putBoolean(getResources().getString(R.string.pref_key_encryption),
                 mFirebaseRemoteConfig.getBoolean("prov_encryption"));
+        editor.putString(getResources().getString(R.string.pref_key_kiosk_app_download_location),
+                mFirebaseRemoteConfig.getString("prov_kiosk_app_download_location"));
         editor.apply();
     }
 
@@ -285,17 +290,25 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Properties properties = new Properties();
         Map<String, String> provisioningValues = getProvisioningValues();
+        Properties props = new Properties();
 
         //Adds the access token to the provisioning values if authentication mode is oauth
         if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
                 (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
-
             if (token == null) {
                 return null;
             }
-
-            Properties props = new Properties();
             props.put("android.app.extra.token", token);
+        }
+
+        if (org.wso2.iot.nfcprovisioning.utils.Constants.PUSH_KIOSK_APP) {
+            String appUrl = sharedPref.getString(getResources().getString(R.string.pref_key_kiosk_app_download_location), "");
+            if (!appUrl.equals("")) {
+                props.put("android.app.extra.appurl", appUrl);
+            }
+        }
+
+        if (!props.isEmpty()) {
             StringWriter sw = new StringWriter();
             try {
                 props.store(sw, "admin extras bundle");
@@ -307,6 +320,7 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 Log.e(TAG, "Unable to build admin extras bundle");
             }
         }
+
         for (Map.Entry<String, String> e : provisioningValues.entrySet()) {
             if (!TextUtils.isEmpty(e.getValue())) {
                 String value;
@@ -341,7 +355,6 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
 
     //Any new provisioning values can be directly added here.
     Map<String, String> getProvisioningValues() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Map<String, String> valuesMap = new HashMap<>();
         valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME,
                 sharedPref.getString(getResources().getString(R.string.pref_key_package_name), ""));

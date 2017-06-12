@@ -23,12 +23,13 @@
 Uninstall the app and reinstall if you do any changes here-->
 <resources>
     <string name="package_name">org.wso2.iot.agent</string>
-    <string name="package_download_location">http://192.168.8.103:8000/client-debug.apk</string>
-    <string name="package_checksum">KU9JQgKuw7pQpe5OW-vh-wQ5b5Y</string>
-    <string name="wifi_ssid">Dialog 4G</string>
+    <string name="package_download_location">http://192.168.8.151:8000/client-debug.apk</string>
+    <string name="package_checksum">eRlAIw0C48nVb-Ff-o8870xhtMI</string>
+    <string name="wifi_ssid">Alexa</string>
     <string name="wifi_security_type" >WPA</string>
-    <string name="wifi_password">D2L3HTAGY1N</string>
+    <string name="wifi_password">AJkUWnGpCp</string>
     <string name="time_zone">Asia/Colombo</string>
     <string name="locale">en_US</string>
     <string name="encryption">false</string>
+    <string name="kiosk_app_download_location">https://github.com/janakamarasena/android-for-work/blob/master/Calculator.apk?raw=true</string>
 </resources>

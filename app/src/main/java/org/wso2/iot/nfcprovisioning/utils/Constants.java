@@ -44,6 +44,7 @@ public class Constants {
     public static final String RESPONSE = "response";
     public static final String TOKEN_EXPIRED = "token_expired";
     public static final String IS_REGISTERED = "is_registered";
+    public static final boolean PUSH_KIOSK_APP = BuildConfig.PUSH_KIOSK_APP;
     public static final boolean USE_REMOTE_CONFIG = BuildConfig.USE_REMOTE_CONFIG;
 
     /**
