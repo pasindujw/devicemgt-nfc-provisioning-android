@@ -19,8 +19,10 @@ package org.wso2.iot.nfcprovisioning;
 
 import android.annotation.NonNull;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
@@ -50,6 +52,7 @@ import org.wso2.iot.agent.proxy.IdentityProxy;
 import org.wso2.iot.agent.proxy.beans.Token;
 import org.wso2.iot.agent.proxy.interfaces.TokenCallBack;
 import org.wso2.iot.agent.proxy.utils.Constants;
+import org.wso2.iot.nfcprovisioning.utils.CommonDialogUtils;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -112,6 +115,10 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 startActivity(intent);
                 return true;
 
+            case R.id.action_logout:
+                logOut();
+                return true;
+
             case R.id.action_remote_config:
                 getRemoteConfig();
                 return true;
@@ -127,14 +134,15 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(context, "Remote config added",
+                            Toast.makeText(context, getResources().getString(
+                                    R.string.toast_remote_config_added),
                                     Toast.LENGTH_SHORT).show();
-
                             // After config data is successfully fetched, it must be activated before newly fetched
                             // values are returned.
                             mFirebaseRemoteConfig.activateFetched();
                         } else {
-                            Toast.makeText(context, "Remote config failed",
+                            Toast.makeText(context, getResources().getString(
+                                    R.string.toast_remote_config_failed),
                                     Toast.LENGTH_SHORT).show();
                         }
                         setRemoteConfigValues();
@@ -173,8 +181,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_bar_menu, menu);
         if (org.wso2.iot.nfcprovisioning.utils.Constants.USE_REMOTE_CONFIG){
-            MenuItem itemC = menu.findItem(R.id.action_settings);
-           // itemC.setVisible(false);
+            //MenuItem itemC = menu.findItem(R.id.action_settings);
+            //itemC.setVisible(false);
             MenuItem itemS = menu.findItem(R.id.action_remote_config);
             itemS.setVisible(true);
         }
@@ -354,7 +362,7 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     }
 
     //Any new provisioning values can be directly added here.
-    Map<String, String> getProvisioningValues() {
+    private Map<String, String> getProvisioningValues() {
         Map<String, String> valuesMap = new HashMap<>();
         valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME,
                 sharedPref.getString(getResources().getString(R.string.pref_key_package_name), ""));
@@ -379,7 +387,7 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         return valuesMap;
     }
 
-    void verifyToken() {
+    private void verifyToken() {
         String clientKey = Preference.getString(context, Constants.CLIENT_ID);
         String clientSecret = Preference.getString(context, Constants.CLIENT_SECRET);
         if (IdentityProxy.getInstance().getContext() == null) {
@@ -390,5 +398,32 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         IdentityProxy.getInstance().requestToken(IdentityProxy.getInstance().getContext(), this,
                 clientKey,
                 clientSecret);
+    }
+
+    private void logOut() {
+        final AlertDialog.Builder builder = CommonDialogUtils.getAlertDialogWithTwoButtonAndTitle(context,
+                getResources().getString(
+                        R.string.dialog_title_log_out),
+                getResources().getString(
+                        R.string.dialog_message_log_out),
+                getResources().getString(
+                        R.string.button_no),
+                getResources().getString(
+                        R.string.button_yes),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Preference.putBoolean(context, org.wso2.iot.nfcprovisioning.utils.Constants.TOKEN_EXPIRED, true);
+                        Intent intent = new Intent(ProvisioningActivity.this, AuthenticationActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+        builder.show();
     }
 }

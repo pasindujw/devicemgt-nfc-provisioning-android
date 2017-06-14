@@ -25,6 +25,7 @@
     <string name="authentication_successful">Successfully Authenticated!</string>
     <string name="nfc_bump_hint">Tap the device you want to bump!</string>
     <string name="action_settings">Configuration</string>
+    <string name="action_log_out">Sign out</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">SIGN IN</string>
@@ -73,6 +74,12 @@
     <string name="dialog_tenants_not_available">You do not have any associated organizations. Please contact your administrator</string>
     <string name="dialog_select_tenant">Select an Organization to register your device with.</string>
     <string name="dialog_tenant_resolving">Resolving Organizations</string>
+    <string name="button_no">NO</string>
+    <string name="button_yes">YES</string>
+    <string name="dialog_title_log_out">Sign out</string>
+    <string name="dialog_message_log_out">Are you sure?</string>
+    <string name="toast_remote_config_added">Remote config added</string>
+    <string name="toast_remote_config_failed">Remote config failed</string>
 
     <!-- ERROR MESSAGES -->
     <string name="error_enrollment_failed_detail">Enrollment failed, please contact administrator.</string>

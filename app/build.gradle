@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //DEFAULT_HOST: Hardcode the server host to avoid having the user type it during
             //sign-in. User can edit this value at sign-in if needed.
-            buildConfigField "String", "DEFAULT_HOST", "\"http://10.10.10.151:8280\""
+            buildConfigField "String", "DEFAULT_HOST", "\"https://gateway.api.cloud.wso2.com\""
             // AUTHENTICATOR_IN_USE: Type of authenticator used in wso2 agent app when authenticating
             // with server. Allowed values by default are OAUTH_AUTHENTICATOR or MUTUAL_SSL_AUTHENTICATOR
             buildConfigField "String", "AUTHENTICATOR_IN_USE", "\"OAUTH_AUTHENTICATOR\""

@@ -167,10 +167,8 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             usernameVal +=
                     getResources().getString(R.string.intent_extra_at) +
                             etDomain.getText().toString().trim();
-            getClientCredentials();
-        } else {
-            getClientCredentials();
         }
+        getClientCredentials();
     }
 
     /**
@@ -253,7 +251,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             info.setTokenEndPoint(serverURL);
 
             //adding device-specific scope
-            String deviceScope = "deivce_" + deviceInfo.getDeviceId();
+            String deviceScope = "device_" + deviceInfo.getDeviceId();
             info.setScopes(deviceScope);
 
             if (tenantDomain != null && !tenantDomain.toString().trim().isEmpty()) {
