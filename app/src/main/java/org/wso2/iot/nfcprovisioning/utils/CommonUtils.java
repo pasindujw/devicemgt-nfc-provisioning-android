@@ -17,33 +17,15 @@
  */
 package org.wso2.iot.nfcprovisioning.utils;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.wso2.iot.agent.proxy.APIController;
-import org.wso2.iot.agent.proxy.beans.EndPointInfo;
-import org.wso2.iot.agent.proxy.interfaces.APIResultCallBack;
-import org.wso2.iot.agent.proxy.utils.Constants.HTTP_METHODS;
-import org.wso2.iot.nfcprovisioning.R;
-import org.wso2.iot.nfcprovisioning.beans.ServerConfig;
-
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This class represents all the common functions used throughout the application.

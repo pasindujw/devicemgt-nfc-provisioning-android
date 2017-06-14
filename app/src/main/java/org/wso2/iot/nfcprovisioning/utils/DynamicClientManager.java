@@ -30,11 +30,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.apache.commons.codec.binary.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.wso2.iot.agent.proxy.IDPTokenManagerException;
-import org.wso2.iot.agent.proxy.IdentityProxy;
-import org.wso2.iot.agent.proxy.beans.EndPointInfo;
-import org.wso2.iot.agent.proxy.interfaces.APIResultCallBack;
-import org.wso2.iot.agent.proxy.utils.ServerUtilities;
+import org.wso2.iot.nfcprovisioning.proxy.IDPTokenManagerException;
+import org.wso2.iot.nfcprovisioning.proxy.IdentityProxy;
+import org.wso2.iot.nfcprovisioning.proxy.beans.EndPointInfo;
+import org.wso2.iot.nfcprovisioning.proxy.interfaces.APIResultCallBack;
+import org.wso2.iot.nfcprovisioning.proxy.utils.ServerUtilities;
 import org.wso2.iot.nfcprovisioning.beans.ApiRegistrationProfile;
 import org.wso2.iot.nfcprovisioning.beans.ServerConfig;
 import java.util.HashMap;
@@ -66,7 +66,7 @@ public class DynamicClientManager implements APIResultCallBack {
         EndPointInfo endPointInfo = new EndPointInfo();
         String endPoint = ServerConfig.getAPIServerURL(context) +
                 Constants.API_APPLICATION_REGISTRATION_CONTEXT;
-        endPointInfo.setHttpMethod(org.wso2.iot.agent.proxy.utils.Constants.HTTP_METHODS.POST);
+        endPointInfo.setHttpMethod(org.wso2.iot.nfcprovisioning.proxy.utils.Constants.HTTP_METHODS.POST);
         endPointInfo.setEndPoint(endPoint);
         endPointInfo.setRequestParams(apiRegistrationProfile.toJSON());
         sendRequest(endPointInfo, apiResultCallback, Constants.DYNAMIC_CLIENT_REGISTER_REQUEST_CODE,
@@ -84,7 +84,7 @@ public class DynamicClientManager implements APIResultCallBack {
                              final String username, final String password) {
         RequestQueue queue =  null;
         int requestMethod = 0;
-        org.wso2.iot.agent.proxy.utils.Constants.HTTP_METHODS httpMethod = endPointInfo.getHttpMethod();
+        org.wso2.iot.nfcprovisioning.proxy.utils.Constants.HTTP_METHODS httpMethod = endPointInfo.getHttpMethod();
         switch (httpMethod) {
             case POST:
                 requestMethod = Request.Method.POST;
@@ -121,17 +121,17 @@ public class DynamicClientManager implements APIResultCallBack {
                                                                   statusCode = String.valueOf(error.networkResponse.statusCode);
                                                               }
                                                               responseParams.put(
-                                                                      org.wso2.iot.agent.proxy.utils.Constants.SERVER_RESPONSE_STATUS,
+                                                                      org.wso2.iot.nfcprovisioning.proxy.utils.Constants.SERVER_RESPONSE_STATUS,
                                                                       statusCode
                                                               );
                                                               if (com.android.volley.ParseError.class.isInstance(error)) {
                                                                   responseParams.put(
-                                                                          org.wso2.iot.agent.proxy.utils.Constants.SERVER_RESPONSE_BODY,
+                                                                          org.wso2.iot.nfcprovisioning.proxy.utils.Constants.SERVER_RESPONSE_BODY,
                                                                           "Invalid tenant domain"
                                                                   );
                                                               } else if (error.getMessage() != null) {
                                                                   responseParams.put(
-                                                                          org.wso2.iot.agent.proxy.utils.Constants.SERVER_RESPONSE_BODY,
+                                                                          org.wso2.iot.nfcprovisioning.proxy.utils.Constants.SERVER_RESPONSE_BODY,
                                                                           error.getMessage()
                                                                   );
                                                               }
@@ -143,14 +143,14 @@ public class DynamicClientManager implements APIResultCallBack {
                 @Override
                 protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                     String result = new String(response.data);
-                    if(org.wso2.iot.agent.proxy.utils.Constants.DEBUG_ENABLED) {
+                    if(org.wso2.iot.nfcprovisioning.proxy.utils.Constants.DEBUG_ENABLED) {
                         if(result != null && !result.isEmpty()) {
                             Log.d(TAG, "Result :" + result);
                         }
                     }
                     Map<String, String> responseParams = new HashMap<>();
-                    responseParams.put(org.wso2.iot.agent.proxy.utils.Constants.SERVER_RESPONSE_BODY, result);
-                    responseParams.put(org.wso2.iot.agent.proxy.utils.Constants.SERVER_RESPONSE_STATUS, String.valueOf(
+                    responseParams.put(org.wso2.iot.nfcprovisioning.proxy.utils.Constants.SERVER_RESPONSE_BODY, result);
+                    responseParams.put(org.wso2.iot.nfcprovisioning.proxy.utils.Constants.SERVER_RESPONSE_STATUS, String.valueOf(
                             response.statusCode));
                     apiResultCallback.onReceiveAPIResult(responseParams, requestCode);
                     return super.parseNetworkResponse(response);
@@ -172,14 +172,14 @@ public class DynamicClientManager implements APIResultCallBack {
                 }
             };
             request.setRetryPolicy(new DefaultRetryPolicy(
-                    org.wso2.iot.agent.proxy.utils.Constants.HttpClient.DEFAULT_TIME_OUT,
+                    org.wso2.iot.nfcprovisioning.proxy.utils.Constants.HttpClient.DEFAULT_TIME_OUT,
                     MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse request JSON", e);
         }
         request.setRetryPolicy(new DefaultRetryPolicy(
-                org.wso2.iot.agent.proxy.utils.Constants.HttpClient.DEFAULT_TIME_OUT,
+                org.wso2.iot.nfcprovisioning.proxy.utils.Constants.HttpClient.DEFAULT_TIME_OUT,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(request);
