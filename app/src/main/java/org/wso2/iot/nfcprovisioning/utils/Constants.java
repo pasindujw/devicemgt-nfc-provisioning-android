@@ -31,8 +31,6 @@ public class Constants {
             "/api-application-registration";
     public final static String API_APPLICATION_REGISTRATION_CONTEXT = API_APPLICATION_CONTEXT +
             "/register";
-    public final static String API_APPLICATION_UNREGISTRATION_CONTEXT = API_APPLICATION_CONTEXT +
-            "/unregister";//TODO:check unregister requirement
     public static final String USER_AGENT = "Mozilla/5.0 ( compatible ), Android";
     public static final String DEFAULT_HOST = BuildConfig.DEFAULT_HOST;
     public static final String CLIENT_ID = "client_id";

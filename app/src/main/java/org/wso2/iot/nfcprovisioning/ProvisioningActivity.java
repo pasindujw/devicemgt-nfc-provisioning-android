@@ -195,7 +195,6 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
 
         if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
                 (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
-
             //On oauth authentication mode token is always verified
             //when app resumes to maintain a valid token
             verifyToken();

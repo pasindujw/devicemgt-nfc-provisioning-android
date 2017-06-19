@@ -27,21 +27,4 @@ public class AndroidAgentException extends Exception {
 	public AndroidAgentException(String msg, Exception nestedEx) {
 		super(msg, nestedEx);
 	}
-
-	public AndroidAgentException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
-	public AndroidAgentException(String msg) {
-		super(msg);
-	}
-
-	public AndroidAgentException() {
-		super();
-	}
-
-	public AndroidAgentException(Throwable cause) {
-		super(cause);
-	}
-
 }

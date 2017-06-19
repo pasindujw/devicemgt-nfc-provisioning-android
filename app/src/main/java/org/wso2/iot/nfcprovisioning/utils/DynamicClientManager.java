@@ -46,7 +46,6 @@ import java.util.Map;
 public class DynamicClientManager implements APIResultCallBack {
 
     private static final String TAG = DynamicClientManager.class.getSimpleName();
-    private static final String APPLICATION_NAME = "applicationName";
     private static final int MAX_RETRIES = 3;
 
     /**

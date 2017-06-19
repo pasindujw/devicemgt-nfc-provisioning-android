@@ -35,22 +35,6 @@ public class CommonUtils {
 	public static String TAG = CommonUtils.class.getSimpleName();
 
 	/**
-	 * Clear application data.
-	 * @param context - Application context.
-	 */
-	public static void clearAppData(Context context) throws AndroidAgentException {
-//		try {
-//			revokePolicy(context);
-//		} catch (SecurityException e) {
-//			throw new AndroidAgentException("Error occurred while revoking policy", e);
-//		} finally {
-			Preference.clearPreferences(context);
-//		}
-		//TODO: check disenrollment
-		//Toast.makeText(context, R.string.toast_message_disenroll, Toast.LENGTH_LONG).show();
-	}
-
-	/**
 	 * Returns network availability status.
 	 * @param context - Application context.
 	 * @return - Network availability status.
