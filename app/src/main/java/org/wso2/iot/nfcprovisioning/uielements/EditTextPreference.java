@@ -20,6 +20,8 @@ package org.wso2.iot.nfcprovisioning.uielements;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import org.wso2.iot.nfcprovisioning.utils.Constants;
+
 /**
  * This class is extended to get the summary easily
  */
@@ -38,7 +40,7 @@ public class EditTextPreference extends android.preference.EditTextPreference {
 
     @Override
     public CharSequence getSummary() {
-        if(getTitle().toString().toLowerCase().contains("password")){
+        if(getTitle().toString().toLowerCase().contains(Constants.UI.PASSWORD)){
             return getText().replaceAll(".", "*");
         }else {
             return getText();

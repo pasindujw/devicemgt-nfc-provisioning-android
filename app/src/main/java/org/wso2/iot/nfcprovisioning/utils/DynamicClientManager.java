@@ -137,7 +137,6 @@ public class DynamicClientManager implements APIResultCallBack {
                                                               apiResultCallback.onReceiveAPIResult(responseParams, requestCode);
                                                           }
                                                       })
-
             {
                 @Override
                 protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
@@ -158,9 +157,9 @@ public class DynamicClientManager implements APIResultCallBack {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("Accept", "application/json");
-                    headers.put("User-Agent", Constants.USER_AGENT);
+                    headers.put(Constants.HttpHeaders.CONTENT_TYPE, Constants.HttpHeaders.APPLICATION_JSON);
+                    headers.put(Constants.HttpHeaders.ACCEPT, Constants.HttpHeaders.APPLICATION_JSON);
+                    headers.put(Constants.HttpHeaders.USER_AGENT, Constants.HttpHeaders.USER_AGENT_VAL);
                     if (username != null && password != null) {
                         String basicAuthValue = "Basic " +
                                 new String(Base64.encodeBase64((username + ":" + password)

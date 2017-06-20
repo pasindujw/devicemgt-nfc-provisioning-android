@@ -69,7 +69,7 @@ public class OAuthSSLClient implements CommunicationClient {
             SharedPreferences mainPref = IdentityProxy.getInstance().getContext().
                     getSharedPreferences(Constants.APPLICATION_PACKAGE, Context.MODE_PRIVATE);
             String defaultIP = mainPref.getString(Constants.IP, null);
-            if (defaultIP != null && defaultIP.contains("https://")) {/*Constants.SERVER_PROTOCOL.equalsIgnoreCase("https://")*/
+            if (defaultIP != null && defaultIP.contains("https://")) {
                 KeyStore localTrustStore = KeyStore.getInstance("BKS");
                 if (Constants.TRUSTSTORE_LOCATION != null) {
                     inStream = new FileInputStream(new File(Constants.TRUSTSTORE_LOCATION));

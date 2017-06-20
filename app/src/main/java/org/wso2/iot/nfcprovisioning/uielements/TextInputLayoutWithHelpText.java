@@ -33,16 +33,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.wso2.iot.nfcprovisioning.R;
+import org.wso2.iot.nfcprovisioning.utils.Constants;
 
+/**
+ * This class is extended to display help text as stated in material design
+ * guide lines.
+ */
 public class TextInputLayoutWithHelpText extends TextInputLayout {
 
     static final Interpolator FAST_OUT_SLOW_IN_INTERPOLATOR = new FastOutSlowInInterpolator();
 
-    private CharSequence mHelperText;
-    private ColorStateList mHelperTextColor;
-    private boolean mHelperTextEnabled = false;
-    private boolean mErrorEnabled = false;
-    private TextView mHelperView;
+    private CharSequence helperText;
+    private ColorStateList helperTextColor;
+    private boolean helperTextEnabled = false;
+    private boolean errorEnabled = false;
+    private TextView helperView;
 
     public TextInputLayoutWithHelpText(Context context) {
         super(context);
@@ -50,13 +55,12 @@ public class TextInputLayoutWithHelpText extends TextInputLayout {
 
     public TextInputLayoutWithHelpText(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs,
                 R.styleable.TextInputLayoutWithHelpText,0,0);
         try {
-            mHelperTextColor = a.getColorStateList(R.styleable.TextInputLayoutWithHelpText_helperTextColor);
-            mHelperText = a.getText(R.styleable.TextInputLayoutWithHelpText_helperText);
+            helperTextColor = a.getColorStateList(R.styleable.TextInputLayoutWithHelpText_helperTextColor);
+            helperText = a.getText(R.styleable.TextInputLayoutWithHelpText_helperText);
         } finally {
             a.recycle();
         }
@@ -66,89 +70,85 @@ public class TextInputLayoutWithHelpText extends TextInputLayout {
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
         if (child instanceof EditText) {
-            if (!TextUtils.isEmpty(mHelperText)) {
-                setHelperText(mHelperText);
+            if (!TextUtils.isEmpty(helperText)) {
+                setHelperText(helperText);
             }
         }
     }
 
-    public void setHelperTextColor(ColorStateList _helperTextColor) {
-        mHelperTextColor = _helperTextColor;
+    public void setHelperTextColor(ColorStateList helperTextColor) {
+        this.helperTextColor = helperTextColor;
     }
 
-    public void setHelperTextEnabled(boolean _enabled) {
-        if (mHelperTextEnabled == _enabled) return;
-        if (_enabled && mErrorEnabled) {
+    public void setHelperTextEnabled(boolean enabled) {
+        if (helperTextEnabled == enabled) return;
+        if (enabled && errorEnabled) {
             setErrorEnabled(false);
         }
-        if (this.mHelperTextEnabled != _enabled) {
-            if (_enabled) {
-                this.mHelperView = new TextView(this.getContext());
-                if (mHelperTextColor != null){
-                    this.mHelperView.setTextColor(mHelperTextColor);
+        if (this.helperTextEnabled != enabled) {
+            if (enabled) {
+                this.helperView = new TextView(this.getContext());
+                if (helperTextColor != null){
+                    this.helperView.setTextColor(helperTextColor);
                 }
-                this.mHelperView.setText(mHelperText);
-                this.mHelperView.setVisibility(VISIBLE);
-                this.addView(this.mHelperView);
-                if (this.mHelperView != null) {
+                this.helperView.setText(helperText);
+                this.helperView.setVisibility(VISIBLE);
+                this.addView(this.helperView);
+                if (this.helperView != null) {
                     ViewCompat.setPaddingRelative(
-                            this.mHelperView,
+                            this.helperView,
                             ViewCompat.getPaddingStart(getEditText()),
                             0, ViewCompat.getPaddingEnd(getEditText()),
                             getEditText().getPaddingBottom());
                 }
             } else {
-                this.removeView(this.mHelperView);
-                this.mHelperView = null;
+                this.removeView(this.helperView);
+                this.helperView = null;
             }
-
-            this.mHelperTextEnabled = _enabled;
+            this.helperTextEnabled = enabled;
         }
     }
 
-    public void setHelperText(CharSequence _helperText) {
-        mHelperText = _helperText;
-        if (!this.mHelperTextEnabled) {
-            if (TextUtils.isEmpty(mHelperText)) {
+    public void setHelperText(CharSequence helperText) {
+        this.helperText = helperText;
+        if (!this.helperTextEnabled) {
+            if (TextUtils.isEmpty(this.helperText)) {
                 return;
             }
             this.setHelperTextEnabled(true);
         }
-
-        if (!TextUtils.isEmpty(mHelperText)) {
-            this.mHelperView.setText(mHelperText);
-            this.mHelperView.setVisibility(VISIBLE);
-            ViewCompat.setAlpha(this.mHelperView, 0.0F);
-            ViewCompat.animate(this.mHelperView)
-                    .alpha(1.0F).setDuration(200L)
+        if (!TextUtils.isEmpty(this.helperText)) {
+            this.helperView.setText(this.helperText);
+            this.helperView.setVisibility(VISIBLE);
+            ViewCompat.setAlpha(this.helperView, Constants.UI.ALPHA_ZERO);
+            ViewCompat.animate(this.helperView)
+                    .alpha(Constants.UI.ANIMATE_ALPHA).setDuration(Constants.UI.ANIMATE_DURATION)
                     .setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR)
                     .setListener(null).start();
-        } else if (this.mHelperView.getVisibility() == VISIBLE) {
-            ViewCompat.animate(this.mHelperView)
-                    .alpha(0.0F).setDuration(200L)
+        } else if (this.helperView.getVisibility() == VISIBLE) {
+            ViewCompat.animate(this.helperView)
+                    .alpha(Constants.UI.ALPHA_ZERO).setDuration(Constants.UI.ANIMATE_DURATION)
                     .setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR)
                     .setListener(new ViewPropertyAnimatorListenerAdapter() {
                         public void onAnimationEnd(View view) {
-                            mHelperView.setText(null);
-                            mHelperView.setVisibility(INVISIBLE);
+                            helperView.setText(null);
+                            helperView.setVisibility(INVISIBLE);
                         }
                     }).start();
         }
-        this.sendAccessibilityEvent(2048);
+        this.sendAccessibilityEvent(Constants.UI.ACCESSIBILITY_EVENT_TYPE);
     }
 
     @Override
-    public void setErrorEnabled(boolean _enabled) {
-        if (mErrorEnabled == _enabled) return;
-        mErrorEnabled = _enabled;
-        if (_enabled && mHelperTextEnabled) {
+    public void setErrorEnabled(boolean enabled) {
+        if (errorEnabled == enabled) return;
+        errorEnabled = enabled;
+        if (enabled && helperTextEnabled) {
             setHelperTextEnabled(false);
         }
-
-        super.setErrorEnabled(_enabled);
-
-        if (!(_enabled || TextUtils.isEmpty(mHelperText))) {
-            setHelperText(mHelperText);
+        super.setErrorEnabled(enabled);
+        if (!(enabled || TextUtils.isEmpty(helperText))) {
+            setHelperText(helperText);
         }
     }
 }

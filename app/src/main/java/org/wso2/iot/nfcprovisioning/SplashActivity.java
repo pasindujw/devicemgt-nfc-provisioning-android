@@ -62,6 +62,10 @@ public class SplashActivity extends AppCompatActivity {
         }, AUTO_HIDE_DELAY_MILLIS);
     }
 
+    /**
+     * This method is used to start the relevant Activity
+     * after the splash screen is loaded.
+     */
     private void startActivity() {
         Class<?> instantiatedActivityClass = null;
         if ((!Preference.getBoolean(this, Constants.IS_REGISTERED) &&
@@ -71,7 +75,8 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             instantiatedActivityClass = ProvisioningActivity.class;
         }
-        Intent intent = new Intent(getApplicationContext(), instantiatedActivityClass);
+//        Intent intent = new Intent(getApplicationContext(), instantiatedActivityClass);
+        Intent intent = new Intent(getApplicationContext(), ProvisioningActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

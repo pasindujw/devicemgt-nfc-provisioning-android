@@ -17,11 +17,14 @@
  */
 package org.wso2.iot.nfcprovisioning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import org.wso2.iot.nfcprovisioning.utils.AppCompatPreferenceActivity;
 import org.wso2.iot.nfcprovisioning.uielements.EditTextPreference;
@@ -41,26 +44,35 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         setupActionBar();
-        wifiPasswordPref = (EditTextPreference) findPreference(getResources().getString(R.string.pref_key_wifi_password));
+        wifiPasswordPref = (EditTextPreference) findPreference(Constants.ConfigKey.WIFI_PASSWORD);
         preferenceScreen = getPreferenceScreen();
-        wifiSecurityTypePref = (ListPreference) findPreference(getResources().getString(R.string.pref_key_wifi_security_type));
+        wifiSecurityTypePref = (ListPreference) findPreference(Constants.ConfigKey.WIFI_SECURITY_TYPE);
         addRemoveWiFiPasswordPref(wifiSecurityTypePref.getValue());
-        wifiSecurityTypePref.setOnPreferenceChangeListener(new
-                                                                   Preference.OnPreferenceChangeListener() {
+        wifiSecurityTypePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                                                                        public boolean onPreferenceChange(Preference preference, Object newValue) {
                                                                            addRemoveWiFiPasswordPref(newValue.toString());
                                                                            return true;
                                                                        }
                                                                    });
         if (!Constants.PUSH_KIOSK_APP) {
-            EditTextPreference kioskAppUrlPref = (EditTextPreference) findPreference(getResources()
-                    .getString(R.string.pref_key_kiosk_app_download_location));
+            EditTextPreference kioskAppUrlPref = (EditTextPreference) findPreference(
+                    Constants.ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION);
             preferenceScreen.removePreference(kioskAppUrlPref);
+        }
+
+        if (Constants.CLOUD_ENABLED){
+            preferenceScreen.removePreference(findPreference(Constants.ConfigKey.PACKAGE_NAME));
+            preferenceScreen.removePreference(findPreference(Constants.ConfigKey.PACKAGE_DOWNLOAD_LOCATION));
+            preferenceScreen.removePreference(findPreference(Constants.ConfigKey.PACKAGE_CHECKSUM));
         }
     }
 
+    /**
+     * This method is used to add or remove the wifi password pref
+     * depending on the wifi security type.
+     */
     private void addRemoveWiFiPasswordPref(String val) {
-        if (val.equals("NONE")) {
+        if (val.equals(Constants.WIFI_SECURITY_TYPE_NONE)) {
             preferenceScreen.removePreference(wifiPasswordPref);
         } else {
             preferenceScreen.addPreference(wifiPasswordPref);
@@ -80,7 +92,26 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
+        switch (item.getItemId()) {
+            case R.id.action_advanced_settings:
+                Intent intent = new Intent(SettingsActivity.this, AdvancedSettingsActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                finish();
+                return true;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_bar_menu_settings, menu);
+        if (Constants.CLOUD_ENABLED){
+            MenuItem itemS = menu.findItem(R.id.action_advanced_settings);
+            itemS.setVisible(true);
+        }
         return true;
     }
 }

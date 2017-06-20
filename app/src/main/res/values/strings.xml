@@ -24,7 +24,8 @@
     <string name="title_activity_authentication">Sign in</string>
     <string name="authentication_successful">Successfully Authenticated!</string>
     <string name="nfc_bump_hint">Tap the device you want to bump!</string>
-    <string name="action_settings">Configuration</string>
+    <string name="action_settings">Configurations</string>
+    <string name="action_advanced_settings">Advanced Configurations</string>
     <string name="action_log_out">Sign out</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
@@ -34,7 +35,8 @@
     <string name="prompt_organization">Organization (optional)</string>
     <string name="prompt_serverIP">Server Address</string>
     <string name="button_ok">OK</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Configurations</string>
+    <string name="title_activity_advanced_settings">Advanced Configurations</string>
     <string name="nfc_comment">WSO2 NFC provisioning</string>
     <string name="server_ip_helper_text">example: http://www.abc.com:8280</string>
 
@@ -64,9 +66,6 @@
     <!-- INTENT EXTRAS -->
     <string name="intent_extra_at">\/@</string>
 
-    <!-- SHARED PREF KEYS -->
-    <string name="shared_pref_client_credentials">clientCredentials</string>
-
     <!-- DIALOG TITLES AND MESSAGES -->
     <string name="dialog_message_please_wait">Please wait</string>
     <string name="dialog_authenticate">Authenticating</string>
@@ -79,6 +78,7 @@
     <string name="dialog_title_log_out">Sign out</string>
     <string name="dialog_message_log_out">Are you sure?</string>
     <string name="toast_remote_config_added">Remote config added</string>
+    <string name="toast_remote_config_no_changes">Remote config no new changes</string>
     <string name="toast_remote_config_failed">Remote config failed</string>
 
     <!-- ERROR MESSAGES -->
@@ -99,35 +99,29 @@
     <string name="error_server_ip">Please enter Server IP</string>
     <string name="error_network_unavailable">Network connectivity is unavailable. Please check your network connectivity and make sure you are not in power saving mode.</string>
     <string name="msg_need_to_sign_in">Authentication failed. Please sign in again.</string>
+    <string name="internal_server_error">Internal server error</string>
+    <string name="server_unreachable">Server unreachable</string>
+    <string name="network_connectivity_unavailable">Network connectivity unavailable</string>
+    <string name="retry">Retry</string>
 
     <!-- PREFERENCE VALUES -->
     <string name="pref_title_package_name">Package Name</string>
-    <string name="pref_key_package_name">prefKeyPackageName</string>
-    <string name="pref_key_package_download_location">prefKeyPackageDownloadLocation</string>
     <string name="pref_title_package_download_location">Package Download Location</string>
     <string name="pref_dialog_title_package_name">Enter package name</string>
     <string name="pref_dialog_title_package_download_location">Enter download location</string>
     <string name="pref_title_package_checksum">Package Checksum</string>
-    <string name="pref_key_package_checksum">prefKeyPackageChecksum</string>
     <string name="pref_dialog_title_package_checksum">Enter Checksum</string>
-    <string name="pref_key_wifi_ssid">prefKeyWiFiSSID</string>
     <string name="pref_title_wifi_name">Network Name</string>
     <string name="pref_dialog_title_wifi_name">Enter network name</string>
-    <string name="pref_key_wifi_security_type">prefKeyWiFiSecurityType</string>
     <string name="pref_title_wifi_security_type">Security</string>
     <string name="pref_dialog_title_wifi_security_type">Select security type</string>
-    <string name="pref_key_wifi_password">prefKeyWiFiPassword</string>
     <string name="pref_title_wifi_password">Network Password</string>
     <string name="pref_dialog_title_wifi_password">Enter network password</string>
-    <string name="pref_key_time_zone">prefKeyTimeZone</string>
     <string name="pref_title_time_zone">Time Zone</string>
     <string name="pref_dialog_title_time_zone">Select time zone</string>
-    <string name="pref_key_locale">prefKeyLocale</string>
     <string name="pref_title_language">Language</string>
     <string name="pref_dialog_title_language">Select language</string>
-    <string name="pref_key_encryption">prefKeyEncryption</string>
     <string name="pref_title_encryption">Encryption</string>
-    <string name="pref_key_kiosk_app_download_location">prefKeyKioskAppDownloadLocation</string>
     <string name="pref_title_kiosk_app_download_location">Kiosk App Download Location</string>
     <string name="pref_dialog_title_kiosk_app_download_location">Enter download location</string>
 

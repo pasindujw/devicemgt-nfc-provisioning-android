@@ -18,35 +18,35 @@
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <org.wso2.iot.nfcprovisioning.uielements.EditTextPreference
-        android:key="@string/pref_key_package_name"
+        android:key="prov_package_name"
         android:title="@string/pref_title_package_name"
         android:summary="%s"
         android:defaultValue="@string/package_name"
         android:dialogTitle="@string/pref_dialog_title_package_name" />
 
     <org.wso2.iot.nfcprovisioning.uielements.EditTextPreference
-        android:key="@string/pref_key_package_download_location"
+        android:key="prov_package_download_location"
         android:title="@string/pref_title_package_download_location"
         android:summary="%s"
         android:defaultValue="@string/package_download_location"
         android:dialogTitle="@string/pref_dialog_title_package_download_location" />
 
     <org.wso2.iot.nfcprovisioning.uielements.EditTextPreference
-        android:key="@string/pref_key_package_checksum"
+        android:key="prov_package_checksum"
         android:title="@string/pref_title_package_checksum"
         android:summary="%s"
         android:defaultValue="@string/package_checksum"
         android:dialogTitle="@string/pref_dialog_title_package_checksum" />
 
     <org.wso2.iot.nfcprovisioning.uielements.EditTextPreference
-        android:key="@string/pref_key_wifi_ssid"
+        android:key="prov_package_wifi_ssid"
         android:title="@string/pref_title_wifi_name"
         android:summary="%s"
         android:defaultValue="@string/wifi_ssid"
         android:dialogTitle="@string/pref_dialog_title_wifi_name" />
 
     <ListPreference
-        android:key="@string/pref_key_wifi_security_type"
+        android:key="prov_wifi_security_type"
         android:title="@string/pref_title_wifi_security_type"
         android:dialogTitle="@string/pref_dialog_title_wifi_security_type"
         android:entries="@array/wifi_security_types"
@@ -55,8 +55,8 @@
         android:summary="%s"/>
 
     <org.wso2.iot.nfcprovisioning.uielements.EditTextPreference
-        android:dependency="@string/pref_key_wifi_security_type"
-        android:key="@string/pref_key_wifi_password"
+        android:dependency="prov_wifi_security_type"
+        android:key="prov_wifi_password"
         android:title="@string/pref_title_wifi_password"
         android:summary="%s"
         android:password="true"
@@ -65,7 +65,7 @@
         />
 
     <org.wso2.iot.nfcprovisioning.uielements.TimeZoneListPreference
-        android:key="@string/pref_key_time_zone"
+        android:key="prov_time_zone"
         android:title="@string/pref_title_time_zone"
         android:dialogTitle="@string/pref_dialog_title_time_zone"
         android:entries="@array/timezones"
@@ -74,7 +74,7 @@
         android:summary="%s"/>
 
     <ListPreference
-        android:key="@string/pref_key_locale"
+        android:key="prov_locale"
         android:title="@string/pref_title_language"
         android:dialogTitle="@string/pref_dialog_title_language"
         android:entries="@array/languages"
@@ -83,15 +83,14 @@
         android:summary="%s"/>
 
     <SwitchPreference
-        android:key="@string/pref_key_encryption"
+        android:key="prov_encryption"
         android:title="@string/pref_title_encryption"
         android:defaultValue="@string/encryption" />
 
     <org.wso2.iot.nfcprovisioning.uielements.EditTextPreference
-        android:key="@string/pref_key_kiosk_app_download_location"
+        android:key="prov_kiosk_app_download_location"
         android:title="@string/pref_title_kiosk_app_download_location"
         android:summary="%s"
         android:defaultValue="@string/kiosk_app_download_location"
         android:dialogTitle="@string/pref_dialog_title_kiosk_app_download_location" />
-
 </PreferenceScreen>

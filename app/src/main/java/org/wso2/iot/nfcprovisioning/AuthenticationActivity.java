@@ -161,11 +161,14 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         }
     };
 
+    /**
+     * This method sets the tenant domain to username and
+     * invokes the method to register a dynamic client
+     */
     private void proceedToAuthentication() {
         if (etDomain.getText() != null && !etDomain.getText().toString().trim().isEmpty()) {
-            usernameVal +=
-                    getResources().getString(R.string.intent_extra_at) +
-                            etDomain.getText().toString().trim();
+            usernameVal += getResources().getString(R.string.intent_extra_at)
+                    + etDomain.getText().toString().trim();
         }
         getClientCredentials();
     }
@@ -180,7 +183,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             String clientSecret = Preference.getString(context, Constants.CLIENT_SECRET);
 
             if (clientId == null || clientSecret == null) {
-                String clientCredentials = Preference.getString(context, getResources().getString(R.string.shared_pref_client_credentials));
+                String clientCredentials = Preference.getString(context, Constants.CLIENT_CREDENTIALS);
                 if (clientCredentials != null) {
                     try {
                         JSONObject payload = new JSONObject(clientCredentials);
@@ -211,7 +214,6 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             CommonDialogUtils.stopProgressDialog(progressDialog);
             CommonDialogUtils.showNetworkUnavailableMessage(context);
         }
-
     }
 
     /**
@@ -245,18 +247,15 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             info.setClientID(clientKey);
             info.setClientSecret(clientSecret);
             info.setUsername(username);
-
             info.setPassword(passwordVal);
             info.setTokenEndPoint(serverURL);
 
             //adding device-specific scope
-            String deviceScope = "device_" + deviceInfo.getDeviceId();
+            String deviceScope = Constants.DEVICE_SCOPE_PREFIX + deviceInfo.getDeviceId();
             info.setScopes(deviceScope);
-
             if (tenantDomain != null && !tenantDomain.toString().trim().isEmpty()) {
                 info.setTenantDomain(tenantDomain.toString().trim());
             }
-
             IdentityProxy.getInstance().init(info, AuthenticationActivity.this, this.getApplicationContext());
         }
     }
@@ -307,8 +306,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             if (Constants.Status.CREATED.equals(responseStatus)) {
                 String dynamicClientResponse = result.get(Constants.RESPONSE);
                 if (dynamicClientResponse != null) {
-                    Preference.putString(context, getResources().getString(R.string.shared_pref_client_credentials),
-                            dynamicClientResponse);
+                    Preference.putString(context, Constants.CLIENT_CREDENTIALS, dynamicClientResponse);
                     startAuthentication();
                 }
             } else if (Constants.Status.UNAUTHORIZED.equals(responseStatus)) {
@@ -325,6 +323,9 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         }
     }
 
+    /**
+     * This method is used launch the provisioning activity.
+     */
     private void loadProvisioningActivity() {
         Intent intent = new Intent(AuthenticationActivity.this, ProvisioningActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

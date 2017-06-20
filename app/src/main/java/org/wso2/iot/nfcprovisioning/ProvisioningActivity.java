@@ -24,13 +24,11 @@ import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,7 +49,6 @@ import com.skyfishjy.library.RippleBackground;
 import org.wso2.iot.nfcprovisioning.proxy.IdentityProxy;
 import org.wso2.iot.nfcprovisioning.proxy.beans.Token;
 import org.wso2.iot.nfcprovisioning.proxy.interfaces.TokenCallBack;
-import org.wso2.iot.nfcprovisioning.proxy.utils.Constants;
 import org.wso2.iot.nfcprovisioning.utils.CommonDialogUtils;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
 import java.io.ByteArrayOutputStream;
@@ -60,6 +57,8 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.wso2.iot.nfcprovisioning.utils.Constants.ConfigKey;
+import org.wso2.iot.nfcprovisioning.utils.Constants;
 
 /**
  * Activity that handles the nfc provisioning action
@@ -73,8 +72,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     private RelativeLayout activityProvisioning;
     private Snackbar snackbar;
     private RippleBackground rippleBackground;
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
-    private SharedPreferences sharedPref;
+    private FirebaseRemoteConfig firebaseRemoteConfig;
+    private long remoteConfigCacheExpiration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,28 +81,27 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         setContentView(R.layout.activity_provisioning);
         context = ProvisioningActivity.this;
         Activity activity = ProvisioningActivity.this;
-
         Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
-
-        activityProvisioning =  (RelativeLayout)findViewById(R.id.activity_provisioning);
+        activityProvisioning = (RelativeLayout) findViewById(R.id.activity_provisioning);
         rippleBackground = (RippleBackground) findViewById(R.id.content);
         rippleBackground.startRippleAnimation();
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
         if (nfcAdapter != null) {
             nfcAdapter.setNdefPushMessageCallback(this, activity);
         }
+        if (Constants.USE_REMOTE_CONFIG) {
+            firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-        if (org.wso2.iot.nfcprovisioning.utils.Constants.USE_REMOTE_CONFIG){
-            mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-
-            FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder( )
-                    .setDeveloperModeEnabled (true)
+            FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                    .setDeveloperModeEnabled(Constants.DEBUG_MODE_ENABLED)
                     .build();
-            mFirebaseRemoteConfig.setConfigSettings (configSettings);
+            firebaseRemoteConfig.setConfigSettings(configSettings);
+            if (firebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+                remoteConfigCacheExpiration = 0;
+            } else {
+                remoteConfigCacheExpiration = Constants.remoteConfigCacheExpiration;
+            }
         }
     }
 
@@ -114,90 +112,152 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 Intent intent = new Intent(ProvisioningActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-
             case R.id.action_logout:
                 logOut();
                 return true;
-
-            case R.id.action_remote_config:
-                getRemoteConfig();
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void getRemoteConfig(){
-        mFirebaseRemoteConfig.fetch(0)
+    /**
+     * This method retrieves the remote configuration from Firebase.
+     */
+    private void getRemoteConfig() {
+        firebaseRemoteConfig.fetch(remoteConfigCacheExpiration)
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(context, getResources().getString(
-                                    R.string.toast_remote_config_added),
-                                    Toast.LENGTH_SHORT).show();
                             // After config data is successfully fetched, it must be activated before newly fetched
                             // values are returned.
-                            mFirebaseRemoteConfig.activateFetched();
+                            firebaseRemoteConfig.activateFetched();
+                            setRemoteConfigValues();
                         } else {
-                            Toast.makeText(context, getResources().getString(
-                                    R.string.toast_remote_config_failed),
+                            Toast.makeText(context, getResources().getString(R.string.toast_remote_config_failed),
                                     Toast.LENGTH_SHORT).show();
                         }
-                        setRemoteConfigValues();
                     }
                 });
     }
 
+    /**
+     * This method sets the remote config values to app preferences.
+     */
     private void setRemoteConfigValues() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getResources().getString(R.string.pref_key_package_name),
-                mFirebaseRemoteConfig.getString("prov_package_name"));
-        editor.putString(getResources().getString(R.string.pref_key_package_download_location),
-                mFirebaseRemoteConfig.getString("prov_package_download_location"));
-        editor.putString(getResources().getString(R.string.pref_key_package_checksum),
-                mFirebaseRemoteConfig.getString("prov_package_checksum"));
-        editor.putString(getResources().getString(R.string.pref_key_wifi_ssid),
-                mFirebaseRemoteConfig.getString("prov_package_wifi_ssid"));
-        editor.putString(getResources().getString(R.string.pref_key_wifi_security_type),
-                mFirebaseRemoteConfig.getString("prov_wifi_security_type"));
-        editor.putString(getResources().getString(R.string.pref_key_wifi_password),
-                mFirebaseRemoteConfig.getString("prov_wifi_password"));
-        editor.putString(getResources().getString(R.string.pref_key_time_zone),
-                mFirebaseRemoteConfig.getString("prov_time_zone"));
-        editor.putString(getResources().getString(R.string.pref_key_locale),
-                mFirebaseRemoteConfig.getString("prov_locale"));
-        editor.putBoolean(getResources().getString(R.string.pref_key_encryption),
-                mFirebaseRemoteConfig.getBoolean("prov_encryption"));
-        editor.putString(getResources().getString(R.string.pref_key_kiosk_app_download_location),
-                mFirebaseRemoteConfig.getString("prov_kiosk_app_download_location"));
-        editor.apply();
+        boolean valueChanged = false;
+        if (Constants.CLOUD_ENABLED) {
+            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_NAME)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME))) {
+                Preference.putDefPrefString(context, ConfigKey.PACKAGE_NAME,
+                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION))) {
+                Preference.putDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION,
+                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM))) {
+                Preference.putDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM,
+                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM));
+                valueChanged = true;
+            }
+        } else {
+            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_NAME)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME))) {
+                Preference.putDefPrefString(context, ConfigKey.PACKAGE_NAME,
+                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION))) {
+                Preference.putDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION,
+                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM))) {
+                Preference.putDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM,
+                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.WIFI_SSID)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.WIFI_SSID))) {
+                Preference.putDefPrefString(context, ConfigKey.WIFI_SSID,
+                        firebaseRemoteConfig.getString(ConfigKey.WIFI_SSID));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.WIFI_SECURITY_TYPE)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.WIFI_SECURITY_TYPE))) {
+                Preference.putDefPrefString(context, ConfigKey.WIFI_SECURITY_TYPE,
+                        firebaseRemoteConfig.getString(ConfigKey.WIFI_SECURITY_TYPE));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.WIFI_PASSWORD)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.WIFI_PASSWORD))) {
+                Preference.putDefPrefString(context, ConfigKey.WIFI_PASSWORD,
+                        firebaseRemoteConfig.getString(ConfigKey.WIFI_PASSWORD));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.TIME_ZONE)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.TIME_ZONE))) {
+                Preference.putDefPrefString(context, ConfigKey.TIME_ZONE,
+                        firebaseRemoteConfig.getString(ConfigKey.TIME_ZONE));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.LOCALE)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.LOCALE))) {
+                Preference.putDefPrefString(context, ConfigKey.LOCALE,
+                        firebaseRemoteConfig.getString(ConfigKey.LOCALE));
+                valueChanged = true;
+            }
+            if (Preference.getDefPrefBoolean(context, ConfigKey.ENCRYPTION)
+                    != (firebaseRemoteConfig.getBoolean(ConfigKey.ENCRYPTION))) {
+                Preference.putDefPrefBoolean(context, ConfigKey.ENCRYPTION,
+                        firebaseRemoteConfig.getBoolean(ConfigKey.ENCRYPTION));
+                valueChanged = true;
+            }
+            if (!Preference.getDefPrefString(context, ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION)
+                    .equals(firebaseRemoteConfig.getString(ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION))) {
+                Preference.putDefPrefString(context, ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION,
+                        firebaseRemoteConfig.getString(ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION));
+                if (Constants.PUSH_KIOSK_APP) {
+                    valueChanged = true;
+                }
+            }
+        }
+        if (valueChanged) {
+            Toast.makeText(context, getResources().getString(
+                    R.string.toast_remote_config_added),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, getResources().getString(
+                    R.string.toast_remote_config_no_changes),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_bar_menu, menu);
-        if (org.wso2.iot.nfcprovisioning.utils.Constants.USE_REMOTE_CONFIG){
-            //MenuItem itemC = menu.findItem(R.id.action_settings);
-            //itemC.setVisible(false);
-            MenuItem itemS = menu.findItem(R.id.action_remote_config);
-            itemS.setVisible(true);
-        }
         return true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
-                (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
+        if (Constants.AUTHENTICATOR_IN_USE.equals
+                (Constants.OAUTH_AUTHENTICATOR)) {
             //On oauth authentication mode token is always verified
             //when app resumes to maintain a valid token
             verifyToken();
+        }
+        if (Constants.USE_REMOTE_CONFIG) {
+            getRemoteConfig();
         }
     }
 
@@ -209,80 +269,31 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
 
     @Override
     public void onReceiveTokenResult(Token token, String status, String message) {
-        if (Constants.REQUEST_SUCCESSFUL.equals(status)) {
+        if (org.wso2.iot.nfcprovisioning.proxy.utils.Constants.REQUEST_SUCCESSFUL.equals(status)) {
             this.token = token.getAccessToken();
-
-            if (snackbar != null && snackbar.isShown()){
-                snackbar.dismiss();
-            }
-
-            if(rippleBackground!=null && !rippleBackground.isRippleAnimationRunning()){
-                rippleBackground.startRippleAnimation();
-            }
-
-        } else if (Constants.INTERNAL_SERVER_ERROR.equals(status)){
-
+            dismissSnackbar();
+            startRippleAnimation();
+        } else if (org.wso2.iot.nfcprovisioning.proxy.utils.Constants.INTERNAL_SERVER_ERROR.equals(status)) {
             this.token = null;
-
-            if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
-                rippleBackground.stopRippleAnimation();
-            }
-
-            snackbar = Snackbar
-                    .make(activityProvisioning, "Internal server error", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                           verifyToken();
-                        }
-                    });
-            snackbar.setActionTextColor(getResources().getColor(R.color.red));
-
-            snackbar.show();
-
-        } else if (Constants.SERVER_UNREACHABLE.equals(status)){
-
+            stopRippleAnimation();
+            setSnackbar(getResources().getString(R.string.internal_server_error),
+                    getResources().getString(R.string.retry),
+                    getResources().getColor(R.color.red));
+        } else if (org.wso2.iot.nfcprovisioning.proxy.utils.Constants.SERVER_UNREACHABLE.equals(status)) {
             this.token = null;
-
-            if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
-                rippleBackground.stopRippleAnimation();
-            }
-
-            snackbar = Snackbar
-                    .make(activityProvisioning, "Server unreachable", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            verifyToken();
-                        }
-                    });
-            snackbar.setActionTextColor(getResources().getColor(R.color.red));
-
-            snackbar.show();
-
-        } else if (Constants.NO_CONNECTION.equals(status)){
-
+            stopRippleAnimation();
+            setSnackbar(getResources().getString(R.string.server_unreachable),
+                    getResources().getString(R.string.retry),
+                    getResources().getColor(R.color.red));
+        } else if (org.wso2.iot.nfcprovisioning.proxy.utils.Constants.NO_CONNECTION.equals(status)) {
             this.token = null;
-
-            if(rippleBackground!=null && rippleBackground.isRippleAnimationRunning()){
-                rippleBackground.stopRippleAnimation();
-            }
-
-            snackbar = Snackbar
-                    .make(activityProvisioning, "Network connectivity unavailable", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            verifyToken();
-                        }
-                    });
-            snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
-
-            snackbar.show();
-
-        } else /*if (Constants.ACCESS_FAILURE.equals(status)) */{
+            stopRippleAnimation();
+            setSnackbar(getResources().getString(R.string.network_connectivity_unavailable),
+                    getResources().getString(R.string.retry),
+                    getResources().getColor(R.color.yellow));
+        } else {
             Log.w(TAG, "Bad request: " + message);
-            Preference.putBoolean(context, org.wso2.iot.nfcprovisioning.utils.Constants.TOKEN_EXPIRED, true);
+            Preference.putBoolean(context, Constants.TOKEN_EXPIRED, true);
             Toast.makeText(context, context.getResources().getString(R.string.msg_need_to_sign_in),
                     Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ProvisioningActivity.this, AuthenticationActivity.class);
@@ -298,27 +309,24 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         Properties properties = new Properties();
         Map<String, String> provisioningValues = getProvisioningValues();
         Properties props = new Properties();
-
         //Adds the access token to the provisioning values if authentication mode is oauth
-        if (org.wso2.iot.nfcprovisioning.utils.Constants.AUTHENTICATOR_IN_USE.equals
-                (org.wso2.iot.nfcprovisioning.utils.Constants.OAUTH_AUTHENTICATOR)) {
+        if (Constants.AUTHENTICATOR_IN_USE.equals
+                (Constants.OAUTH_AUTHENTICATOR)) {
             if (token == null) {
                 return null;
             }
-            props.put("android.app.extra.token", token);
+            props.put(Constants.ANDROID_APP_EXTRA_TOKREN, token);
         }
-
-        if (org.wso2.iot.nfcprovisioning.utils.Constants.PUSH_KIOSK_APP) {
-            String appUrl = sharedPref.getString(getResources().getString(R.string.pref_key_kiosk_app_download_location), "");
+        if (Constants.PUSH_KIOSK_APP) {
+            String appUrl = Preference.getDefPrefString(context, ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION);
             if (!appUrl.equals("")) {
-                props.put("android.app.extra.appurl", appUrl);
+                props.put(Constants.ANDROID_APP_EXTRA_APPURL, appUrl);
             }
         }
-
         if (!props.isEmpty()) {
             StringWriter sw = new StringWriter();
             try {
-                props.store(sw, "admin extras bundle");
+                props.store(sw, Constants.ADMIN_EXTRA_BUNDLE);
                 provisioningValues.put(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE,
                         sw.toString());
                 Log.d(TAG, "Admin extras bundle=" + provisioningValues.get(
@@ -327,7 +335,6 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 Log.e(TAG, "Unable to build admin extras bundle");
             }
         }
-
         for (Map.Entry<String, String> e : provisioningValues.entrySet()) {
             if (!TextUtils.isEmpty(e.getValue())) {
                 String value;
@@ -360,63 +367,69 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         return null;
     }
 
-    //Any new provisioning values can be directly added here.
+    /**
+     * This method retrieves the provisioning values.
+     * Any new provisioning values can be directly added here.
+     */
     private Map<String, String> getProvisioningValues() {
-        Map<String, String> valuesMap = new HashMap<>();
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME,
-                sharedPref.getString(getResources().getString(R.string.pref_key_package_name), ""));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION,
-                sharedPref.getString(getResources().getString(R.string.pref_key_package_download_location), ""));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_CHECKSUM,
-                sharedPref.getString(getResources().getString(R.string.pref_key_package_checksum), ""));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SSID,
-                sharedPref.getString(getResources().getString(R.string.pref_key_wifi_ssid), ""));
-        String wifiSecurityType = sharedPref.getString(getResources().getString(R.string.pref_key_wifi_security_type), "");
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SECURITY_TYPE, wifiSecurityType);
-        if (!wifiSecurityType.equals("NONE")) {
-            valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_PASSWORD,
-                    sharedPref.getString(getResources().getString(R.string.pref_key_wifi_password), ""));
+        Map<String, String> provValuesMap = new HashMap<>();
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME,
+                Preference.getDefPrefString(context, ConfigKey.PACKAGE_NAME));
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION,
+                Preference.getDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION));
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_DEVICE_ADMIN_PACKAGE_CHECKSUM,
+                Preference.getDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM));
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SSID,
+                Preference.getDefPrefString(context, ConfigKey.WIFI_SSID));
+        String wifiSecurityType = Preference.getDefPrefString(context, ConfigKey.WIFI_SECURITY_TYPE);
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_SECURITY_TYPE, wifiSecurityType);
+        if (!wifiSecurityType.equals(Constants.WIFI_SECURITY_TYPE_NONE)) {
+            provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_WIFI_PASSWORD,
+                    Preference.getDefPrefString(context, ConfigKey.WIFI_PASSWORD));
         }
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_TIME_ZONE, sharedPref.getString(getResources().getString(R.string.pref_key_time_zone), ""));
-        valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_LOCALE, sharedPref.getString(getResources().getString(R.string.pref_key_locale), ""));
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_TIME_ZONE,
+                Preference.getDefPrefString(context, ConfigKey.TIME_ZONE));
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_LOCALE,
+                Preference.getDefPrefString(context, ConfigKey.LOCALE));
         if (Build.VERSION.SDK_INT >= 23) {
-            valuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_SKIP_ENCRYPTION,
-                    (sharedPref.getBoolean(getResources().getString(R.string.pref_key_encryption), false) ? "false" : "true"));
+            provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_SKIP_ENCRYPTION,
+                    (Preference.getDefPrefBoolean(context, ConfigKey.ENCRYPTION) ? "false" : "true"));
         }
-        return valuesMap;
+        return provValuesMap;
     }
 
+    /**
+     * This method is used to verify the validity of the access token.
+     */
     private void verifyToken() {
         String clientKey = Preference.getString(context, Constants.CLIENT_ID);
         String clientSecret = Preference.getString(context, Constants.CLIENT_SECRET);
         if (IdentityProxy.getInstance().getContext() == null) {
             IdentityProxy.getInstance().setContext(context);
         }
-        IdentityProxy.getInstance().setRequestCode
-                (org.wso2.iot.nfcprovisioning.utils.Constants.TOKEN_VERIFICATION_REQUEST_CODE);
+        IdentityProxy.getInstance().setRequestCode(Constants.TOKEN_VERIFICATION_REQUEST_CODE);
         IdentityProxy.getInstance().requestToken(IdentityProxy.getInstance().getContext(), this,
-                clientKey,
-                clientSecret);
+                clientKey, clientSecret);
     }
 
+    /**
+     * This method is used to log out from  the app.
+     */
     private void logOut() {
         final AlertDialog.Builder builder = CommonDialogUtils.getAlertDialogWithTwoButtonAndTitle(context,
-                getResources().getString(
-                        R.string.dialog_title_log_out),
-                getResources().getString(
-                        R.string.dialog_message_log_out),
-                getResources().getString(
-                        R.string.button_no),
-                getResources().getString(
-                        R.string.button_yes),
+                getResources().getString(R.string.dialog_title_log_out),
+                getResources().getString(R.string.dialog_message_log_out),
+                getResources().getString(R.string.button_no),
+                getResources().getString(R.string.button_yes),
                 new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {}
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
                 },
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Preference.putBoolean(context, org.wso2.iot.nfcprovisioning.utils.Constants.TOKEN_EXPIRED, true);
+                        Preference.putBoolean(context, Constants.TOKEN_EXPIRED, true);
                         Intent intent = new Intent(ProvisioningActivity.this, AuthenticationActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -424,5 +437,48 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                     }
                 });
         builder.show();
+    }
+
+    /**
+     * This method is used to set and show the snackbar with action to verifyToken()
+     */
+    private void setSnackbar(String message, String actionTitle, int actionColor) {
+        snackbar = Snackbar
+                .make(activityProvisioning, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction(actionTitle, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        verifyToken();
+                    }
+                });
+        snackbar.setActionTextColor(actionColor);
+        snackbar.show();
+    }
+
+    /**
+     * This method is used to dismiss the snackbar.
+     */
+    private void dismissSnackbar() {
+        if (snackbar != null && snackbar.isShown()) {
+            snackbar.dismiss();
+        }
+    }
+
+    /**
+     * This method is used to start ripple animation in the UI if it is inactive.
+     */
+    private void startRippleAnimation() {
+        if (rippleBackground != null && !rippleBackground.isRippleAnimationRunning()) {
+            rippleBackground.startRippleAnimation();
+        }
+    }
+
+    /**
+     * This method is used to stop ripple animation in the UI if it is active.
+     */
+    private void stopRippleAnimation() {
+        if (rippleBackground != null && rippleBackground.isRippleAnimationRunning()) {
+            rippleBackground.stopRippleAnimation();
+        }
     }
 }

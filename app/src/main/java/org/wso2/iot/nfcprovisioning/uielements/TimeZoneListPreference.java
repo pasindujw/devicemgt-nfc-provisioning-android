@@ -20,6 +20,9 @@ package org.wso2.iot.nfcprovisioning.uielements;
 import android.content.Context;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
+
+import org.wso2.iot.nfcprovisioning.utils.Constants;
+
 import java.util.TimeZone;
 
 /**
@@ -41,7 +44,7 @@ public class TimeZoneListPreference extends ListPreference {
         int offset = zone.getRawOffset() / 1000;
         int hour = offset / 3600;
         int minutes = (offset % 3600) / 60;
-        String val = String.format("GMT%+d:%02d %s", hour, minutes, TimeZone.getTimeZone(tzId).getDisplayName());
+        String val = String.format(Constants.UI.TIME_FORMAT, hour, minutes, TimeZone.getTimeZone(tzId).getDisplayName());
         return val.replaceAll( ":-", ":");
     }
 }

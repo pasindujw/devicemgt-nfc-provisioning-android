@@ -3,6 +3,7 @@ package org.wso2.iot.nfcprovisioning.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
 /**
  * This class handles all the functionality related to data retrieval and saving to 
@@ -160,6 +161,53 @@ public class Preference {
 			editor.remove(key);
 			editor.apply();
 		}
+	}
+
+	/**
+	 * Put string data to default shared preferences.
+	 * @param context - The context of activity which is requesting to put data.
+	 * @param key     - Used to identify the value.
+	 * @param value   - The actual value to be saved.
+	 */
+	public static void putDefPrefString(Context context, String key, String value) {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putString(key, value);
+		editor.apply();
+	}
+
+	/**
+	 * Retrieve string data from default shared preferences.
+	 * @param context - The context of activity which is requesting to put data.
+	 * @param key     - Used to identify the value to to be retrieved.
+	 */
+	public static String getDefPrefString(Context context, String key) {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+		return sharedPref.getString(key, null);
+	}
+
+	/**
+	 * Put boolean data to default shared preferences.
+	 * @param context - The context of activity which is requesting to put data.
+	 * @param key     - Used to identify the value.
+	 * @param value   - The actual value to be saved.
+	 */
+	public static void putDefPrefBoolean(Context context, String key, boolean value) {
+		SharedPreferences mainPref =
+				context.getSharedPreferences(Constants.APP_PACKAGE, Context.MODE_PRIVATE);
+		Editor editor = mainPref.edit();
+		editor.putBoolean(key, value);
+		editor.apply();
+	}
+
+	/**
+	 * Retrieve boolean data from default shared preferences.
+	 * @param context - The context of activity which is requesting to put data.
+	 * @param key     - Used to identify the value to to be retrieved.
+	 */
+	public static boolean getDefPrefBoolean(Context context, String key) {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+		return sharedPref.getBoolean(key, false);
 	}
 
 }

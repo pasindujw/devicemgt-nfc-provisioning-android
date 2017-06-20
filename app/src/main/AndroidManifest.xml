@@ -6,9 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
-    <uses-permission android:name="android.permission.NFC" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -40,6 +37,16 @@
             android:theme="@style/SettingsScreenTheme"
             android:parentActivityName="org.wso2.iot.nfcprovisioning.ProvisioningActivity"
             android:label="@string/title_activity_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.wso2.iot.nfcprovisioning.ProvisioningActivity" />
+        </activity>
+        <activity android:name=".AdvancedSettingsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/SettingsScreenTheme"
+            android:parentActivityName="org.wso2.iot.nfcprovisioning.ProvisioningActivity"
+            android:label="@string/title_activity_advanced_settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.wso2.iot.nfcprovisioning.ProvisioningActivity" />

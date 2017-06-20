@@ -43,10 +43,10 @@ android {
             buildConfigField "String", "AUTHENTICATOR_IN_USE", "\"OAUTH_AUTHENTICATOR\""
             // USE_REMOTE_CONFIG: Set this to true if the app is configured to get provisioning
             // values from Firebase remote config.
-            buildConfigField "boolean", "USE_REMOTE_CONFIG", "false"
+            buildConfigField "boolean", "USE_REMOTE_CONFIG", "true"
             // PUSH_KIOSK_APP: Set this to true if a kiosk app download link
             // will be sent on NFC bump.
-            buildConfigField "boolean", "PUSH_KIOSK_APP", "true"
+            buildConfigField "boolean", "PUSH_KIOSK_APP", "false"
             // APP_PACKAGE: If a modification of the package name is done, this must be
             // altered
             buildConfigField "String", "APP_PACKAGE", "\"org.wso2.iot.nfcprovisioning\""
