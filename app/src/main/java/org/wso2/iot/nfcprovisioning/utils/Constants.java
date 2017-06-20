@@ -41,7 +41,7 @@ public class Constants {
     public static final String STATUS = "status";
     public static final String RESPONSE = "response";
     public static final String TOKEN_EXPIRED = "token_expired";
-    public static final String IS_REGISTERED = "is_registered";
+    public static final String IS_REGISTERED = "is_reg";
     public static final boolean PUSH_KIOSK_APP = BuildConfig.PUSH_KIOSK_APP;
     public static final boolean USE_REMOTE_CONFIG = BuildConfig.USE_REMOTE_CONFIG;
     public static final String CLIENT_CREDENTIALS = "clientCredentials";
@@ -51,6 +51,7 @@ public class Constants {
     public static final String ANDROID_APP_EXTRA_APPURL = "android.app.extra.appurl";
     public static final String ADMIN_EXTRA_BUNDLE = "admin extras bundle";
     public static final String WIFI_SECURITY_TYPE_NONE = "NONE";
+    public static final String CLOUD_MANAGER = "https://cloudmgt.cloud.wso2.com/cloudmgt";
 
     /**
      * Request codes.

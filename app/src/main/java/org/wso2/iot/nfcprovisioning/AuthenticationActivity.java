@@ -35,6 +35,9 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.wso2.iot.nfcprovisioning.api.TenantResolverCallback;
+import org.wso2.iot.nfcprovisioning.api.TenantResolverHandler;
+import org.wso2.iot.nfcprovisioning.beans.Tenant;
 import org.wso2.iot.nfcprovisioning.proxy.IdentityProxy;
 import org.wso2.iot.nfcprovisioning.proxy.beans.CredentialInfo;
 import org.wso2.iot.nfcprovisioning.proxy.interfaces.APIAccessCallBack;
@@ -47,6 +50,9 @@ import org.wso2.iot.nfcprovisioning.api.DeviceInfo;
 import org.wso2.iot.nfcprovisioning.utils.AndroidAgentException;
 import org.wso2.iot.nfcprovisioning.utils.DynamicClientManager;
 import org.wso2.iot.nfcprovisioning.utils.Preference;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,6 +76,8 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
     private DeviceInfo deviceInfo;
     private static final String TAG = AuthenticationActivity.class.getSimpleName();
     private static final String[] SUBSCRIBED_API = new String[]{"android"};
+    private Tenant currentTenant;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +111,8 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             etUsername.setText(tenantedUserName.substring(0, tenantSeparator));
             etDomain.setText(tenantedUserName.substring(tenantSeparator + 1, tenantedUserName.length()));
             isReLogin = true;
+        } else if (Constants.CLOUD_ENABLED) {
+            etDomain.setVisibility(View.GONE);
         }
     }
 
@@ -145,7 +155,11 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 passwordVal = etPassword.getText().toString().trim();
                 usernameVal = etUsername.getText().toString().trim();
 
-                proceedToAuthentication();
+                if (Constants.CLOUD_ENABLED) {
+                    obtainTenantDomain(usernameVal, passwordVal);
+                } else {
+                    proceedToAuthentication();
+                }
             } else {
                 if (etServerIP.getText() != null && etServerIP.getText().toString().trim().isEmpty()) {
                     Toast.makeText(context, getResources().getString(R.string.error_server_ip),
@@ -160,6 +174,72 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             }
         }
     };
+
+    /**
+     * This method is used to resolve cloud tenant domain.
+     */
+    private void obtainTenantDomain(String username, String password) {
+        // Check network connection availability before calling the API.
+        currentTenant = null;
+        if (CommonUtils.isNetworkAvailable(context)) {
+            progressDialog = ProgressDialog.show(context,
+                    getResources().getString(R.string.dialog_authenticate),
+                    getResources().getString(R.string.dialog_message_please_wait), true);
+            IdentityProxy.getInstance().setContext(this.getApplicationContext());
+            TenantResolverHandler tenantResolverHandler = new TenantResolverHandler(new TenantResolverCallback() {
+                @Override
+                public void onTenantResolved(final List<Tenant> tenants) {
+                    if (tenants.isEmpty()) {
+                        showEnrollmentFailedErrorMessage(getResources().getString(R.string.dialog_tenants_not_available));
+                    } else if (tenants.size() == 1) {
+                        currentTenant = tenants.get(0);
+                        CommonDialogUtils.stopProgressDialog(progressDialog);
+                        etDomain.setText(currentTenant.getTenantDomain());
+                        proceedToAuthentication();
+                    } else {
+                        CommonDialogUtils.stopProgressDialog(progressDialog);
+                        List<String> tenantNames = new ArrayList<>();
+                        for (Tenant t : tenants) {
+                            tenantNames.add(t.getDisplayName());
+                        }
+                        CommonDialogUtils.getAlertDialogWithSingleChoices(context,
+                                getResources().getString(R.string.dialog_select_tenant),
+                                tenantNames.toArray(new String[0]),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        currentTenant = tenants.get(which);
+                                        etDomain.setText(currentTenant.getTenantDomain());
+                                        proceedToAuthentication();
+                                        dialog.dismiss();
+                                    }
+                                }).show();
+                    }
+                }
+
+                @Override
+                public void onAuthenticationSuccess() {
+                    CommonDialogUtils.stopProgressDialog(progressDialog);
+                    progressDialog = ProgressDialog.show(context,
+                            getResources().getString(R.string.dialog_tenant_resolving),
+                            getResources().getString(R.string.dialog_message_please_wait), true);
+                }
+
+                @Override
+                public void onAuthenticationFail() {
+                    showAuthenticationError();
+                }
+
+                @Override
+                public void onFailure(AndroidAgentException exception) {
+                    showEnrollmentFailedErrorMessage(exception.getMessage());
+                }
+            });
+            tenantResolverHandler.resolveTenantDomain(username, password);
+        } else {
+            CommonDialogUtils.showNetworkUnavailableMessage(context);
+        }
+    }
 
     /**
      * This method sets the tenant domain to username and

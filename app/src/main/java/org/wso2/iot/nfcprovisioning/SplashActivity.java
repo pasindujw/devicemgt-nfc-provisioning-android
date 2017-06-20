@@ -75,8 +75,7 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             instantiatedActivityClass = ProvisioningActivity.class;
         }
-//        Intent intent = new Intent(getApplicationContext(), instantiatedActivityClass);
-        Intent intent = new Intent(getApplicationContext(), ProvisioningActivity.class);
+        Intent intent = new Intent(getApplicationContext(), instantiatedActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

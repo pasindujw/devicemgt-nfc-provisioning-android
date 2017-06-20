@@ -27,4 +27,8 @@ public class AndroidAgentException extends Exception {
 	public AndroidAgentException(String msg, Exception nestedEx) {
 		super(msg, nestedEx);
 	}
+
+	public AndroidAgentException(String msg) {
+		super(msg);
+	}
 }
