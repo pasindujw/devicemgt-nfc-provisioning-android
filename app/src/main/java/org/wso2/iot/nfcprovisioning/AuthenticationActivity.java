@@ -111,7 +111,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
             etUsername.setText(tenantedUserName.substring(0, tenantSeparator));
             etDomain.setText(tenantedUserName.substring(tenantSeparator + 1, tenantedUserName.length()));
             isReLogin = true;
-        } else if (Constants.CLOUD_ENABLED) {
+        } else if (Constants.CLOUD_MANAGER != null && !Constants.CLOUD_MANAGER.isEmpty()) {
             etDomain.setVisibility(View.GONE);
         }
     }
@@ -155,7 +155,7 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 passwordVal = etPassword.getText().toString().trim();
                 usernameVal = etUsername.getText().toString().trim();
 
-                if (Constants.CLOUD_ENABLED) {
+                if (Constants.CLOUD_MANAGER != null && !Constants.CLOUD_MANAGER.isEmpty()) {
                     obtainTenantDomain(usernameVal, passwordVal);
                 } else {
                     proceedToAuthentication();

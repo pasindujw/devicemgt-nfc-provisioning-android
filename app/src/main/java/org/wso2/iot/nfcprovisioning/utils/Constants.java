@@ -27,10 +27,8 @@ public class Constants {
     public static final String MUTUAL_SSL_AUTHENTICATOR = "MUTUAL_SSL_AUTHENTICATOR";
     public static final String AUTHENTICATOR_IN_USE = OAUTH_AUTHENTICATOR;
     public static final String OAUTH_ENDPOINT = "/token";
-    public final static String API_APPLICATION_CONTEXT =
-            "/api-application-registration";
-    public final static String API_APPLICATION_REGISTRATION_CONTEXT = API_APPLICATION_CONTEXT +
-            "/register";
+    public final static String API_APPLICATION_CONTEXT = "/api-application-registration";
+    public final static String API_APPLICATION_REGISTRATION_CONTEXT = API_APPLICATION_CONTEXT + "/register";
     public static final String DEFAULT_HOST = BuildConfig.DEFAULT_HOST;
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET = "client_secret";
@@ -45,13 +43,12 @@ public class Constants {
     public static final boolean PUSH_KIOSK_APP = BuildConfig.PUSH_KIOSK_APP;
     public static final boolean USE_REMOTE_CONFIG = BuildConfig.USE_REMOTE_CONFIG;
     public static final String CLIENT_CREDENTIALS = "clientCredentials";
-    public static final boolean CLOUD_ENABLED = true;
     public static final long remoteConfigCacheExpiration = 3600;
     public static final String ANDROID_APP_EXTRA_TOKREN = "android.app.extra.token";
     public static final String ANDROID_APP_EXTRA_APPURL = "android.app.extra.appurl";
     public static final String ADMIN_EXTRA_BUNDLE = "admin extras bundle";
     public static final String WIFI_SECURITY_TYPE_NONE = "NONE";
-    public static final String CLOUD_MANAGER = "https://cloudmgt.cloud.wso2.com/cloudmgt";
+    public static final String CLOUD_MANAGER = BuildConfig.CLOUD_MANAGER;
 
     /**
      * Request codes.
@@ -120,7 +117,6 @@ public class Constants {
         public static final int ACCESSIBILITY_EVENT_TYPE = 2048;
         public static final String TIME_FORMAT = "GMT%+d:%02d %s";
         public static final String PASSWORD = "password";
-        ;
     }
 
     /**
@@ -137,5 +133,4 @@ public class Constants {
         public static final String USER_AGENT = "User-Agent";
         public static final String USER_AGENT_VAL = "Mozilla/5.0 ( compatible ), Android";
     }
-
 }

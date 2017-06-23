@@ -59,8 +59,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     Constants.ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION);
             preferenceScreen.removePreference(kioskAppUrlPref);
         }
-
-        if (Constants.CLOUD_ENABLED){
+        if (Constants.CLOUD_MANAGER != null && !Constants.CLOUD_MANAGER.isEmpty()) {
             preferenceScreen.removePreference(findPreference(Constants.ConfigKey.PACKAGE_NAME));
             preferenceScreen.removePreference(findPreference(Constants.ConfigKey.PACKAGE_DOWNLOAD_LOCATION));
             preferenceScreen.removePreference(findPreference(Constants.ConfigKey.PACKAGE_CHECKSUM));
@@ -108,7 +107,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_bar_menu_settings, menu);
-        if (Constants.CLOUD_ENABLED){
+        if (Constants.CLOUD_MANAGER != null && !Constants.CLOUD_MANAGER.isEmpty()) {
             MenuItem itemS = menu.findItem(R.id.action_advanced_settings);
             itemS.setVisible(true);
         }

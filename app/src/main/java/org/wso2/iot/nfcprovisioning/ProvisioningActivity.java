@@ -23,13 +23,11 @@ import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -76,6 +74,9 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
     private RippleBackground rippleBackground;
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private long remoteConfigCacheExpiration;
+    private final String TSTRING = "string";
+    private final String TBOOLEAN = "boolean";
+    private boolean isNewRemoteConfigutarionsAdded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,91 +148,24 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
      * This method sets the remote config values to app preferences.
      */
     private void setRemoteConfigValues() {
-        boolean valueChanged = false;
-        if (Constants.CLOUD_ENABLED) {
-            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_NAME)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME))) {
-                Preference.putDefPrefString(context, ConfigKey.PACKAGE_NAME,
-                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION))) {
-                Preference.putDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION,
-                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM))) {
-                Preference.putDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM,
-                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM));
-                valueChanged = true;
-            }
+        isNewRemoteConfigutarionsAdded = false;
+        if (Constants.CLOUD_MANAGER != null && !Constants.CLOUD_MANAGER.isEmpty()) {
+            applyRemoteConfig(ConfigKey.PACKAGE_NAME, TSTRING);
+            applyRemoteConfig(ConfigKey.PACKAGE_DOWNLOAD_LOCATION, TSTRING);
+            applyRemoteConfig(ConfigKey.PACKAGE_CHECKSUM, TSTRING);
         } else {
-            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_NAME)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME))) {
-                Preference.putDefPrefString(context, ConfigKey.PACKAGE_NAME,
-                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_NAME));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION))) {
-                Preference.putDefPrefString(context, ConfigKey.PACKAGE_DOWNLOAD_LOCATION,
-                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_DOWNLOAD_LOCATION));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM))) {
-                Preference.putDefPrefString(context, ConfigKey.PACKAGE_CHECKSUM,
-                        firebaseRemoteConfig.getString(ConfigKey.PACKAGE_CHECKSUM));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.WIFI_SSID)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.WIFI_SSID))) {
-                Preference.putDefPrefString(context, ConfigKey.WIFI_SSID,
-                        firebaseRemoteConfig.getString(ConfigKey.WIFI_SSID));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.WIFI_SECURITY_TYPE)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.WIFI_SECURITY_TYPE))) {
-                Preference.putDefPrefString(context, ConfigKey.WIFI_SECURITY_TYPE,
-                        firebaseRemoteConfig.getString(ConfigKey.WIFI_SECURITY_TYPE));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.WIFI_PASSWORD)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.WIFI_PASSWORD))) {
-                Preference.putDefPrefString(context, ConfigKey.WIFI_PASSWORD,
-                        firebaseRemoteConfig.getString(ConfigKey.WIFI_PASSWORD));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.TIME_ZONE)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.TIME_ZONE))) {
-                Preference.putDefPrefString(context, ConfigKey.TIME_ZONE,
-                        firebaseRemoteConfig.getString(ConfigKey.TIME_ZONE));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.LOCALE)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.LOCALE))) {
-                Preference.putDefPrefString(context, ConfigKey.LOCALE,
-                        firebaseRemoteConfig.getString(ConfigKey.LOCALE));
-                valueChanged = true;
-            }
-            if (Preference.getDefPrefBoolean(context, ConfigKey.ENCRYPTION)
-                    != (firebaseRemoteConfig.getBoolean(ConfigKey.ENCRYPTION))) {
-                Preference.putDefPrefBoolean(context, ConfigKey.ENCRYPTION,
-                        firebaseRemoteConfig.getBoolean(ConfigKey.ENCRYPTION));
-                valueChanged = true;
-            }
-            if (!Preference.getDefPrefString(context, ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION)
-                    .equals(firebaseRemoteConfig.getString(ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION))) {
-                Preference.putDefPrefString(context, ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION,
-                        firebaseRemoteConfig.getString(ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION));
-                if (Constants.PUSH_KIOSK_APP) {
-                    valueChanged = true;
-                }
-            }
+            applyRemoteConfig(ConfigKey.PACKAGE_NAME, TSTRING);
+            applyRemoteConfig(ConfigKey.PACKAGE_DOWNLOAD_LOCATION, TSTRING);
+            applyRemoteConfig(ConfigKey.PACKAGE_CHECKSUM, TSTRING);
+            applyRemoteConfig(ConfigKey.WIFI_SSID, TSTRING);
+            applyRemoteConfig(ConfigKey.WIFI_SECURITY_TYPE, TSTRING);
+            applyRemoteConfig(ConfigKey.WIFI_PASSWORD, TSTRING);
+            applyRemoteConfig(ConfigKey.TIME_ZONE, TSTRING);
+            applyRemoteConfig(ConfigKey.LOCALE, TSTRING);
+            applyRemoteConfig(ConfigKey.ENCRYPTION, TBOOLEAN);
+            applyRemoteConfig(ConfigKey.KIOSK_APP_DOWNLOAD_LOCATION, TSTRING);
         }
-        if (valueChanged) {
+        if (isNewRemoteConfigutarionsAdded) {
             Toast.makeText(context, getResources().getString(
                     R.string.toast_remote_config_added),
                     Toast.LENGTH_SHORT).show();
@@ -239,6 +173,32 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
             Toast.makeText(context, getResources().getString(
                     R.string.toast_remote_config_no_changes),
                     Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * This method is used to check whether the incoming remote config can be applied and applies
+     * the value if possible. Sets a flag if a new config was applied
+     */
+    private void applyRemoteConfig(String config, String type) {
+        switch (type) {
+            case TSTRING:
+                if (!firebaseRemoteConfig.getString(config).isEmpty() &&
+                        !Preference.getDefPrefString(context, config)
+                                .equals(firebaseRemoteConfig.getString(config))) {
+                    Preference.putDefPrefString(context, config,
+                            firebaseRemoteConfig.getString(config));
+                    isNewRemoteConfigutarionsAdded = true;
+                }
+                break;
+            case TBOOLEAN:
+                if (!firebaseRemoteConfig.getString(config).isEmpty() &&
+                        Preference.getDefPrefBoolean(context, config)
+                                != (firebaseRemoteConfig.getBoolean(config))) {
+                    Preference.putDefPrefBoolean(context, config,
+                            firebaseRemoteConfig.getBoolean(config));
+                    isNewRemoteConfigutarionsAdded = true;
+                }
         }
     }
 
