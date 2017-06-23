@@ -353,10 +353,8 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 Preference.getDefPrefString(context, ConfigKey.TIME_ZONE));
         provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_LOCALE,
                 Preference.getDefPrefString(context, ConfigKey.LOCALE));
-        if (Build.VERSION.SDK_INT >= 23) {
-            provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_SKIP_ENCRYPTION,
-                    (Preference.getDefPrefBoolean(context, ConfigKey.ENCRYPTION) ? "false" : "true"));
-        }
+        provValuesMap.put(DevicePolicyManager.EXTRA_PROVISIONING_SKIP_ENCRYPTION,
+                (Preference.getDefPrefBoolean(context, ConfigKey.ENCRYPTION) ? "false" : "true"));
         return provValuesMap;
     }
 
