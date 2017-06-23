@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ ~ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~ WSO2 Inc. licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied.  See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+-->
+<resources>
+    <string name="app_name">NFC Provisioning</string>
+    <string name="footer_text">v%1$s ©%2$d WSO2</string>
+    <string name="provisioning">Provisioning</string>
+    <string name="nfc">NFC</string>
+    <string name="title_activity_authentication">Sign in</string>
+    <string name="authentication_successful">Successfully Authenticated!</string>
+    <string name="nfc_bump_hint">Tap the device you want to bump!</string>
+    <string name="action_settings">Configurations</string>
+    <string name="action_advanced_settings">Advanced Configurations</string>
+    <string name="action_log_out">Sign out</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">SIGN IN</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="prompt_organization">Organization</string>
+    <string name="prompt_serverIP">Server Address</string>
+    <string name="button_ok">OK</string>
+    <string name="title_activity_settings">Configurations</string>
+    <string name="title_activity_advanced_settings">Advanced Configurations</string>
+    <string name="nfc_comment">WSO2 NFC provisioning</string>
+    <string name="server_ip_helper_text">example: http://www.abc.com:8280</string>
+
+
+    <!-- Date Util -->
+    <string name="date_util_term_less">less than</string>
+    <string name="date_util_term_a">a</string>
+    <string name="date_util_term_an">an</string>
+    <string name="date_util_unit_second">second</string>
+    <string name="date_util_unit_seconds">seconds</string>
+    <string name="date_util_unit_minute">minute</string>
+    <string name="date_util_unit_minutes">minutes</string>
+    <string name="date_util_unit_hour">hour</string>
+    <string name="date_util_unit_hours">hours</string>
+    <string name="date_util_unit_day">day</string>
+    <string name="date_util_unit_days">days</string>
+    <string name="date_util_unit_month">month</string>
+    <string name="date_util_unit_months">months</string>
+    <string name="date_util_unit_year">year</string>
+    <string name="date_util_unit_years">years</string>
+    <string name="date_util_prefix_lt">less than a</string>
+    <string name="date_util_prefix_about">about</string>
+    <string name="date_util_prefix_over">over</string>
+    <string name="date_util_prefix_almost">almost</string>
+    <string name="date_util_suffix">ago</string>
+
+    <!-- INTENT EXTRAS -->
+    <string name="intent_extra_at">\/@</string>
+
+    <!-- DIALOG TITLES AND MESSAGES -->
+    <string name="dialog_message_please_wait">Please wait</string>
+    <string name="dialog_authenticate">Authenticating</string>
+    <string name="dialog_registering">Registering with %1$s</string>
+    <string name="dialog_tenants_not_available">You do not have any associated organizations. Please contact your administrator</string>
+    <string name="dialog_select_tenant">Select an Organization to register your device with.</string>
+    <string name="dialog_tenant_resolving">Resolving Organizations</string>
+    <string name="button_no">NO</string>
+    <string name="button_yes">YES</string>
+    <string name="dialog_title_log_out">Sign out</string>
+    <string name="dialog_message_log_out">Are you sure?</string>
+    <string name="toast_remote_config_added">Remote config added</string>
+    <string name="toast_remote_config_no_changes">Remote config no new changes</string>
+    <string name="toast_remote_config_failed">Remote config failed</string>
+
+    <!-- ERROR MESSAGES -->
+    <string name="error_enrollment_failed_detail">Enrollment failed, please contact administrator.</string>
+    <string name="error_sign_in_failed">Sign In Failed</string>
+    <string name="error_enrollment_failed">Enrollment Failed</string>
+    <string name="title_head_connection_error">Connection Failed</string>
+    <string name="error_internal_server">Server is unavailable. Please contact administrator.</string>
+    <string name="title_head_authentication_error">Authentication Failed</string>
+    <string name="error_authentication_failed">Incorrect login information. Please try again.</string>
+    <string name="error_for_all_unknown_authentication_failures">Cannot proceed the authentication. Please contact administrator.</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_username">Please enter username</string>
+    <string name="error_password">Please enter password</string>
+    <string name="error_server_ip">Please enter Server Address</string>
+    <string name="error_organization">Please enter Organization</string>
+    <string name="error_network_unavailable">Network connectivity is unavailable. Please check your network connectivity and make sure you are not in power saving mode.</string>
+    <string name="msg_need_to_sign_in">Authentication failed. Please sign in again.</string>
+    <string name="internal_server_error">Internal server error</string>
+    <string name="server_unreachable">Server unreachable</string>
+    <string name="network_connectivity_unavailable">Network connectivity unavailable</string>
+    <string name="retry">Retry</string>
+    <string name="error_unable_to_get_token">Unable to get access token please re-login</string>
+
+    <!-- PREFERENCE VALUES -->
+    <string name="pref_title_package_name">Package Name</string>
+    <string name="pref_title_package_download_location">Package Download Location</string>
+    <string name="pref_dialog_title_package_name">Enter package name</string>
+    <string name="pref_dialog_title_package_download_location">Enter download location</string>
+    <string name="pref_title_package_checksum">Package Checksum</string>
+    <string name="pref_dialog_title_package_checksum">Enter Checksum</string>
+    <string name="pref_title_wifi_name">Network Name</string>
+    <string name="pref_dialog_title_wifi_name">Enter network name</string>
+    <string name="pref_title_wifi_security_type">Security</string>
+    <string name="pref_dialog_title_wifi_security_type">Select security type</string>
+    <string name="pref_title_wifi_password">Network Password</string>
+    <string name="pref_dialog_title_wifi_password">Enter network password</string>
+    <string name="pref_title_time_zone">Time Zone</string>
+    <string name="pref_dialog_title_time_zone">Select time zone</string>
+    <string name="pref_title_language">Language</string>
+    <string name="pref_dialog_title_language">Select language</string>
+    <string name="pref_title_encryption">Encryption</string>
+    <string name="pref_title_kiosk_app_download_location">Kiosk App Download Location</string>
+    <string name="pref_dialog_title_kiosk_app_download_location">Enter download location</string>
+
+</resources>

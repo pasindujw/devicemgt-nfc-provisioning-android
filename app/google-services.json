@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "876560530867",
+    "firebase_url": "https://nfcprovisioning.firebaseio.com",
+    "project_id": "nfcprovisioning",
+    "storage_bucket": "nfcprovisioning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876560530867:android:814a2c6fb619b6ab",
+        "android_client_info": {
+          "package_name": "org.wso2.iot.nfcprovisioning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876560530867-isn7mlustqpa8jqvunjn9agu4sr3eom5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wso2.iot.nfcprovisioning",
+            "certificate_hash": "56ebee4fc144562810828c12b58e6bb990ecbfe6"
+          }
+        },
+        {
+          "client_id": "876560530867-ep5pb4l8dhnn2ig2cvd0k7afpfqrh1qp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsyuxBixkPF7GI-_rXwj5vCNiDjEIyqig"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876560530867-ep5pb4l8dhnn2ig2cvd0k7afpfqrh1qp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

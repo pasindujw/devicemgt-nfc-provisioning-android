@@ -1,0 +1,2625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ ~ Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~ WSO2 Inc. licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied.  See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+-->
+<resources>
+    <string-array name="wifi_security_types">
+        <item>NONE</item>
+        <item>WEP</item>
+        <item>WPA</item>
+    </string-array>
+
+    <string-array name="wifi_security_type_values">
+        <item>NONE</item>
+        <item>WEP</item>
+        <item>WPA</item>
+    </string-array>
+
+    <string-array name="timezones">
+        <item>GMT-12:00 Etc/GMT+12</item>
+        <item>GMT-11:00 Etc/GMT+11</item>
+        <item>GMT-11:00 Pacific/Midway</item>
+        <item>GMT-11:00 Pacific/Niue</item>
+        <item>GMT-11:00 Pacific/Pago_Pago</item>
+        <item>GMT-11:00 Pacific/Samoa</item>
+        <item>GMT-11:00 US/Samoa</item>
+        <item>GMT-10:00 America/Adak</item>
+        <item>GMT-10:00 America/Atka</item>
+        <item>GMT-10:00 Etc/GMT+10</item>
+        <item>GMT-10:00 HST</item>
+        <item>GMT-10:00 Pacific/Honolulu</item>
+        <item>GMT-10:00 Pacific/Johnston</item>
+        <item>GMT-10:00 Pacific/Rarotonga</item>
+        <item>GMT-10:00 Pacific/Tahiti</item>
+        <item>GMT-10:00 US/Aleutian</item>
+        <item>GMT-10:00 US/Hawaii</item>
+        <item>GMT-9:30 Pacific/Marquesas</item>
+        <item>GMT-9:00 America/Anchorage</item>
+        <item>GMT-9:00 America/Juneau</item>
+        <item>GMT-9:00 America/Metlakatla</item>
+        <item>GMT-9:00 America/Nome</item>
+        <item>GMT-9:00 America/Sitka</item>
+        <item>GMT-9:00 America/Yakutat</item>
+        <item>GMT-9:00 Etc/GMT+9</item>
+        <item>GMT-9:00 Pacific/Gambier</item>
+        <item>GMT-9:00 US/Alaska</item>
+        <item>GMT-8:00 America/Dawson</item>
+        <item>GMT-8:00 America/Ensenada</item>
+        <item>GMT-8:00 America/Los_Angeles</item>
+        <item>GMT-8:00 America/Santa_Isabel</item>
+        <item>GMT-8:00 America/Tijuana</item>
+        <item>GMT-8:00 America/Vancouver</item>
+        <item>GMT-8:00 America/Whitehorse</item>
+        <item>GMT-8:00 Canada/Pacific</item>
+        <item>GMT-8:00 Canada/Yukon</item>
+        <item>GMT-8:00 Etc/GMT+8</item>
+        <item>GMT-8:00 Mexico/BajaNorte</item>
+        <item>GMT-8:00 PST8PDT</item>
+        <item>GMT-8:00 Pacific/Pitcairn</item>
+        <item>GMT-8:00 US/Pacific</item>
+        <item>GMT-7:00 America/Boise</item>
+        <item>GMT-7:00 America/Cambridge_Bay</item>
+        <item>GMT-7:00 America/Chihuahua</item>
+        <item>GMT-7:00 America/Creston</item>
+        <item>GMT-7:00 America/Dawson_Creek</item>
+        <item>GMT-7:00 America/Denver</item>
+        <item>GMT-7:00 America/Edmonton</item>
+        <item>GMT-7:00 America/Fort_Nelson</item>
+        <item>GMT-7:00 America/Hermosillo</item>
+        <item>GMT-7:00 America/Inuvik</item>
+        <item>GMT-7:00 America/Mazatlan</item>
+        <item>GMT-7:00 America/Ojinaga</item>
+        <item>GMT-7:00 America/Phoenix</item>
+        <item>GMT-7:00 America/Shiprock</item>
+        <item>GMT-7:00 America/Yellowknife</item>
+        <item>GMT-7:00 Canada/Mountain</item>
+        <item>GMT-7:00 Etc/GMT+7</item>
+        <item>GMT-7:00 MST</item>
+        <item>GMT-7:00 MST7MDT</item>
+        <item>GMT-7:00 Mexico/BajaSur</item>
+        <item>GMT-7:00 Navajo</item>
+        <item>GMT-7:00 US/Arizona</item>
+        <item>GMT-7:00 US/Mountain</item>
+        <item>GMT-6:00 America/Bahia_Banderas</item>
+        <item>GMT-6:00 America/Belize</item>
+        <item>GMT-6:00 America/Chicago</item>
+        <item>GMT-6:00 America/Costa_Rica</item>
+        <item>GMT-6:00 America/El_Salvador</item>
+        <item>GMT-6:00 America/Guatemala</item>
+        <item>GMT-6:00 America/Indiana/Knox</item>
+        <item>GMT-6:00 America/Indiana/Tell_City</item>
+        <item>GMT-6:00 America/Knox_IN</item>
+        <item>GMT-6:00 America/Managua</item>
+        <item>GMT-6:00 America/Matamoros</item>
+        <item>GMT-6:00 America/Menominee</item>
+        <item>GMT-6:00 America/Merida</item>
+        <item>GMT-6:00 America/Mexico_City</item>
+        <item>GMT-6:00 America/Monterrey</item>
+        <item>GMT-6:00 America/North_Dakota/Beulah</item>
+        <item>GMT-6:00 America/North_Dakota/Center</item>
+        <item>GMT-6:00 America/North_Dakota/New_Salem</item>
+        <item>GMT-6:00 America/Rainy_River</item>
+        <item>GMT-6:00 America/Rankin_Inlet</item>
+        <item>GMT-6:00 America/Regina</item>
+        <item>GMT-6:00 America/Resolute</item>
+        <item>GMT-6:00 America/Swift_Current</item>
+        <item>GMT-6:00 America/Tegucigalpa</item>
+        <item>GMT-6:00 America/Winnipeg</item>
+        <item>GMT-6:00 CST6CDT</item>
+        <item>GMT-6:00 Canada/Central</item>
+        <item>GMT-6:00 Canada/East-Saskatchewan</item>
+        <item>GMT-6:00 Canada/Saskatchewan</item>
+        <item>GMT-6:00 Chile/EasterIsland</item>
+        <item>GMT-6:00 Etc/GMT+6</item>
+        <item>GMT-6:00 Mexico/General</item>
+        <item>GMT-6:00 Pacific/Easter</item>
+        <item>GMT-6:00 Pacific/Galapagos</item>
+        <item>GMT-6:00 US/Central</item>
+        <item>GMT-6:00 US/Indiana-Starke</item>
+        <item>GMT-5:00 America/Atikokan</item>
+        <item>GMT-5:00 America/Bogota</item>
+        <item>GMT-5:00 America/Cancun</item>
+        <item>GMT-5:00 America/Cayman</item>
+        <item>GMT-5:00 America/Coral_Harbour</item>
+        <item>GMT-5:00 America/Detroit</item>
+        <item>GMT-5:00 America/Eirunepe</item>
+        <item>GMT-5:00 America/Fort_Wayne</item>
+        <item>GMT-5:00 America/Guayaquil</item>
+        <item>GMT-5:00 America/Havana</item>
+        <item>GMT-5:00 America/Indiana/Indianapolis</item>
+        <item>GMT-5:00 America/Indiana/Marengo</item>
+        <item>GMT-5:00 America/Indiana/Petersburg</item>
+        <item>GMT-5:00 America/Indiana/Vevay</item>
+        <item>GMT-5:00 America/Indiana/Vincennes</item>
+        <item>GMT-5:00 America/Indiana/Winamac</item>
+        <item>GMT-5:00 America/Indianapolis</item>
+        <item>GMT-5:00 America/Iqaluit</item>
+        <item>GMT-5:00 America/Jamaica</item>
+        <item>GMT-5:00 America/Kentucky/Louisville</item>
+        <item>GMT-5:00 America/Kentucky/Monticello</item>
+        <item>GMT-5:00 America/Lima</item>
+        <item>GMT-5:00 America/Louisville</item>
+        <item>GMT-5:00 America/Montreal</item>
+        <item>GMT-5:00 America/Nassau</item>
+        <item>GMT-5:00 America/New_York</item>
+        <item>GMT-5:00 America/Nipigon</item>
+        <item>GMT-5:00 America/Panama</item>
+        <item>GMT-5:00 America/Pangnirtung</item>
+        <item>GMT-5:00 America/Port-au-Prince</item>
+        <item>GMT-5:00 America/Porto_Acre</item>
+        <item>GMT-5:00 America/Rio_Branco</item>
+        <item>GMT-5:00 America/Thunder_Bay</item>
+        <item>GMT-5:00 America/Toronto</item>
+        <item>GMT-5:00 Brazil/Acre</item>
+        <item>GMT-5:00 Canada/Eastern</item>
+        <item>GMT-5:00 Cuba</item>
+        <item>GMT-5:00 EST</item>
+        <item>GMT-5:00 EST5EDT</item>
+        <item>GMT-5:00 Etc/GMT+5</item>
+        <item>GMT-5:00 Jamaica</item>
+        <item>GMT-5:00 US/East-Indiana</item>
+        <item>GMT-5:00 US/Eastern</item>
+        <item>GMT-5:00 US/Michigan</item>
+        <item>GMT-4:00 America/Anguilla</item>
+        <item>GMT-4:00 America/Antigua</item>
+        <item>GMT-4:00 America/Aruba</item>
+        <item>GMT-4:00 America/Asuncion</item>
+        <item>GMT-4:00 America/Barbados</item>
+        <item>GMT-4:00 America/Blanc-Sablon</item>
+        <item>GMT-4:00 America/Boa_Vista</item>
+        <item>GMT-4:00 America/Campo_Grande</item>
+        <item>GMT-4:00 America/Caracas</item>
+        <item>GMT-4:00 America/Cuiaba</item>
+        <item>GMT-4:00 America/Curacao</item>
+        <item>GMT-4:00 America/Dominica</item>
+        <item>GMT-4:00 America/Glace_Bay</item>
+        <item>GMT-4:00 America/Goose_Bay</item>
+        <item>GMT-4:00 America/Grand_Turk</item>
+        <item>GMT-4:00 America/Grenada</item>
+        <item>GMT-4:00 America/Guadeloupe</item>
+        <item>GMT-4:00 America/Guyana</item>
+        <item>GMT-4:00 America/Halifax</item>
+        <item>GMT-4:00 America/Kralendijk</item>
+        <item>GMT-4:00 America/La_Paz</item>
+        <item>GMT-4:00 America/Lower_Princes</item>
+        <item>GMT-4:00 America/Manaus</item>
+        <item>GMT-4:00 America/Marigot</item>
+        <item>GMT-4:00 America/Martinique</item>
+        <item>GMT-4:00 America/Moncton</item>
+        <item>GMT-4:00 America/Montserrat</item>
+        <item>GMT-4:00 America/Port_of_Spain</item>
+        <item>GMT-4:00 America/Porto_Velho</item>
+        <item>GMT-4:00 America/Puerto_Rico</item>
+        <item>GMT-4:00 America/Santiago</item>
+        <item>GMT-4:00 America/Santo_Domingo</item>
+        <item>GMT-4:00 America/St_Barthelemy</item>
+        <item>GMT-4:00 America/St_Kitts</item>
+        <item>GMT-4:00 America/St_Lucia</item>
+        <item>GMT-4:00 America/St_Thomas</item>
+        <item>GMT-4:00 America/St_Vincent</item>
+        <item>GMT-4:00 America/Thule</item>
+        <item>GMT-4:00 America/Tortola</item>
+        <item>GMT-4:00 America/Virgin</item>
+        <item>GMT-4:00 Atlantic/Bermuda</item>
+        <item>GMT-4:00 Brazil/West</item>
+        <item>GMT-4:00 Canada/Atlantic</item>
+        <item>GMT-4:00 Chile/Continental</item>
+        <item>GMT-4:00 Etc/GMT+4</item>
+        <item>GMT-3:30 America/St_Johns</item>
+        <item>GMT-3:30 Canada/Newfoundland</item>
+        <item>GMT-3:00 America/Araguaina</item>
+        <item>GMT-3:00 America/Argentina/Buenos_Aires</item>
+        <item>GMT-3:00 America/Argentina/Catamarca</item>
+        <item>GMT-3:00 America/Argentina/ComodRivadavia</item>
+        <item>GMT-3:00 America/Argentina/Cordoba</item>
+        <item>GMT-3:00 America/Argentina/Jujuy</item>
+        <item>GMT-3:00 America/Argentina/La_Rioja</item>
+        <item>GMT-3:00 America/Argentina/Mendoza</item>
+        <item>GMT-3:00 America/Argentina/Rio_Gallegos</item>
+        <item>GMT-3:00 America/Argentina/Salta</item>
+        <item>GMT-3:00 America/Argentina/San_Juan</item>
+        <item>GMT-3:00 America/Argentina/San_Luis</item>
+        <item>GMT-3:00 America/Argentina/Tucuman</item>
+        <item>GMT-3:00 America/Argentina/Ushuaia</item>
+        <item>GMT-3:00 America/Bahia</item>
+        <item>GMT-3:00 America/Belem</item>
+        <item>GMT-3:00 America/Buenos_Aires</item>
+        <item>GMT-3:00 America/Catamarca</item>
+        <item>GMT-3:00 America/Cayenne</item>
+        <item>GMT-3:00 America/Cordoba</item>
+        <item>GMT-3:00 America/Fortaleza</item>
+        <item>GMT-3:00 America/Godthab</item>
+        <item>GMT-3:00 America/Jujuy</item>
+        <item>GMT-3:00 America/Maceio</item>
+        <item>GMT-3:00 America/Mendoza</item>
+        <item>GMT-3:00 America/Miquelon</item>
+        <item>GMT-3:00 America/Montevideo</item>
+        <item>GMT-3:00 America/Paramaribo</item>
+        <item>GMT-3:00 America/Punta_Arenas</item>
+        <item>GMT-3:00 America/Recife</item>
+        <item>GMT-3:00 America/Rosario</item>
+        <item>GMT-3:00 America/Santarem</item>
+        <item>GMT-3:00 America/Sao_Paulo</item>
+        <item>GMT-3:00 Antarctica/Palmer</item>
+        <item>GMT-3:00 Antarctica/Rothera</item>
+        <item>GMT-3:00 Atlantic/Stanley</item>
+        <item>GMT-3:00 Brazil/East</item>
+        <item>GMT-3:00 Etc/GMT+3</item>
+        <item>GMT-2:00 America/Noronha</item>
+        <item>GMT-2:00 Atlantic/South_Georgia</item>
+        <item>GMT-2:00 Brazil/DeNoronha</item>
+        <item>GMT-2:00 Etc/GMT+2</item>
+        <item>GMT-1:00 America/Scoresbysund</item>
+        <item>GMT-1:00 Atlantic/Azores</item>
+        <item>GMT-1:00 Atlantic/Cape_Verde</item>
+        <item>GMT-1:00 Etc/GMT+1</item>
+        <item>GMT+0:00 Africa/Abidjan</item>
+        <item>GMT+0:00 Africa/Accra</item>
+        <item>GMT+0:00 Africa/Bamako</item>
+        <item>GMT+0:00 Africa/Banjul</item>
+        <item>GMT+0:00 Africa/Bissau</item>
+        <item>GMT+0:00 Africa/Casablanca</item>
+        <item>GMT+0:00 Africa/Conakry</item>
+        <item>GMT+0:00 Africa/Dakar</item>
+        <item>GMT+0:00 Africa/El_Aaiun</item>
+        <item>GMT+0:00 Africa/Freetown</item>
+        <item>GMT+0:00 Africa/Lome</item>
+        <item>GMT+0:00 Africa/Monrovia</item>
+        <item>GMT+0:00 Africa/Nouakchott</item>
+        <item>GMT+0:00 Africa/Ouagadougou</item>
+        <item>GMT+0:00 Africa/Sao_Tome</item>
+        <item>GMT+0:00 Africa/Timbuktu</item>
+        <item>GMT+0:00 America/Danmarkshavn</item>
+        <item>GMT+0:00 Antarctica/Troll</item>
+        <item>GMT+0:00 Atlantic/Canary</item>
+        <item>GMT+0:00 Atlantic/Faeroe</item>
+        <item>GMT+0:00 Atlantic/Faroe</item>
+        <item>GMT+0:00 Atlantic/Madeira</item>
+        <item>GMT+0:00 Atlantic/Reykjavik</item>
+        <item>GMT+0:00 Atlantic/St_Helena</item>
+        <item>GMT+0:00 Eire</item>
+        <item>GMT+0:00 Etc/GMT</item>
+        <item>GMT+0:00 Etc/GMT+0</item>
+        <item>GMT+0:00 Etc/GMT-0</item>
+        <item>GMT+0:00 Etc/GMT0</item>
+        <item>GMT+0:00 Etc/Greenwich</item>
+        <item>GMT+0:00 Etc/UCT</item>
+        <item>GMT+0:00 Etc/UTC</item>
+        <item>GMT+0:00 Etc/Universal</item>
+        <item>GMT+0:00 Etc/Zulu</item>
+        <item>GMT+0:00 Europe/Belfast</item>
+        <item>GMT+0:00 Europe/Dublin</item>
+        <item>GMT+0:00 Europe/Guernsey</item>
+        <item>GMT+0:00 Europe/Isle_of_Man</item>
+        <item>GMT+0:00 Europe/Jersey</item>
+        <item>GMT+0:00 Europe/Lisbon</item>
+        <item>GMT+0:00 Europe/London</item>
+        <item>GMT+0:00 GB</item>
+        <item>GMT+0:00 GB-Eire</item>
+        <item>GMT+0:00 GMT</item>
+        <item>GMT+0:00 GMT+0</item>
+        <item>GMT+0:00 GMT-0</item>
+        <item>GMT+0:00 GMT0</item>
+        <item>GMT+0:00 Greenwich</item>
+        <item>GMT+0:00 Iceland</item>
+        <item>GMT+0:00 Portugal</item>
+        <item>GMT+0:00 UCT</item>
+        <item>GMT+0:00 UTC</item>
+        <item>GMT+0:00 Universal</item>
+        <item>GMT+0:00 WET</item>
+        <item>GMT+0:00 Zulu</item>
+        <item>GMT+1:00 Africa/Algiers</item>
+        <item>GMT+1:00 Africa/Bangui</item>
+        <item>GMT+1:00 Africa/Brazzaville</item>
+        <item>GMT+1:00 Africa/Ceuta</item>
+        <item>GMT+1:00 Africa/Douala</item>
+        <item>GMT+1:00 Africa/Kinshasa</item>
+        <item>GMT+1:00 Africa/Lagos</item>
+        <item>GMT+1:00 Africa/Libreville</item>
+        <item>GMT+1:00 Africa/Luanda</item>
+        <item>GMT+1:00 Africa/Malabo</item>
+        <item>GMT+1:00 Africa/Ndjamena</item>
+        <item>GMT+1:00 Africa/Niamey</item>
+        <item>GMT+1:00 Africa/Porto-Novo</item>
+        <item>GMT+1:00 Africa/Tunis</item>
+        <item>GMT+1:00 Africa/Windhoek</item>
+        <item>GMT+1:00 Arctic/Longyearbyen</item>
+        <item>GMT+1:00 Atlantic/Jan_Mayen</item>
+        <item>GMT+1:00 CET</item>
+        <item>GMT+1:00 Etc/GMT-1</item>
+        <item>GMT+1:00 Europe/Amsterdam</item>
+        <item>GMT+1:00 Europe/Andorra</item>
+        <item>GMT+1:00 Europe/Belgrade</item>
+        <item>GMT+1:00 Europe/Berlin</item>
+        <item>GMT+1:00 Europe/Bratislava</item>
+        <item>GMT+1:00 Europe/Brussels</item>
+        <item>GMT+1:00 Europe/Budapest</item>
+        <item>GMT+1:00 Europe/Busingen</item>
+        <item>GMT+1:00 Europe/Copenhagen</item>
+        <item>GMT+1:00 Europe/Gibraltar</item>
+        <item>GMT+1:00 Europe/Ljubljana</item>
+        <item>GMT+1:00 Europe/Luxembourg</item>
+        <item>GMT+1:00 Europe/Madrid</item>
+        <item>GMT+1:00 Europe/Malta</item>
+        <item>GMT+1:00 Europe/Monaco</item>
+        <item>GMT+1:00 Europe/Oslo</item>
+        <item>GMT+1:00 Europe/Paris</item>
+        <item>GMT+1:00 Europe/Podgorica</item>
+        <item>GMT+1:00 Europe/Prague</item>
+        <item>GMT+1:00 Europe/Rome</item>
+        <item>GMT+1:00 Europe/San_Marino</item>
+        <item>GMT+1:00 Europe/Sarajevo</item>
+        <item>GMT+1:00 Europe/Skopje</item>
+        <item>GMT+1:00 Europe/Stockholm</item>
+        <item>GMT+1:00 Europe/Tirane</item>
+        <item>GMT+1:00 Europe/Vaduz</item>
+        <item>GMT+1:00 Europe/Vatican</item>
+        <item>GMT+1:00 Europe/Vienna</item>
+        <item>GMT+1:00 Europe/Warsaw</item>
+        <item>GMT+1:00 Europe/Zagreb</item>
+        <item>GMT+1:00 Europe/Zurich</item>
+        <item>GMT+1:00 MET</item>
+        <item>GMT+1:00 Poland</item>
+        <item>GMT+2:00 Africa/Blantyre</item>
+        <item>GMT+2:00 Africa/Bujumbura</item>
+        <item>GMT+2:00 Africa/Cairo</item>
+        <item>GMT+2:00 Africa/Gaborone</item>
+        <item>GMT+2:00 Africa/Harare</item>
+        <item>GMT+2:00 Africa/Johannesburg</item>
+        <item>GMT+2:00 Africa/Kigali</item>
+        <item>GMT+2:00 Africa/Lubumbashi</item>
+        <item>GMT+2:00 Africa/Lusaka</item>
+        <item>GMT+2:00 Africa/Maputo</item>
+        <item>GMT+2:00 Africa/Maseru</item>
+        <item>GMT+2:00 Africa/Mbabane</item>
+        <item>GMT+2:00 Africa/Tripoli</item>
+        <item>GMT+2:00 Asia/Amman</item>
+        <item>GMT+2:00 Asia/Beirut</item>
+        <item>GMT+2:00 Asia/Damascus</item>
+        <item>GMT+2:00 Asia/Gaza</item>
+        <item>GMT+2:00 Asia/Hebron</item>
+        <item>GMT+2:00 Asia/Jerusalem</item>
+        <item>GMT+2:00 Asia/Nicosia</item>
+        <item>GMT+2:00 Asia/Tel_Aviv</item>
+        <item>GMT+2:00 EET</item>
+        <item>GMT+2:00 Egypt</item>
+        <item>GMT+2:00 Etc/GMT-2</item>
+        <item>GMT+2:00 Europe/Athens</item>
+        <item>GMT+2:00 Europe/Bucharest</item>
+        <item>GMT+2:00 Europe/Chisinau</item>
+        <item>GMT+2:00 Europe/Helsinki</item>
+        <item>GMT+2:00 Europe/Kaliningrad</item>
+        <item>GMT+2:00 Europe/Kiev</item>
+        <item>GMT+2:00 Europe/Mariehamn</item>
+        <item>GMT+2:00 Europe/Nicosia</item>
+        <item>GMT+2:00 Europe/Riga</item>
+        <item>GMT+2:00 Europe/Sofia</item>
+        <item>GMT+2:00 Europe/Tallinn</item>
+        <item>GMT+2:00 Europe/Tiraspol</item>
+        <item>GMT+2:00 Europe/Uzhgorod</item>
+        <item>GMT+2:00 Europe/Vilnius</item>
+        <item>GMT+2:00 Europe/Zaporozhye</item>
+        <item>GMT+2:00 Israel</item>
+        <item>GMT+2:00 Libya</item>
+        <item>GMT+3:00 Africa/Addis_Ababa</item>
+        <item>GMT+3:00 Africa/Asmara</item>
+        <item>GMT+3:00 Africa/Asmera</item>
+        <item>GMT+3:00 Africa/Dar_es_Salaam</item>
+        <item>GMT+3:00 Africa/Djibouti</item>
+        <item>GMT+3:00 Africa/Juba</item>
+        <item>GMT+3:00 Africa/Kampala</item>
+        <item>GMT+3:00 Africa/Khartoum</item>
+        <item>GMT+3:00 Africa/Mogadishu</item>
+        <item>GMT+3:00 Africa/Nairobi</item>
+        <item>GMT+3:00 Antarctica/Syowa</item>
+        <item>GMT+3:00 Asia/Aden</item>
+        <item>GMT+3:00 Asia/Baghdad</item>
+        <item>GMT+3:00 Asia/Bahrain</item>
+        <item>GMT+3:00 Asia/Famagusta</item>
+        <item>GMT+3:00 Asia/Istanbul</item>
+        <item>GMT+3:00 Asia/Kuwait</item>
+        <item>GMT+3:00 Asia/Qatar</item>
+        <item>GMT+3:00 Asia/Riyadh</item>
+        <item>GMT+3:00 Etc/GMT-3</item>
+        <item>GMT+3:00 Europe/Istanbul</item>
+        <item>GMT+3:00 Europe/Kirov</item>
+        <item>GMT+3:00 Europe/Minsk</item>
+        <item>GMT+3:00 Europe/Moscow</item>
+        <item>GMT+3:00 Europe/Simferopol</item>
+        <item>GMT+3:00 Europe/Volgograd</item>
+        <item>GMT+3:00 Indian/Antananarivo</item>
+        <item>GMT+3:00 Indian/Comoro</item>
+        <item>GMT+3:00 Indian/Mayotte</item>
+        <item>GMT+3:00 Turkey</item>
+        <item>GMT+3:00 W-SU</item>
+        <item>GMT+3:30 Asia/Tehran</item>
+        <item>GMT+3:30 Iran</item>
+        <item>GMT+4:00 Asia/Baku</item>
+        <item>GMT+4:00 Asia/Dubai</item>
+        <item>GMT+4:00 Asia/Muscat</item>
+        <item>GMT+4:00 Asia/Tbilisi</item>
+        <item>GMT+4:00 Asia/Yerevan</item>
+        <item>GMT+4:00 Etc/GMT-4</item>
+        <item>GMT+4:00 Europe/Astrakhan</item>
+        <item>GMT+4:00 Europe/Samara</item>
+        <item>GMT+4:00 Europe/Saratov</item>
+        <item>GMT+4:00 Europe/Ulyanovsk</item>
+        <item>GMT+4:00 Indian/Mahe</item>
+        <item>GMT+4:00 Indian/Mauritius</item>
+        <item>GMT+4:00 Indian/Reunion</item>
+        <item>GMT+4:30 Asia/Kabul</item>
+        <item>GMT+5:00 Antarctica/Mawson</item>
+        <item>GMT+5:00 Asia/Aqtau</item>
+        <item>GMT+5:00 Asia/Aqtobe</item>
+        <item>GMT+5:00 Asia/Ashgabat</item>
+        <item>GMT+5:00 Asia/Ashkhabad</item>
+        <item>GMT+5:00 Asia/Atyrau</item>
+        <item>GMT+5:00 Asia/Dushanbe</item>
+        <item>GMT+5:00 Asia/Karachi</item>
+        <item>GMT+5:00 Asia/Oral</item>
+        <item>GMT+5:00 Asia/Samarkand</item>
+        <item>GMT+5:00 Asia/Tashkent</item>
+        <item>GMT+5:00 Asia/Yekaterinburg</item>
+        <item>GMT+5:00 Etc/GMT-5</item>
+        <item>GMT+5:00 Indian/Kerguelen</item>
+        <item>GMT+5:00 Indian/Maldives</item>
+        <item>GMT+5:30 Asia/Calcutta</item>
+        <item>GMT+5:30 Asia/Colombo</item>
+        <item>GMT+5:30 Asia/Kolkata</item>
+        <item>GMT+5:45 Asia/Kathmandu</item>
+        <item>GMT+5:45 Asia/Katmandu</item>
+        <item>GMT+6:00 Antarctica/Vostok</item>
+        <item>GMT+6:00 Asia/Almaty</item>
+        <item>GMT+6:00 Asia/Bishkek</item>
+        <item>GMT+6:00 Asia/Dacca</item>
+        <item>GMT+6:00 Asia/Dhaka</item>
+        <item>GMT+6:00 Asia/Kashgar</item>
+        <item>GMT+6:00 Asia/Omsk</item>
+        <item>GMT+6:00 Asia/Qyzylorda</item>
+        <item>GMT+6:00 Asia/Thimbu</item>
+        <item>GMT+6:00 Asia/Thimphu</item>
+        <item>GMT+6:00 Asia/Urumqi</item>
+        <item>GMT+6:00 Etc/GMT-6</item>
+        <item>GMT+6:00 Indian/Chagos</item>
+        <item>GMT+6:30 Asia/Rangoon</item>
+        <item>GMT+6:30 Asia/Yangon</item>
+        <item>GMT+6:30 Indian/Cocos</item>
+        <item>GMT+7:00 Antarctica/Davis</item>
+        <item>GMT+7:00 Asia/Bangkok</item>
+        <item>GMT+7:00 Asia/Barnaul</item>
+        <item>GMT+7:00 Asia/Hanoi</item>
+        <item>GMT+7:00 Asia/Ho_Chi_Minh</item>
+        <item>GMT+7:00 Asia/Hovd</item>
+        <item>GMT+7:00 Asia/Jakarta</item>
+        <item>GMT+7:00 Asia/Krasnoyarsk</item>
+        <item>GMT+7:00 Asia/Novokuznetsk</item>
+        <item>GMT+7:00 Asia/Novosibirsk</item>
+        <item>GMT+7:00 Asia/Phnom_Penh</item>
+        <item>GMT+7:00 Asia/Pontianak</item>
+        <item>GMT+7:00 Asia/Saigon</item>
+        <item>GMT+7:00 Asia/Tomsk</item>
+        <item>GMT+7:00 Asia/Vientiane</item>
+        <item>GMT+7:00 Etc/GMT-7</item>
+        <item>GMT+7:00 Indian/Christmas</item>
+        <item>GMT+8:00 Asia/Brunei</item>
+        <item>GMT+8:00 Asia/Choibalsan</item>
+        <item>GMT+8:00 Asia/Chongqing</item>
+        <item>GMT+8:00 Asia/Chungking</item>
+        <item>GMT+8:00 Asia/Harbin</item>
+        <item>GMT+8:00 Asia/Hong_Kong</item>
+        <item>GMT+8:00 Asia/Irkutsk</item>
+        <item>GMT+8:00 Asia/Kuala_Lumpur</item>
+        <item>GMT+8:00 Asia/Kuching</item>
+        <item>GMT+8:00 Asia/Macao</item>
+        <item>GMT+8:00 Asia/Macau</item>
+        <item>GMT+8:00 Asia/Makassar</item>
+        <item>GMT+8:00 Asia/Manila</item>
+        <item>GMT+8:00 Asia/Shanghai</item>
+        <item>GMT+8:00 Asia/Singapore</item>
+        <item>GMT+8:00 Asia/Taipei</item>
+        <item>GMT+8:00 Asia/Ujung_Pandang</item>
+        <item>GMT+8:00 Asia/Ulaanbaatar</item>
+        <item>GMT+8:00 Asia/Ulan_Bator</item>
+        <item>GMT+8:00 Australia/Perth</item>
+        <item>GMT+8:00 Australia/West</item>
+        <item>GMT+8:00 Etc/GMT-8</item>
+        <item>GMT+8:00 Hongkong</item>
+        <item>GMT+8:00 PRC</item>
+        <item>GMT+8:00 ROC</item>
+        <item>GMT+8:00 Singapore</item>
+        <item>GMT+8:30 Asia/Pyongyang</item>
+        <item>GMT+8:45 Australia/Eucla</item>
+        <item>GMT+9:00 Asia/Chita</item>
+        <item>GMT+9:00 Asia/Dili</item>
+        <item>GMT+9:00 Asia/Jayapura</item>
+        <item>GMT+9:00 Asia/Khandyga</item>
+        <item>GMT+9:00 Asia/Seoul</item>
+        <item>GMT+9:00 Asia/Tokyo</item>
+        <item>GMT+9:00 Asia/Yakutsk</item>
+        <item>GMT+9:00 Etc/GMT-9</item>
+        <item>GMT+9:00 Japan</item>
+        <item>GMT+9:00 Pacific/Palau</item>
+        <item>GMT+9:00 ROK</item>
+        <item>GMT+9:30 Australia/Adelaide</item>
+        <item>GMT+9:30 Australia/Broken_Hill</item>
+        <item>GMT+9:30 Australia/Darwin</item>
+        <item>GMT+9:30 Australia/North</item>
+        <item>GMT+9:30 Australia/South</item>
+        <item>GMT+9:30 Australia/Yancowinna</item>
+        <item>GMT+10:00 Antarctica/DumontDUrville</item>
+        <item>GMT+10:00 Asia/Ust-Nera</item>
+        <item>GMT+10:00 Asia/Vladivostok</item>
+        <item>GMT+10:00 Australia/ACT</item>
+        <item>GMT+10:00 Australia/Brisbane</item>
+        <item>GMT+10:00 Australia/Canberra</item>
+        <item>GMT+10:00 Australia/Currie</item>
+        <item>GMT+10:00 Australia/Hobart</item>
+        <item>GMT+10:00 Australia/Lindeman</item>
+        <item>GMT+10:00 Australia/Melbourne</item>
+        <item>GMT+10:00 Australia/NSW</item>
+        <item>GMT+10:00 Australia/Queensland</item>
+        <item>GMT+10:00 Australia/Sydney</item>
+        <item>GMT+10:00 Australia/Tasmania</item>
+        <item>GMT+10:00 Australia/Victoria</item>
+        <item>GMT+10:00 Etc/GMT-10</item>
+        <item>GMT+10:00 Pacific/Chuuk</item>
+        <item>GMT+10:00 Pacific/Guam</item>
+        <item>GMT+10:00 Pacific/Port_Moresby</item>
+        <item>GMT+10:00 Pacific/Saipan</item>
+        <item>GMT+10:00 Pacific/Truk</item>
+        <item>GMT+10:00 Pacific/Yap</item>
+        <item>GMT+10:30 Australia/LHI</item>
+        <item>GMT+10:30 Australia/Lord_Howe</item>
+        <item>GMT+11:00 Antarctica/Casey</item>
+        <item>GMT+11:00 Antarctica/Macquarie</item>
+        <item>GMT+11:00 Asia/Magadan</item>
+        <item>GMT+11:00 Asia/Sakhalin</item>
+        <item>GMT+11:00 Asia/Srednekolymsk</item>
+        <item>GMT+11:00 Etc/GMT-11</item>
+        <item>GMT+11:00 Pacific/Bougainville</item>
+        <item>GMT+11:00 Pacific/Efate</item>
+        <item>GMT+11:00 Pacific/Guadalcanal</item>
+        <item>GMT+11:00 Pacific/Kosrae</item>
+        <item>GMT+11:00 Pacific/Norfolk</item>
+        <item>GMT+11:00 Pacific/Noumea</item>
+        <item>GMT+11:00 Pacific/Pohnpei</item>
+        <item>GMT+11:00 Pacific/Ponape</item>
+        <item>GMT+12:00 Antarctica/McMurdo</item>
+        <item>GMT+12:00 Antarctica/South_Pole</item>
+        <item>GMT+12:00 Asia/Anadyr</item>
+        <item>GMT+12:00 Asia/Kamchatka</item>
+        <item>GMT+12:00 Etc/GMT-12</item>
+        <item>GMT+12:00 Kwajalein</item>
+        <item>GMT+12:00 NZ</item>
+        <item>GMT+12:00 Pacific/Auckland</item>
+        <item>GMT+12:00 Pacific/Fiji</item>
+        <item>GMT+12:00 Pacific/Funafuti</item>
+        <item>GMT+12:00 Pacific/Kwajalein</item>
+        <item>GMT+12:00 Pacific/Majuro</item>
+        <item>GMT+12:00 Pacific/Nauru</item>
+        <item>GMT+12:00 Pacific/Tarawa</item>
+        <item>GMT+12:00 Pacific/Wake</item>
+        <item>GMT+12:00 Pacific/Wallis</item>
+        <item>GMT+12:45 NZ-CHAT</item>
+        <item>GMT+12:45 Pacific/Chatham</item>
+        <item>GMT+13:00 Etc/GMT-13</item>
+        <item>GMT+13:00 Pacific/Apia</item>
+        <item>GMT+13:00 Pacific/Enderbury</item>
+        <item>GMT+13:00 Pacific/Fakaofo</item>
+        <item>GMT+13:00 Pacific/Tongatapu</item>
+        <item>GMT+14:00 Etc/GMT-14</item>
+        <item>GMT+14:00 Pacific/Kiritimati</item>
+    </string-array>
+
+    <string-array name="timezone_values">
+        <item>Etc/GMT+12</item>
+        <item>Etc/GMT+11</item>
+        <item>Pacific/Midway</item>
+        <item>Pacific/Niue</item>
+        <item>Pacific/Pago_Pago</item>
+        <item>Pacific/Samoa</item>
+        <item>US/Samoa</item>
+        <item>America/Adak</item>
+        <item>America/Atka</item>
+        <item>Etc/GMT+10</item>
+        <item>HST</item>
+        <item>Pacific/Honolulu</item>
+        <item>Pacific/Johnston</item>
+        <item>Pacific/Rarotonga</item>
+        <item>Pacific/Tahiti</item>
+        <item>US/Aleutian</item>
+        <item>US/Hawaii</item>
+        <item>Pacific/Marquesas</item>
+        <item>America/Anchorage</item>
+        <item>America/Juneau</item>
+        <item>America/Metlakatla</item>
+        <item>America/Nome</item>
+        <item>America/Sitka</item>
+        <item>America/Yakutat</item>
+        <item>Etc/GMT+9</item>
+        <item>Pacific/Gambier</item>
+        <item>US/Alaska</item>
+        <item>America/Dawson</item>
+        <item>America/Ensenada</item>
+        <item>America/Los_Angeles</item>
+        <item>America/Santa_Isabel</item>
+        <item>America/Tijuana</item>
+        <item>America/Vancouver</item>
+        <item>America/Whitehorse</item>
+        <item>Canada/Pacific</item>
+        <item>Canada/Yukon</item>
+        <item>Etc/GMT+8</item>
+        <item>Mexico/BajaNorte</item>
+        <item>PST8PDT</item>
+        <item>Pacific/Pitcairn</item>
+        <item>US/Pacific</item>
+        <item>America/Boise</item>
+        <item>America/Cambridge_Bay</item>
+        <item>America/Chihuahua</item>
+        <item>America/Creston</item>
+        <item>America/Dawson_Creek</item>
+        <item>America/Denver</item>
+        <item>America/Edmonton</item>
+        <item>America/Fort_Nelson</item>
+        <item>America/Hermosillo</item>
+        <item>America/Inuvik</item>
+        <item>America/Mazatlan</item>
+        <item>America/Ojinaga</item>
+        <item>America/Phoenix</item>
+        <item>America/Shiprock</item>
+        <item>America/Yellowknife</item>
+        <item>Canada/Mountain</item>
+        <item>Etc/GMT+7</item>
+        <item>MST</item>
+        <item>MST7MDT</item>
+        <item>Mexico/BajaSur</item>
+        <item>Navajo</item>
+        <item>US/Arizona</item>
+        <item>US/Mountain</item>
+        <item>America/Bahia_Banderas</item>
+        <item>America/Belize</item>
+        <item>America/Chicago</item>
+        <item>America/Costa_Rica</item>
+        <item>America/El_Salvador</item>
+        <item>America/Guatemala</item>
+        <item>America/Indiana/Knox</item>
+        <item>America/Indiana/Tell_City</item>
+        <item>America/Knox_IN</item>
+        <item>America/Managua</item>
+        <item>America/Matamoros</item>
+        <item>America/Menominee</item>
+        <item>America/Merida</item>
+        <item>America/Mexico_City</item>
+        <item>America/Monterrey</item>
+        <item>America/North_Dakota/Beulah</item>
+        <item>America/North_Dakota/Center</item>
+        <item>America/North_Dakota/New_Salem</item>
+        <item>America/Rainy_River</item>
+        <item>America/Rankin_Inlet</item>
+        <item>America/Regina</item>
+        <item>America/Resolute</item>
+        <item>America/Swift_Current</item>
+        <item>America/Tegucigalpa</item>
+        <item>America/Winnipeg</item>
+        <item>CST6CDT</item>
+        <item>Canada/Central</item>
+        <item>Canada/East-Saskatchewan</item>
+        <item>Canada/Saskatchewan</item>
+        <item>Chile/EasterIsland</item>
+        <item>Etc/GMT+6</item>
+        <item>Mexico/General</item>
+        <item>Pacific/Easter</item>
+        <item>Pacific/Galapagos</item>
+        <item>US/Central</item>
+        <item>US/Indiana-Starke</item>
+        <item>America/Atikokan</item>
+        <item>America/Bogota</item>
+        <item>America/Cancun</item>
+        <item>America/Cayman</item>
+        <item>America/Coral_Harbour</item>
+        <item>America/Detroit</item>
+        <item>America/Eirunepe</item>
+        <item>America/Fort_Wayne</item>
+        <item>America/Guayaquil</item>
+        <item>America/Havana</item>
+        <item>America/Indiana/Indianapolis</item>
+        <item>America/Indiana/Marengo</item>
+        <item>America/Indiana/Petersburg</item>
+        <item>America/Indiana/Vevay</item>
+        <item>America/Indiana/Vincennes</item>
+        <item>America/Indiana/Winamac</item>
+        <item>America/Indianapolis</item>
+        <item>America/Iqaluit</item>
+        <item>America/Jamaica</item>
+        <item>America/Kentucky/Louisville</item>
+        <item>America/Kentucky/Monticello</item>
+        <item>America/Lima</item>
+        <item>America/Louisville</item>
+        <item>America/Montreal</item>
+        <item>America/Nassau</item>
+        <item>America/New_York</item>
+        <item>America/Nipigon</item>
+        <item>America/Panama</item>
+        <item>America/Pangnirtung</item>
+        <item>America/Port-au-Prince</item>
+        <item>America/Porto_Acre</item>
+        <item>America/Rio_Branco</item>
+        <item>America/Thunder_Bay</item>
+        <item>America/Toronto</item>
+        <item>Brazil/Acre</item>
+        <item>Canada/Eastern</item>
+        <item>Cuba</item>
+        <item>EST</item>
+        <item>EST5EDT</item>
+        <item>Etc/GMT+5</item>
+        <item>Jamaica</item>
+        <item>US/East-Indiana</item>
+        <item>US/Eastern</item>
+        <item>US/Michigan</item>
+        <item>America/Anguilla</item>
+        <item>America/Antigua</item>
+        <item>America/Aruba</item>
+        <item>America/Asuncion</item>
+        <item>America/Barbados</item>
+        <item>America/Blanc-Sablon</item>
+        <item>America/Boa_Vista</item>
+        <item>America/Campo_Grande</item>
+        <item>America/Caracas</item>
+        <item>America/Cuiaba</item>
+        <item>America/Curacao</item>
+        <item>America/Dominica</item>
+        <item>America/Glace_Bay</item>
+        <item>America/Goose_Bay</item>
+        <item>America/Grand_Turk</item>
+        <item>America/Grenada</item>
+        <item>America/Guadeloupe</item>
+        <item>America/Guyana</item>
+        <item>America/Halifax</item>
+        <item>America/Kralendijk</item>
+        <item>America/La_Paz</item>
+        <item>America/Lower_Princes</item>
+        <item>America/Manaus</item>
+        <item>America/Marigot</item>
+        <item>America/Martinique</item>
+        <item>America/Moncton</item>
+        <item>America/Montserrat</item>
+        <item>America/Port_of_Spain</item>
+        <item>America/Porto_Velho</item>
+        <item>America/Puerto_Rico</item>
+        <item>America/Santiago</item>
+        <item>America/Santo_Domingo</item>
+        <item>America/St_Barthelemy</item>
+        <item>America/St_Kitts</item>
+        <item>America/St_Lucia</item>
+        <item>America/St_Thomas</item>
+        <item>America/St_Vincent</item>
+        <item>America/Thule</item>
+        <item>America/Tortola</item>
+        <item>America/Virgin</item>
+        <item>Atlantic/Bermuda</item>
+        <item>Brazil/West</item>
+        <item>Canada/Atlantic</item>
+        <item>Chile/Continental</item>
+        <item>Etc/GMT+4</item>
+        <item>America/St_Johns</item>
+        <item>Canada/Newfoundland</item>
+        <item>America/Araguaina</item>
+        <item>America/Argentina/Buenos_Aires</item>
+        <item>America/Argentina/Catamarca</item>
+        <item>America/Argentina/ComodRivadavia</item>
+        <item>America/Argentina/Cordoba</item>
+        <item>America/Argentina/Jujuy</item>
+        <item>America/Argentina/La_Rioja</item>
+        <item>America/Argentina/Mendoza</item>
+        <item>America/Argentina/Rio_Gallegos</item>
+        <item>America/Argentina/Salta</item>
+        <item>America/Argentina/San_Juan</item>
+        <item>America/Argentina/San_Luis</item>
+        <item>America/Argentina/Tucuman</item>
+        <item>America/Argentina/Ushuaia</item>
+        <item>America/Bahia</item>
+        <item>America/Belem</item>
+        <item>America/Buenos_Aires</item>
+        <item>America/Catamarca</item>
+        <item>America/Cayenne</item>
+        <item>America/Cordoba</item>
+        <item>America/Fortaleza</item>
+        <item>America/Godthab</item>
+        <item>America/Jujuy</item>
+        <item>America/Maceio</item>
+        <item>America/Mendoza</item>
+        <item>America/Miquelon</item>
+        <item>America/Montevideo</item>
+        <item>America/Paramaribo</item>
+        <item>America/Punta_Arenas</item>
+        <item>America/Recife</item>
+        <item>America/Rosario</item>
+        <item>America/Santarem</item>
+        <item>America/Sao_Paulo</item>
+        <item>Antarctica/Palmer</item>
+        <item>Antarctica/Rothera</item>
+        <item>Atlantic/Stanley</item>
+        <item>Brazil/East</item>
+        <item>Etc/GMT+3</item>
+        <item>America/Noronha</item>
+        <item>Atlantic/South_Georgia</item>
+        <item>Brazil/DeNoronha</item>
+        <item>Etc/GMT+2</item>
+        <item>America/Scoresbysund</item>
+        <item>Atlantic/Azores</item>
+        <item>Atlantic/Cape_Verde</item>
+        <item>Etc/GMT+1</item>
+        <item>Africa/Abidjan</item>
+        <item>Africa/Accra</item>
+        <item>Africa/Bamako</item>
+        <item>Africa/Banjul</item>
+        <item>Africa/Bissau</item>
+        <item>Africa/Casablanca</item>
+        <item>Africa/Conakry</item>
+        <item>Africa/Dakar</item>
+        <item>Africa/El_Aaiun</item>
+        <item>Africa/Freetown</item>
+        <item>Africa/Lome</item>
+        <item>Africa/Monrovia</item>
+        <item>Africa/Nouakchott</item>
+        <item>Africa/Ouagadougou</item>
+        <item>Africa/Sao_Tome</item>
+        <item>Africa/Timbuktu</item>
+        <item>America/Danmarkshavn</item>
+        <item>Antarctica/Troll</item>
+        <item>Atlantic/Canary</item>
+        <item>Atlantic/Faeroe</item>
+        <item>Atlantic/Faroe</item>
+        <item>Atlantic/Madeira</item>
+        <item>Atlantic/Reykjavik</item>
+        <item>Atlantic/St_Helena</item>
+        <item>Eire</item>
+        <item>Etc/GMT</item>
+        <item>Etc/GMT+0</item>
+        <item>Etc/GMT-0</item>
+        <item>Etc/GMT0</item>
+        <item>Etc/Greenwich</item>
+        <item>Etc/UCT</item>
+        <item>Etc/UTC</item>
+        <item>Etc/Universal</item>
+        <item>Etc/Zulu</item>
+        <item>Europe/Belfast</item>
+        <item>Europe/Dublin</item>
+        <item>Europe/Guernsey</item>
+        <item>Europe/Isle_of_Man</item>
+        <item>Europe/Jersey</item>
+        <item>Europe/Lisbon</item>
+        <item>Europe/London</item>
+        <item>GB</item>
+        <item>GB-Eire</item>
+        <item>GMT</item>
+        <item>GMT+0</item>
+        <item>GMT-0</item>
+        <item>GMT0</item>
+        <item>Greenwich</item>
+        <item>Iceland</item>
+        <item>Portugal</item>
+        <item>UCT</item>
+        <item>UTC</item>
+        <item>Universal</item>
+        <item>WET</item>
+        <item>Zulu</item>
+        <item>Africa/Algiers</item>
+        <item>Africa/Bangui</item>
+        <item>Africa/Brazzaville</item>
+        <item>Africa/Ceuta</item>
+        <item>Africa/Douala</item>
+        <item>Africa/Kinshasa</item>
+        <item>Africa/Lagos</item>
+        <item>Africa/Libreville</item>
+        <item>Africa/Luanda</item>
+        <item>Africa/Malabo</item>
+        <item>Africa/Ndjamena</item>
+        <item>Africa/Niamey</item>
+        <item>Africa/Porto-Novo</item>
+        <item>Africa/Tunis</item>
+        <item>Africa/Windhoek</item>
+        <item>Arctic/Longyearbyen</item>
+        <item>Atlantic/Jan_Mayen</item>
+        <item>CET</item>
+        <item>Etc/GMT-1</item>
+        <item>Europe/Amsterdam</item>
+        <item>Europe/Andorra</item>
+        <item>Europe/Belgrade</item>
+        <item>Europe/Berlin</item>
+        <item>Europe/Bratislava</item>
+        <item>Europe/Brussels</item>
+        <item>Europe/Budapest</item>
+        <item>Europe/Busingen</item>
+        <item>Europe/Copenhagen</item>
+        <item>Europe/Gibraltar</item>
+        <item>Europe/Ljubljana</item>
+        <item>Europe/Luxembourg</item>
+        <item>Europe/Madrid</item>
+        <item>Europe/Malta</item>
+        <item>Europe/Monaco</item>
+        <item>Europe/Oslo</item>
+        <item>Europe/Paris</item>
+        <item>Europe/Podgorica</item>
+        <item>Europe/Prague</item>
+        <item>Europe/Rome</item>
+        <item>Europe/San_Marino</item>
+        <item>Europe/Sarajevo</item>
+        <item>Europe/Skopje</item>
+        <item>Europe/Stockholm</item>
+        <item>Europe/Tirane</item>
+        <item>Europe/Vaduz</item>
+        <item>Europe/Vatican</item>
+        <item>Europe/Vienna</item>
+        <item>Europe/Warsaw</item>
+        <item>Europe/Zagreb</item>
+        <item>Europe/Zurich</item>
+        <item>MET</item>
+        <item>Poland</item>
+        <item>Africa/Blantyre</item>
+        <item>Africa/Bujumbura</item>
+        <item>Africa/Cairo</item>
+        <item>Africa/Gaborone</item>
+        <item>Africa/Harare</item>
+        <item>Africa/Johannesburg</item>
+        <item>Africa/Kigali</item>
+        <item>Africa/Lubumbashi</item>
+        <item>Africa/Lusaka</item>
+        <item>Africa/Maputo</item>
+        <item>Africa/Maseru</item>
+        <item>Africa/Mbabane</item>
+        <item>Africa/Tripoli</item>
+        <item>Asia/Amman</item>
+        <item>Asia/Beirut</item>
+        <item>Asia/Damascus</item>
+        <item>Asia/Gaza</item>
+        <item>Asia/Hebron</item>
+        <item>Asia/Jerusalem</item>
+        <item>Asia/Nicosia</item>
+        <item>Asia/Tel_Aviv</item>
+        <item>EET</item>
+        <item>Egypt</item>
+        <item>Etc/GMT-2</item>
+        <item>Europe/Athens</item>
+        <item>Europe/Bucharest</item>
+        <item>Europe/Chisinau</item>
+        <item>Europe/Helsinki</item>
+        <item>Europe/Kaliningrad</item>
+        <item>Europe/Kiev</item>
+        <item>Europe/Mariehamn</item>
+        <item>Europe/Nicosia</item>
+        <item>Europe/Riga</item>
+        <item>Europe/Sofia</item>
+        <item>Europe/Tallinn</item>
+        <item>Europe/Tiraspol</item>
+        <item>Europe/Uzhgorod</item>
+        <item>Europe/Vilnius</item>
+        <item>Europe/Zaporozhye</item>
+        <item>Israel</item>
+        <item>Libya</item>
+        <item>Africa/Addis_Ababa</item>
+        <item>Africa/Asmara</item>
+        <item>Africa/Asmera</item>
+        <item>Africa/Dar_es_Salaam</item>
+        <item>Africa/Djibouti</item>
+        <item>Africa/Juba</item>
+        <item>Africa/Kampala</item>
+        <item>Africa/Khartoum</item>
+        <item>Africa/Mogadishu</item>
+        <item>Africa/Nairobi</item>
+        <item>Antarctica/Syowa</item>
+        <item>Asia/Aden</item>
+        <item>Asia/Baghdad</item>
+        <item>Asia/Bahrain</item>
+        <item>Asia/Famagusta</item>
+        <item>Asia/Istanbul</item>
+        <item>Asia/Kuwait</item>
+        <item>Asia/Qatar</item>
+        <item>Asia/Riyadh</item>
+        <item>Etc/GMT-3</item>
+        <item>Europe/Istanbul</item>
+        <item>Europe/Kirov</item>
+        <item>Europe/Minsk</item>
+        <item>Europe/Moscow</item>
+        <item>Europe/Simferopol</item>
+        <item>Europe/Volgograd</item>
+        <item>Indian/Antananarivo</item>
+        <item>Indian/Comoro</item>
+        <item>Indian/Mayotte</item>
+        <item>Turkey</item>
+        <item>W-SU</item>
+        <item>Asia/Tehran</item>
+        <item>Iran</item>
+        <item>Asia/Baku</item>
+        <item>Asia/Dubai</item>
+        <item>Asia/Muscat</item>
+        <item>Asia/Tbilisi</item>
+        <item>Asia/Yerevan</item>
+        <item>Etc/GMT-4</item>
+        <item>Europe/Astrakhan</item>
+        <item>Europe/Samara</item>
+        <item>Europe/Saratov</item>
+        <item>Europe/Ulyanovsk</item>
+        <item>Indian/Mahe</item>
+        <item>Indian/Mauritius</item>
+        <item>Indian/Reunion</item>
+        <item>Asia/Kabul</item>
+        <item>Antarctica/Mawson</item>
+        <item>Asia/Aqtau</item>
+        <item>Asia/Aqtobe</item>
+        <item>Asia/Ashgabat</item>
+        <item>Asia/Ashkhabad</item>
+        <item>Asia/Atyrau</item>
+        <item>Asia/Dushanbe</item>
+        <item>Asia/Karachi</item>
+        <item>Asia/Oral</item>
+        <item>Asia/Samarkand</item>
+        <item>Asia/Tashkent</item>
+        <item>Asia/Yekaterinburg</item>
+        <item>Etc/GMT-5</item>
+        <item>Indian/Kerguelen</item>
+        <item>Indian/Maldives</item>
+        <item>Asia/Calcutta</item>
+        <item>Asia/Colombo</item>
+        <item>Asia/Kolkata</item>
+        <item>Asia/Kathmandu</item>
+        <item>Asia/Katmandu</item>
+        <item>Antarctica/Vostok</item>
+        <item>Asia/Almaty</item>
+        <item>Asia/Bishkek</item>
+        <item>Asia/Dacca</item>
+        <item>Asia/Dhaka</item>
+        <item>Asia/Kashgar</item>
+        <item>Asia/Omsk</item>
+        <item>Asia/Qyzylorda</item>
+        <item>Asia/Thimbu</item>
+        <item>Asia/Thimphu</item>
+        <item>Asia/Urumqi</item>
+        <item>Etc/GMT-6</item>
+        <item>Indian/Chagos</item>
+        <item>Asia/Rangoon</item>
+        <item>Asia/Yangon</item>
+        <item>Indian/Cocos</item>
+        <item>Antarctica/Davis</item>
+        <item>Asia/Bangkok</item>
+        <item>Asia/Barnaul</item>
+        <item>Asia/Hanoi</item>
+        <item>Asia/Ho_Chi_Minh</item>
+        <item>Asia/Hovd</item>
+        <item>Asia/Jakarta</item>
+        <item>Asia/Krasnoyarsk</item>
+        <item>Asia/Novokuznetsk</item>
+        <item>Asia/Novosibirsk</item>
+        <item>Asia/Phnom_Penh</item>
+        <item>Asia/Pontianak</item>
+        <item>Asia/Saigon</item>
+        <item>Asia/Tomsk</item>
+        <item>Asia/Vientiane</item>
+        <item>Etc/GMT-7</item>
+        <item>Indian/Christmas</item>
+        <item>Asia/Brunei</item>
+        <item>Asia/Choibalsan</item>
+        <item>Asia/Chongqing</item>
+        <item>Asia/Chungking</item>
+        <item>Asia/Harbin</item>
+        <item>Asia/Hong_Kong</item>
+        <item>Asia/Irkutsk</item>
+        <item>Asia/Kuala_Lumpur</item>
+        <item>Asia/Kuching</item>
+        <item>Asia/Macao</item>
+        <item>Asia/Macau</item>
+        <item>Asia/Makassar</item>
+        <item>Asia/Manila</item>
+        <item>Asia/Shanghai</item>
+        <item>Asia/Singapore</item>
+        <item>Asia/Taipei</item>
+        <item>Asia/Ujung_Pandang</item>
+        <item>Asia/Ulaanbaatar</item>
+        <item>Asia/Ulan_Bator</item>
+        <item>Australia/Perth</item>
+        <item>Australia/West</item>
+        <item>Etc/GMT-8</item>
+        <item>Hongkong</item>
+        <item>PRC</item>
+        <item>ROC</item>
+        <item>Singapore</item>
+        <item>Asia/Pyongyang</item>
+        <item>Australia/Eucla</item>
+        <item>Asia/Chita</item>
+        <item>Asia/Dili</item>
+        <item>Asia/Jayapura</item>
+        <item>Asia/Khandyga</item>
+        <item>Asia/Seoul</item>
+        <item>Asia/Tokyo</item>
+        <item>Asia/Yakutsk</item>
+        <item>Etc/GMT-9</item>
+        <item>Japan</item>
+        <item>Pacific/Palau</item>
+        <item>ROK</item>
+        <item>Australia/Adelaide</item>
+        <item>Australia/Broken_Hill</item>
+        <item>Australia/Darwin</item>
+        <item>Australia/North</item>
+        <item>Australia/South</item>
+        <item>Australia/Yancowinna</item>
+        <item>Antarctica/DumontDUrville</item>
+        <item>Asia/Ust-Nera</item>
+        <item>Asia/Vladivostok</item>
+        <item>Australia/ACT</item>
+        <item>Australia/Brisbane</item>
+        <item>Australia/Canberra</item>
+        <item>Australia/Currie</item>
+        <item>Australia/Hobart</item>
+        <item>Australia/Lindeman</item>
+        <item>Australia/Melbourne</item>
+        <item>Australia/NSW</item>
+        <item>Australia/Queensland</item>
+        <item>Australia/Sydney</item>
+        <item>Australia/Tasmania</item>
+        <item>Australia/Victoria</item>
+        <item>Etc/GMT-10</item>
+        <item>Pacific/Chuuk</item>
+        <item>Pacific/Guam</item>
+        <item>Pacific/Port_Moresby</item>
+        <item>Pacific/Saipan</item>
+        <item>Pacific/Truk</item>
+        <item>Pacific/Yap</item>
+        <item>Australia/LHI</item>
+        <item>Australia/Lord_Howe</item>
+        <item>Antarctica/Casey</item>
+        <item>Antarctica/Macquarie</item>
+        <item>Asia/Magadan</item>
+        <item>Asia/Sakhalin</item>
+        <item>Asia/Srednekolymsk</item>
+        <item>Etc/GMT-11</item>
+        <item>Pacific/Bougainville</item>
+        <item>Pacific/Efate</item>
+        <item>Pacific/Guadalcanal</item>
+        <item>Pacific/Kosrae</item>
+        <item>Pacific/Norfolk</item>
+        <item>Pacific/Noumea</item>
+        <item>Pacific/Pohnpei</item>
+        <item>Pacific/Ponape</item>
+        <item>Antarctica/McMurdo</item>
+        <item>Antarctica/South_Pole</item>
+        <item>Asia/Anadyr</item>
+        <item>Asia/Kamchatka</item>
+        <item>Etc/GMT-12</item>
+        <item>Kwajalein</item>
+        <item>NZ</item>
+        <item>Pacific/Auckland</item>
+        <item>Pacific/Fiji</item>
+        <item>Pacific/Funafuti</item>
+        <item>Pacific/Kwajalein</item>
+        <item>Pacific/Majuro</item>
+        <item>Pacific/Nauru</item>
+        <item>Pacific/Tarawa</item>
+        <item>Pacific/Wake</item>
+        <item>Pacific/Wallis</item>
+        <item>NZ-CHAT</item>
+        <item>Pacific/Chatham</item>
+        <item>Etc/GMT-13</item>
+        <item>Pacific/Apia</item>
+        <item>Pacific/Enderbury</item>
+        <item>Pacific/Fakaofo</item>
+        <item>Pacific/Tongatapu</item>
+        <item>Etc/GMT-14</item>
+        <item>Pacific/Kiritimati</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>Afrikaans</item>
+        <item>Afrikaans (Namibia)</item>
+        <item>Afrikaans (South Africa)</item>
+        <item>Aghem</item>
+        <item>Aghem (Cameroon)</item>
+        <item>Akan</item>
+        <item>Akan (Ghana)</item>
+        <item>Albanian</item>
+        <item>Albanian (Albania)</item>
+        <item>Albanian (Kosovo)</item>
+        <item>Albanian (Macedonia (FYROM))</item>
+        <item>Amharic</item>
+        <item>Amharic (Ethiopia)</item>
+        <item>Arabic</item>
+        <item>Arabic (Algeria)</item>
+        <item>Arabic (Bahrain)</item>
+        <item>Arabic (Chad)</item>
+        <item>Arabic (Comoros)</item>
+        <item>Arabic (Djibouti)</item>
+        <item>Arabic (Egypt)</item>
+        <item>Arabic (Eritrea)</item>
+        <item>Arabic (Iraq)</item>
+        <item>Arabic (Israel)</item>
+        <item>Arabic (Jordan)</item>
+        <item>Arabic (Kuwait)</item>
+        <item>Arabic (Lebanon)</item>
+        <item>Arabic (Libya)</item>
+        <item>Arabic (Mauritania)</item>
+        <item>Arabic (Morocco)</item>
+        <item>Arabic (Oman)</item>
+        <item>Arabic (Palestine)</item>
+        <item>Arabic (Qatar)</item>
+        <item>Arabic (Saudi Arabia)</item>
+        <item>Arabic (Somalia)</item>
+        <item>Arabic (South Sudan)</item>
+        <item>Arabic (Sudan)</item>
+        <item>Arabic (Syria)</item>
+        <item>Arabic (Tunisia)</item>
+        <item>Arabic (United Arab Emirates)</item>
+        <item>Arabic (Western Sahara)</item>
+        <item>Arabic (World)</item>
+        <item>Arabic (Yemen)</item>
+        <item>Armenian</item>
+        <item>Armenian (Armenia)</item>
+        <item>Assamese</item>
+        <item>Assamese (India)</item>
+        <item>Asu</item>
+        <item>Asu (Tanzania)</item>
+        <item>Azerbaijani</item>
+        <item>Azerbaijani (Cyrillic)</item>
+        <item>Azerbaijani (Cyrillic,Azerbaijan)</item>
+        <item>Azerbaijani (Latin)</item>
+        <item>Azerbaijani (Latin,Azerbaijan)</item>
+        <item>Bafia</item>
+        <item>Bafia (Cameroon)</item>
+        <item>Bambara</item>
+        <item>Bambara (Mali)</item>
+        <item>Basaa</item>
+        <item>Basaa (Cameroon)</item>
+        <item>Basque</item>
+        <item>Basque (Spain)</item>
+        <item>Belarusian</item>
+        <item>Belarusian (Belarus)</item>
+        <item>Bemba</item>
+        <item>Bemba (Zambia)</item>
+        <item>Bena</item>
+        <item>Bena (Tanzania)</item>
+        <item>Bengali</item>
+        <item>Bengali (Bangladesh)</item>
+        <item>Bengali (India)</item>
+        <item>Bodo</item>
+        <item>Bodo (India)</item>
+        <item>Bosnian</item>
+        <item>Bosnian (Cyrillic)</item>
+        <item>Bosnian (Cyrillic,Bosnia &amp; Herzegovina)</item>
+        <item>Bosnian (Latin)</item>
+        <item>Bosnian (Latin,Bosnia &amp; Herzegovina)</item>
+        <item>Breton</item>
+        <item>Breton (France)</item>
+        <item>Bulgarian</item>
+        <item>Bulgarian (Bulgaria)</item>
+        <item>Burmese</item>
+        <item>Burmese (Myanmar (Burma))</item>
+        <item>Burmese (Zawgyi)</item>
+        <item>Catalan</item>
+        <item>Catalan (Andorra)</item>
+        <item>Catalan (France)</item>
+        <item>Catalan (Italy)</item>
+        <item>Catalan (Spain)</item>
+        <item>Central Atlas Tamazight</item>
+        <item>Central Atlas Tamazight (Morocco)</item>
+        <item>Chechen</item>
+        <item>Chechen (Russia)</item>
+        <item>Cherokee</item>
+        <item>Cherokee (United States)</item>
+        <item>Chiga</item>
+        <item>Chiga (Uganda)</item>
+        <item>Chinese</item>
+        <item>Chinese (Simplified Han)</item>
+        <item>Chinese (Simplified Han,China)</item>
+        <item>Chinese (Simplified Han,Hong Kong)</item>
+        <item>Chinese (Simplified Han,Macau)</item>
+        <item>Chinese (Simplified Han,Singapore)</item>
+        <item>Chinese (Traditional Han)</item>
+        <item>Chinese (Traditional Han,Hong Kong)</item>
+        <item>Chinese (Traditional Han,Macau)</item>
+        <item>Chinese (Traditional Han,Taiwan)</item>
+        <item>Colognian</item>
+        <item>Colognian (Germany)</item>
+        <item>Cornish</item>
+        <item>Cornish (United Kingdom)</item>
+        <item>Croatian</item>
+        <item>Croatian (Bosnia &amp; Herzegovina)</item>
+        <item>Croatian (Croatia)</item>
+        <item>Czech</item>
+        <item>Czech (Czech Republic)</item>
+        <item>Danish</item>
+        <item>Danish (Denmark)</item>
+        <item>Danish (Greenland)</item>
+        <item>Duala</item>
+        <item>Duala (Cameroon)</item>
+        <item>Dutch</item>
+        <item>Dutch (Aruba)</item>
+        <item>Dutch (Belgium)</item>
+        <item>Dutch (Caribbean Netherlands)</item>
+        <item>Dutch (Curaçao)</item>
+        <item>Dutch (Netherlands)</item>
+        <item>Dutch (Sint Maarten)</item>
+        <item>Dutch (Suriname)</item>
+        <item>Dzongkha</item>
+        <item>Dzongkha (Bhutan)</item>
+        <item>Embu</item>
+        <item>Embu (Kenya)</item>
+        <item>English</item>
+        <item>English (American Samoa)</item>
+        <item>English (Anguilla)</item>
+        <item>English (Antigua &amp; Barbuda)</item>
+        <item>English (Australia)</item>
+        <item>English (Austria)</item>
+        <item>English (Bahamas)</item>
+        <item>English (Barbados)</item>
+        <item>English (Belgium)</item>
+        <item>English (Belize)</item>
+        <item>English (Bermuda)</item>
+        <item>English (Botswana)</item>
+        <item>English (British Indian Ocean Territory)</item>
+        <item>English (British Virgin Islands)</item>
+        <item>English (Burundi)</item>
+        <item>English (Cameroon)</item>
+        <item>English (Canada)</item>
+        <item>English (Cayman Islands)</item>
+        <item>English (Christmas Island)</item>
+        <item>English (Cocos (Keeling) Islands)</item>
+        <item>English (Cook Islands)</item>
+        <item>English (Cyprus)</item>
+        <item>English (Denmark)</item>
+        <item>English (Diego Garcia)</item>
+        <item>English (Dominica)</item>
+        <item>English (Eritrea)</item>
+        <item>English (Europe)</item>
+        <item>English (Falkland Islands (Islas Malvinas))</item>
+        <item>English (Fiji)</item>
+        <item>English (Finland)</item>
+        <item>English (Gambia)</item>
+        <item>English (Germany)</item>
+        <item>English (Ghana)</item>
+        <item>English (Gibraltar)</item>
+        <item>English (Grenada)</item>
+        <item>English (Guam)</item>
+        <item>English (Guernsey)</item>
+        <item>English (Guyana)</item>
+        <item>English (Hong Kong)</item>
+        <item>English (India)</item>
+        <item>English (Ireland)</item>
+        <item>English (Isle of Man)</item>
+        <item>English (Israel)</item>
+        <item>English (Jamaica)</item>
+        <item>English (Jersey)</item>
+        <item>English (Kenya)</item>
+        <item>English (Kiribati)</item>
+        <item>English (Lesotho)</item>
+        <item>English (Liberia)</item>
+        <item>English (Macau)</item>
+        <item>English (Madagascar)</item>
+        <item>English (Malawi)</item>
+        <item>English (Malaysia)</item>
+        <item>English (Malta)</item>
+        <item>English (Marshall Islands)</item>
+        <item>English (Mauritius)</item>
+        <item>English (Micronesia)</item>
+        <item>English (Montserrat)</item>
+        <item>English (Namibia)</item>
+        <item>English (Nauru)</item>
+        <item>English (Netherlands)</item>
+        <item>English (New Zealand)</item>
+        <item>English (Nigeria)</item>
+        <item>English (Niue)</item>
+        <item>English (Norfolk Island)</item>
+        <item>English (Northern Mariana Islands)</item>
+        <item>English (Pakistan)</item>
+        <item>English (Palau)</item>
+        <item>English (Papua New Guinea)</item>
+        <item>English (Philippines)</item>
+        <item>English (Pitcairn Islands)</item>
+        <item>English (Puerto Rico)</item>
+        <item>English (Rwanda)</item>
+        <item>English (Samoa)</item>
+        <item>English (Seychelles)</item>
+        <item>English (Sierra Leone)</item>
+        <item>English (Singapore)</item>
+        <item>English (Sint Maarten)</item>
+        <item>English (Slovenia)</item>
+        <item>English (Solomon Islands)</item>
+        <item>English (South Africa)</item>
+        <item>English (South Sudan)</item>
+        <item>English (St. Helena)</item>
+        <item>English (St. Kitts &amp; Nevis)</item>
+        <item>English (St. Lucia)</item>
+        <item>English (St. Vincent &amp; Grenadines)</item>
+        <item>English (Sudan)</item>
+        <item>English (Swaziland)</item>
+        <item>English (Sweden)</item>
+        <item>English (Switzerland)</item>
+        <item>English (Tanzania)</item>
+        <item>English (Tokelau)</item>
+        <item>English (Tonga)</item>
+        <item>English (Trinidad &amp; Tobago)</item>
+        <item>English (Turks &amp; Caicos Islands)</item>
+        <item>English (Tuvalu)</item>
+        <item>English (U.S. Outlying Islands)</item>
+        <item>English (U.S. Virgin Islands)</item>
+        <item>English (Uganda)</item>
+        <item>English (United Kingdom)</item>
+        <item>English (United States)</item>
+        <item>English (United States,Computer)</item>
+        <item>English (Vanuatu)</item>
+        <item>English (World)</item>
+        <item>English (Zambia)</item>
+        <item>English (Zawgyi)</item>
+        <item>English (Zimbabwe)</item>
+        <item>Esperanto</item>
+        <item>Estonian</item>
+        <item>Estonian (Estonia)</item>
+        <item>Ewe</item>
+        <item>Ewe (Ghana)</item>
+        <item>Ewe (Togo)</item>
+        <item>Ewondo</item>
+        <item>Ewondo (Cameroon)</item>
+        <item>Faroese</item>
+        <item>Faroese (Denmark)</item>
+        <item>Faroese (Faroe Islands)</item>
+        <item>Filipino</item>
+        <item>Filipino (Philippines)</item>
+        <item>Finnish</item>
+        <item>Finnish (Finland)</item>
+        <item>French</item>
+        <item>French (Algeria)</item>
+        <item>French (Belgium)</item>
+        <item>French (Benin)</item>
+        <item>French (Burkina Faso)</item>
+        <item>French (Burundi)</item>
+        <item>French (Cameroon)</item>
+        <item>French (Canada)</item>
+        <item>French (Central African Republic)</item>
+        <item>French (Chad)</item>
+        <item>French (Comoros)</item>
+        <item>French (Congo (DRC))</item>
+        <item>French (Congo (Republic))</item>
+        <item>French (Côte d’Ivoire)</item>
+        <item>French (Djibouti)</item>
+        <item>French (Equatorial Guinea)</item>
+        <item>French (France)</item>
+        <item>French (French Guiana)</item>
+        <item>French (French Polynesia)</item>
+        <item>French (Gabon)</item>
+        <item>French (Guadeloupe)</item>
+        <item>French (Guinea)</item>
+        <item>French (Haiti)</item>
+        <item>French (Luxembourg)</item>
+        <item>French (Madagascar)</item>
+        <item>French (Mali)</item>
+        <item>French (Martinique)</item>
+        <item>French (Mauritania)</item>
+        <item>French (Mauritius)</item>
+        <item>French (Mayotte)</item>
+        <item>French (Monaco)</item>
+        <item>French (Morocco)</item>
+        <item>French (New Caledonia)</item>
+        <item>French (Niger)</item>
+        <item>French (Rwanda)</item>
+        <item>French (Réunion)</item>
+        <item>French (Senegal)</item>
+        <item>French (Seychelles)</item>
+        <item>French (St. Barthélemy)</item>
+        <item>French (St. Martin)</item>
+        <item>French (St. Pierre &amp; Miquelon)</item>
+        <item>French (Switzerland)</item>
+        <item>French (Syria)</item>
+        <item>French (Togo)</item>
+        <item>French (Tunisia)</item>
+        <item>French (Vanuatu)</item>
+        <item>French (Wallis &amp; Futuna)</item>
+        <item>Friulian</item>
+        <item>Friulian (Italy)</item>
+        <item>Fulah</item>
+        <item>Fulah (Cameroon)</item>
+        <item>Fulah (Guinea)</item>
+        <item>Fulah (Mauritania)</item>
+        <item>Fulah (Senegal)</item>
+        <item>Galician</item>
+        <item>Galician (Spain)</item>
+        <item>Ganda</item>
+        <item>Ganda (Uganda)</item>
+        <item>Georgian</item>
+        <item>Georgian (Georgia)</item>
+        <item>German</item>
+        <item>German (Austria)</item>
+        <item>German (Belgium)</item>
+        <item>German (Germany)</item>
+        <item>German (Liechtenstein)</item>
+        <item>German (Luxembourg)</item>
+        <item>German (Switzerland)</item>
+        <item>Greek</item>
+        <item>Greek (Cyprus)</item>
+        <item>Greek (Greece)</item>
+        <item>Gujarati</item>
+        <item>Gujarati (India)</item>
+        <item>Gusii</item>
+        <item>Gusii (Kenya)</item>
+        <item>Hausa</item>
+        <item>Hausa (Ghana)</item>
+        <item>Hausa (Niger)</item>
+        <item>Hausa (Nigeria)</item>
+        <item>Hawaiian</item>
+        <item>Hawaiian (United States)</item>
+        <item>Hebrew</item>
+        <item>Hebrew (Israel)</item>
+        <item>Hindi</item>
+        <item>Hindi (India)</item>
+        <item>Hungarian</item>
+        <item>Hungarian (Hungary)</item>
+        <item>Icelandic</item>
+        <item>Icelandic (Iceland)</item>
+        <item>Igbo</item>
+        <item>Igbo (Nigeria)</item>
+        <item>Inari Sami</item>
+        <item>Inari Sami (Finland)</item>
+        <item>Indonesian</item>
+        <item>Indonesian (Indonesia)</item>
+        <item>Irish</item>
+        <item>Irish (Ireland)</item>
+        <item>Italian</item>
+        <item>Italian (Italy)</item>
+        <item>Italian (San Marino)</item>
+        <item>Italian (Switzerland)</item>
+        <item>Japanese</item>
+        <item>Japanese (Japan)</item>
+        <item>Jola-Fonyi</item>
+        <item>Jola-Fonyi (Senegal)</item>
+        <item>Kabuverdianu</item>
+        <item>Kabuverdianu (Cape Verde)</item>
+        <item>Kabyle</item>
+        <item>Kabyle (Algeria)</item>
+        <item>Kako</item>
+        <item>Kako (Cameroon)</item>
+        <item>Kalaallisut</item>
+        <item>Kalaallisut (Greenland)</item>
+        <item>Kalenjin</item>
+        <item>Kalenjin (Kenya)</item>
+        <item>Kamba</item>
+        <item>Kamba (Kenya)</item>
+        <item>Kannada</item>
+        <item>Kannada (India)</item>
+        <item>Kashmiri</item>
+        <item>Kashmiri (India)</item>
+        <item>Kazakh</item>
+        <item>Kazakh (Kazakhstan)</item>
+        <item>Khmer</item>
+        <item>Khmer (Cambodia)</item>
+        <item>Kikuyu</item>
+        <item>Kikuyu (Kenya)</item>
+        <item>Kinyarwanda</item>
+        <item>Kinyarwanda (Rwanda)</item>
+        <item>Konkani</item>
+        <item>Konkani (India)</item>
+        <item>Korean</item>
+        <item>Korean (North Korea)</item>
+        <item>Korean (South Korea)</item>
+        <item>Koyra Chiini</item>
+        <item>Koyra Chiini (Mali)</item>
+        <item>Koyraboro Senni</item>
+        <item>Koyraboro Senni (Mali)</item>
+        <item>Kwasio</item>
+        <item>Kwasio (Cameroon)</item>
+        <item>Kyrgyz</item>
+        <item>Kyrgyz (Kyrgyzstan)</item>
+        <item>Lakota</item>
+        <item>Lakota (United States)</item>
+        <item>Langi</item>
+        <item>Langi (Tanzania)</item>
+        <item>Lao</item>
+        <item>Lao (Laos)</item>
+        <item>Latvian</item>
+        <item>Latvian (Latvia)</item>
+        <item>Lingala</item>
+        <item>Lingala (Angola)</item>
+        <item>Lingala (Central African Republic)</item>
+        <item>Lingala (Congo (DRC))</item>
+        <item>Lingala (Congo (Republic))</item>
+        <item>Lithuanian</item>
+        <item>Lithuanian (Lithuania)</item>
+        <item>Lower Sorbian</item>
+        <item>Lower Sorbian (Germany)</item>
+        <item>Luba-Katanga</item>
+        <item>Luba-Katanga (Congo (DRC))</item>
+        <item>Luo</item>
+        <item>Luo (Kenya)</item>
+        <item>Luxembourgish</item>
+        <item>Luxembourgish (Luxembourg)</item>
+        <item>Luyia</item>
+        <item>Luyia (Kenya)</item>
+        <item>Macedonian</item>
+        <item>Macedonian (Macedonia (FYROM))</item>
+        <item>Machame</item>
+        <item>Machame (Tanzania)</item>
+        <item>Makhuwa-Meetto</item>
+        <item>Makhuwa-Meetto (Mozambique)</item>
+        <item>Makonde</item>
+        <item>Makonde (Tanzania)</item>
+        <item>Malagasy</item>
+        <item>Malagasy (Madagascar)</item>
+        <item>Malay</item>
+        <item>Malay (Brunei)</item>
+        <item>Malay (Malaysia)</item>
+        <item>Malay (Singapore)</item>
+        <item>Malayalam</item>
+        <item>Malayalam (India)</item>
+        <item>Maltese</item>
+        <item>Maltese (Malta)</item>
+        <item>Manx</item>
+        <item>Manx (Isle of Man)</item>
+        <item>Marathi</item>
+        <item>Marathi (India)</item>
+        <item>Masai</item>
+        <item>Masai (Kenya)</item>
+        <item>Masai (Tanzania)</item>
+        <item>Mazanderani</item>
+        <item>Mazanderani (Iran)</item>
+        <item>Meru</item>
+        <item>Meru (Kenya)</item>
+        <item>Metaʼ</item>
+        <item>Metaʼ (Cameroon)</item>
+        <item>Mongolian</item>
+        <item>Mongolian (Mongolia)</item>
+        <item>Morisyen</item>
+        <item>Morisyen (Mauritius)</item>
+        <item>Mundang</item>
+        <item>Mundang (Cameroon)</item>
+        <item>Nama</item>
+        <item>Nama (Namibia)</item>
+        <item>Nepali</item>
+        <item>Nepali (India)</item>
+        <item>Nepali (Nepal)</item>
+        <item>Ngiemboon</item>
+        <item>Ngiemboon (Cameroon)</item>
+        <item>Ngomba</item>
+        <item>Ngomba (Cameroon)</item>
+        <item>North Ndebele</item>
+        <item>North Ndebele (Zimbabwe)</item>
+        <item>Northern Luri</item>
+        <item>Northern Luri (Iran)</item>
+        <item>Northern Luri (Iraq)</item>
+        <item>Northern Sami</item>
+        <item>Northern Sami (Finland)</item>
+        <item>Northern Sami (Norway)</item>
+        <item>Northern Sami (Sweden)</item>
+        <item>Norwegian Bokmål</item>
+        <item>Norwegian Bokmål (Norway)</item>
+        <item>Norwegian Bokmål (Svalbard &amp; Jan Mayen)</item>
+        <item>Norwegian Nynorsk</item>
+        <item>Norwegian Nynorsk (Norway)</item>
+        <item>Nuer</item>
+        <item>Nuer (South Sudan)</item>
+        <item>Nyankole</item>
+        <item>Nyankole (Uganda)</item>
+        <item>Oriya</item>
+        <item>Oriya (India)</item>
+        <item>Oromo</item>
+        <item>Oromo (Ethiopia)</item>
+        <item>Oromo (Kenya)</item>
+        <item>Ossetic</item>
+        <item>Ossetic (Georgia)</item>
+        <item>Ossetic (Russia)</item>
+        <item>Pashto</item>
+        <item>Pashto (Afghanistan)</item>
+        <item>Persian</item>
+        <item>Persian (Afghanistan)</item>
+        <item>Persian (Iran)</item>
+        <item>Polish</item>
+        <item>Polish (Poland)</item>
+        <item>Polish (Silesian)</item>
+        <item>Portuguese</item>
+        <item>Portuguese (Angola)</item>
+        <item>Portuguese (Brazil)</item>
+        <item>Portuguese (Cape Verde)</item>
+        <item>Portuguese (Guinea-Bissau)</item>
+        <item>Portuguese (Macau)</item>
+        <item>Portuguese (Mozambique)</item>
+        <item>Portuguese (Portugal)</item>
+        <item>Portuguese (São Tomé &amp; Príncipe)</item>
+        <item>Portuguese (Timor-Leste)</item>
+        <item>Punjabi</item>
+        <item>Punjabi (Arabic)</item>
+        <item>Punjabi (Arabic,Pakistan)</item>
+        <item>Punjabi (Gurmukhi)</item>
+        <item>Punjabi (Gurmukhi,India)</item>
+        <item>Quechua</item>
+        <item>Quechua (Bolivia)</item>
+        <item>Quechua (Ecuador)</item>
+        <item>Quechua (Peru)</item>
+        <item>Romanian</item>
+        <item>Romanian (Moldova)</item>
+        <item>Romanian (Romania)</item>
+        <item>Romansh</item>
+        <item>Romansh (Switzerland)</item>
+        <item>Rombo</item>
+        <item>Rombo (Tanzania)</item>
+        <item>Rundi</item>
+        <item>Rundi (Burundi)</item>
+        <item>Russian</item>
+        <item>Russian (Belarus)</item>
+        <item>Russian (Kazakhstan)</item>
+        <item>Russian (Kyrgyzstan)</item>
+        <item>Russian (Moldova)</item>
+        <item>Russian (Russia)</item>
+        <item>Russian (Ukraine)</item>
+        <item>Rwa</item>
+        <item>Rwa (Tanzania)</item>
+        <item>Sakha</item>
+        <item>Sakha (Russia)</item>
+        <item>Samburu</item>
+        <item>Samburu (Kenya)</item>
+        <item>Sango</item>
+        <item>Sango (Central African Republic)</item>
+        <item>Sangu</item>
+        <item>Sangu (Tanzania)</item>
+        <item>Scottish Gaelic</item>
+        <item>Scottish Gaelic (United Kingdom)</item>
+        <item>Sena</item>
+        <item>Sena (Mozambique)</item>
+        <item>Serbian</item>
+        <item>Serbian (Cyrillic)</item>
+        <item>Serbian (Cyrillic,Bosnia &amp; Herzegovina)</item>
+        <item>Serbian (Cyrillic,Kosovo)</item>
+        <item>Serbian (Cyrillic,Montenegro)</item>
+        <item>Serbian (Cyrillic,Serbia)</item>
+        <item>Serbian (Latin)</item>
+        <item>Serbian (Latin,Bosnia &amp; Herzegovina)</item>
+        <item>Serbian (Latin,Kosovo)</item>
+        <item>Serbian (Latin,Montenegro)</item>
+        <item>Serbian (Latin,Serbia)</item>
+        <item>Shambala</item>
+        <item>Shambala (Tanzania)</item>
+        <item>Shona</item>
+        <item>Shona (Zimbabwe)</item>
+        <item>Sichuan Yi</item>
+        <item>Sichuan Yi (China)</item>
+        <item>Sinhala</item>
+        <item>Sinhala (Sri Lanka)</item>
+        <item>Slovak</item>
+        <item>Slovak (Slovakia)</item>
+        <item>Slovenian</item>
+        <item>Slovenian (Slovenia)</item>
+        <item>Soga</item>
+        <item>Soga (Uganda)</item>
+        <item>Somali</item>
+        <item>Somali (Djibouti)</item>
+        <item>Somali (Ethiopia)</item>
+        <item>Somali (Kenya)</item>
+        <item>Somali (Somalia)</item>
+        <item>Spanish</item>
+        <item>Spanish (Argentina)</item>
+        <item>Spanish (Bolivia)</item>
+        <item>Spanish (Canary Islands)</item>
+        <item>Spanish (Ceuta &amp; Melilla)</item>
+        <item>Spanish (Chile)</item>
+        <item>Spanish (Colombia)</item>
+        <item>Spanish (Costa Rica)</item>
+        <item>Spanish (Cuba)</item>
+        <item>Spanish (Dominican Republic)</item>
+        <item>Spanish (Ecuador)</item>
+        <item>Spanish (El Salvador)</item>
+        <item>Spanish (Equatorial Guinea)</item>
+        <item>Spanish (Guatemala)</item>
+        <item>Spanish (Honduras)</item>
+        <item>Spanish (Latin America)</item>
+        <item>Spanish (Mexico)</item>
+        <item>Spanish (Nicaragua)</item>
+        <item>Spanish (Panama)</item>
+        <item>Spanish (Paraguay)</item>
+        <item>Spanish (Peru)</item>
+        <item>Spanish (Philippines)</item>
+        <item>Spanish (Puerto Rico)</item>
+        <item>Spanish (Spain)</item>
+        <item>Spanish (United States)</item>
+        <item>Spanish (Uruguay)</item>
+        <item>Spanish (Venezuela)</item>
+        <item>Standard Moroccan Tamazight</item>
+        <item>Standard Moroccan Tamazight (Morocco)</item>
+        <item>Swahili</item>
+        <item>Swahili (Congo (DRC))</item>
+        <item>Swahili (Kenya)</item>
+        <item>Swahili (Tanzania)</item>
+        <item>Swahili (Uganda)</item>
+        <item>Swedish</item>
+        <item>Swedish (Finland)</item>
+        <item>Swedish (Sweden)</item>
+        <item>Swedish (Åland Islands)</item>
+        <item>Swiss German</item>
+        <item>Swiss German (France)</item>
+        <item>Swiss German (Liechtenstein)</item>
+        <item>Swiss German (Switzerland)</item>
+        <item>Tachelhit</item>
+        <item>Tachelhit (Latin)</item>
+        <item>Tachelhit (Latin,Morocco)</item>
+        <item>Tachelhit (Tifinagh)</item>
+        <item>Tachelhit (Tifinagh,Morocco)</item>
+        <item>Taita</item>
+        <item>Taita (Kenya)</item>
+        <item>Tajik</item>
+        <item>Tamil</item>
+        <item>Tamil (India)</item>
+        <item>Tamil (Malaysia)</item>
+        <item>Tamil (Singapore)</item>
+        <item>Tamil (Sri Lanka)</item>
+        <item>Tasawaq</item>
+        <item>Tasawaq (Niger)</item>
+        <item>Telugu</item>
+        <item>Telugu (India)</item>
+        <item>Teso</item>
+        <item>Teso (Kenya)</item>
+        <item>Teso (Uganda)</item>
+        <item>Thai</item>
+        <item>Thai (Thailand)</item>
+        <item>Tibetan</item>
+        <item>Tibetan (China)</item>
+        <item>Tibetan (India)</item>
+        <item>Tigrinya</item>
+        <item>Tigrinya (Eritrea)</item>
+        <item>Tigrinya (Ethiopia)</item>
+        <item>Tongan</item>
+        <item>Tongan (Tonga)</item>
+        <item>Turkish</item>
+        <item>Turkish (Cyprus)</item>
+        <item>Turkish (Turkey)</item>
+        <item>Turkmen</item>
+        <item>Ukrainian</item>
+        <item>Ukrainian (Ukraine)</item>
+        <item>Upper Sorbian</item>
+        <item>Upper Sorbian (Germany)</item>
+        <item>Urdu</item>
+        <item>Urdu (India)</item>
+        <item>Urdu (Pakistan)</item>
+        <item>Uyghur</item>
+        <item>Uyghur (China)</item>
+        <item>Uzbek</item>
+        <item>Uzbek (Arabic)</item>
+        <item>Uzbek (Arabic,Afghanistan)</item>
+        <item>Uzbek (Cyrillic)</item>
+        <item>Uzbek (Cyrillic,Uzbekistan)</item>
+        <item>Uzbek (Latin)</item>
+        <item>Uzbek (Latin,Uzbekistan)</item>
+        <item>Vai</item>
+        <item>Vai (Latin)</item>
+        <item>Vai (Latin,Liberia)</item>
+        <item>Vai (Vai)</item>
+        <item>Vai (Vai,Liberia)</item>
+        <item>Vietnamese</item>
+        <item>Vietnamese (Vietnam)</item>
+        <item>Vunjo</item>
+        <item>Vunjo (Tanzania)</item>
+        <item>Walser</item>
+        <item>Walser (Switzerland)</item>
+        <item>Welsh</item>
+        <item>Welsh (United Kingdom)</item>
+        <item>Western Frisian</item>
+        <item>Western Frisian (Netherlands)</item>
+        <item>Yangben</item>
+        <item>Yangben (Cameroon)</item>
+        <item>Yiddish</item>
+        <item>Yiddish (World)</item>
+        <item>Yoruba</item>
+        <item>Yoruba (Benin)</item>
+        <item>Yoruba (Nigeria)</item>
+        <item>Zarma</item>
+        <item>Zarma (Niger)</item>
+        <item>Zulu</item>
+        <item>Zulu (South Africa)</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>af</item>
+        <item>af_NA</item>
+        <item>af_ZA</item>
+        <item>agq</item>
+        <item>agq_CM</item>
+        <item>ak</item>
+        <item>ak_GH</item>
+        <item>sq</item>
+        <item>sq_AL</item>
+        <item>sq_XK</item>
+        <item>sq_MK</item>
+        <item>am</item>
+        <item>am_ET</item>
+        <item>ar</item>
+        <item>ar_DZ</item>
+        <item>ar_BH</item>
+        <item>ar_TD</item>
+        <item>ar_KM</item>
+        <item>ar_DJ</item>
+        <item>ar_EG</item>
+        <item>ar_ER</item>
+        <item>ar_IQ</item>
+        <item>ar_IL</item>
+        <item>ar_JO</item>
+        <item>ar_KW</item>
+        <item>ar_LB</item>
+        <item>ar_LY</item>
+        <item>ar_MR</item>
+        <item>ar_MA</item>
+        <item>ar_OM</item>
+        <item>ar_PS</item>
+        <item>ar_QA</item>
+        <item>ar_SA</item>
+        <item>ar_SO</item>
+        <item>ar_SS</item>
+        <item>ar_SD</item>
+        <item>ar_SY</item>
+        <item>ar_TN</item>
+        <item>ar_AE</item>
+        <item>ar_EH</item>
+        <item>ar_001</item>
+        <item>ar_YE</item>
+        <item>hy</item>
+        <item>hy_AM</item>
+        <item>as</item>
+        <item>as_IN</item>
+        <item>asa</item>
+        <item>asa_TZ</item>
+        <item>az</item>
+        <item>az__#Cyrl</item>
+        <item>az_AZ_#Cyrl</item>
+        <item>az__#Latn</item>
+        <item>az_AZ_#Latn</item>
+        <item>ksf</item>
+        <item>ksf_CM</item>
+        <item>bm</item>
+        <item>bm_ML</item>
+        <item>bas</item>
+        <item>bas_CM</item>
+        <item>eu</item>
+        <item>eu_ES</item>
+        <item>be</item>
+        <item>be_BY</item>
+        <item>bem</item>
+        <item>bem_ZM</item>
+        <item>bez</item>
+        <item>bez_TZ</item>
+        <item>bn</item>
+        <item>bn_BD</item>
+        <item>bn_IN</item>
+        <item>brx</item>
+        <item>brx_IN</item>
+        <item>bs</item>
+        <item>bs__#Cyrl</item>
+        <item>bs_BA_#Cyrl</item>
+        <item>bs__#Latn</item>
+        <item>bs_BA_#Latn</item>
+        <item>br</item>
+        <item>br_FR</item>
+        <item>bg</item>
+        <item>bg_BG</item>
+        <item>my</item>
+        <item>my_MM</item>
+        <item>my_ZG</item>
+        <item>ca</item>
+        <item>ca_AD</item>
+        <item>ca_FR</item>
+        <item>ca_IT</item>
+        <item>ca_ES</item>
+        <item>tzm</item>
+        <item>tzm_MA</item>
+        <item>ce</item>
+        <item>ce_RU</item>
+        <item>chr</item>
+        <item>chr_US</item>
+        <item>cgg</item>
+        <item>cgg_UG</item>
+        <item>zh</item>
+        <item>zh__#Hans</item>
+        <item>zh_CN_#Hans</item>
+        <item>zh_HK_#Hans</item>
+        <item>zh_MO_#Hans</item>
+        <item>zh_SG_#Hans</item>
+        <item>zh__#Hant</item>
+        <item>zh_HK_#Hant</item>
+        <item>zh_MO_#Hant</item>
+        <item>zh_TW_#Hant</item>
+        <item>ksh</item>
+        <item>ksh_DE</item>
+        <item>kw</item>
+        <item>kw_GB</item>
+        <item>hr</item>
+        <item>hr_BA</item>
+        <item>hr_HR</item>
+        <item>cs</item>
+        <item>cs_CZ</item>
+        <item>da</item>
+        <item>da_DK</item>
+        <item>da_GL</item>
+        <item>dua</item>
+        <item>dua_CM</item>
+        <item>nl</item>
+        <item>nl_AW</item>
+        <item>nl_BE</item>
+        <item>nl_BQ</item>
+        <item>nl_CW</item>
+        <item>nl_NL</item>
+        <item>nl_SX</item>
+        <item>nl_SR</item>
+        <item>dz</item>
+        <item>dz_BT</item>
+        <item>ebu</item>
+        <item>ebu_KE</item>
+        <item>en</item>
+        <item>en_AS</item>
+        <item>en_AI</item>
+        <item>en_AG</item>
+        <item>en_AU</item>
+        <item>en_AT</item>
+        <item>en_BS</item>
+        <item>en_BB</item>
+        <item>en_BE</item>
+        <item>en_BZ</item>
+        <item>en_BM</item>
+        <item>en_BW</item>
+        <item>en_IO</item>
+        <item>en_VG</item>
+        <item>en_BI</item>
+        <item>en_CM</item>
+        <item>en_CA</item>
+        <item>en_KY</item>
+        <item>en_CX</item>
+        <item>en_CC</item>
+        <item>en_CK</item>
+        <item>en_CY</item>
+        <item>en_DK</item>
+        <item>en_DG</item>
+        <item>en_DM</item>
+        <item>en_ER</item>
+        <item>en_150</item>
+        <item>en_FK</item>
+        <item>en_FJ</item>
+        <item>en_FI</item>
+        <item>en_GM</item>
+        <item>en_DE</item>
+        <item>en_GH</item>
+        <item>en_GI</item>
+        <item>en_GD</item>
+        <item>en_GU</item>
+        <item>en_GG</item>
+        <item>en_GY</item>
+        <item>en_HK</item>
+        <item>en_IN</item>
+        <item>en_IE</item>
+        <item>en_IM</item>
+        <item>en_IL</item>
+        <item>en_JM</item>
+        <item>en_JE</item>
+        <item>en_KE</item>
+        <item>en_KI</item>
+        <item>en_LS</item>
+        <item>en_LR</item>
+        <item>en_MO</item>
+        <item>en_MG</item>
+        <item>en_MW</item>
+        <item>en_MY</item>
+        <item>en_MT</item>
+        <item>en_MH</item>
+        <item>en_MU</item>
+        <item>en_FM</item>
+        <item>en_MS</item>
+        <item>en_NA</item>
+        <item>en_NR</item>
+        <item>en_NL</item>
+        <item>en_NZ</item>
+        <item>en_NG</item>
+        <item>en_NU</item>
+        <item>en_NF</item>
+        <item>en_MP</item>
+        <item>en_PK</item>
+        <item>en_PW</item>
+        <item>en_PG</item>
+        <item>en_PH</item>
+        <item>en_PN</item>
+        <item>en_PR</item>
+        <item>en_RW</item>
+        <item>en_WS</item>
+        <item>en_SC</item>
+        <item>en_SL</item>
+        <item>en_SG</item>
+        <item>en_SX</item>
+        <item>en_SI</item>
+        <item>en_SB</item>
+        <item>en_ZA</item>
+        <item>en_SS</item>
+        <item>en_SH</item>
+        <item>en_KN</item>
+        <item>en_LC</item>
+        <item>en_VC</item>
+        <item>en_SD</item>
+        <item>en_SZ</item>
+        <item>en_SE</item>
+        <item>en_CH</item>
+        <item>en_TZ</item>
+        <item>en_TK</item>
+        <item>en_TO</item>
+        <item>en_TT</item>
+        <item>en_TC</item>
+        <item>en_TV</item>
+        <item>en_UM</item>
+        <item>en_VI</item>
+        <item>en_UG</item>
+        <item>en_GB</item>
+        <item>en_US</item>
+        <item>en_US_POSIX</item>
+        <item>en_VU</item>
+        <item>en_001</item>
+        <item>en_ZM</item>
+        <item>en_ZG</item>
+        <item>en_ZW</item>
+        <item>eo</item>
+        <item>et</item>
+        <item>et_EE</item>
+        <item>ee</item>
+        <item>ee_GH</item>
+        <item>ee_TG</item>
+        <item>ewo</item>
+        <item>ewo_CM</item>
+        <item>fo</item>
+        <item>fo_DK</item>
+        <item>fo_FO</item>
+        <item>fil</item>
+        <item>fil_PH</item>
+        <item>fi</item>
+        <item>fi_FI</item>
+        <item>fr</item>
+        <item>fr_DZ</item>
+        <item>fr_BE</item>
+        <item>fr_BJ</item>
+        <item>fr_BF</item>
+        <item>fr_BI</item>
+        <item>fr_CM</item>
+        <item>fr_CA</item>
+        <item>fr_CF</item>
+        <item>fr_TD</item>
+        <item>fr_KM</item>
+        <item>fr_CD</item>
+        <item>fr_CG</item>
+        <item>fr_CI</item>
+        <item>fr_DJ</item>
+        <item>fr_GQ</item>
+        <item>fr_FR</item>
+        <item>fr_GF</item>
+        <item>fr_PF</item>
+        <item>fr_GA</item>
+        <item>fr_GP</item>
+        <item>fr_GN</item>
+        <item>fr_HT</item>
+        <item>fr_LU</item>
+        <item>fr_MG</item>
+        <item>fr_ML</item>
+        <item>fr_MQ</item>
+        <item>fr_MR</item>
+        <item>fr_MU</item>
+        <item>fr_YT</item>
+        <item>fr_MC</item>
+        <item>fr_MA</item>
+        <item>fr_NC</item>
+        <item>fr_NE</item>
+        <item>fr_RW</item>
+        <item>fr_RE</item>
+        <item>fr_SN</item>
+        <item>fr_SC</item>
+        <item>fr_BL</item>
+        <item>fr_MF</item>
+        <item>fr_PM</item>
+        <item>fr_CH</item>
+        <item>fr_SY</item>
+        <item>fr_TG</item>
+        <item>fr_TN</item>
+        <item>fr_VU</item>
+        <item>fr_WF</item>
+        <item>fur</item>
+        <item>fur_IT</item>
+        <item>ff</item>
+        <item>ff_CM</item>
+        <item>ff_GN</item>
+        <item>ff_MR</item>
+        <item>ff_SN</item>
+        <item>gl</item>
+        <item>gl_ES</item>
+        <item>lg</item>
+        <item>lg_UG</item>
+        <item>ka</item>
+        <item>ka_GE</item>
+        <item>de</item>
+        <item>de_AT</item>
+        <item>de_BE</item>
+        <item>de_DE</item>
+        <item>de_LI</item>
+        <item>de_LU</item>
+        <item>de_CH</item>
+        <item>el</item>
+        <item>el_CY</item>
+        <item>el_GR</item>
+        <item>gu</item>
+        <item>gu_IN</item>
+        <item>guz</item>
+        <item>guz_KE</item>
+        <item>ha</item>
+        <item>ha_GH</item>
+        <item>ha_NE</item>
+        <item>ha_NG</item>
+        <item>haw</item>
+        <item>haw_US</item>
+        <item>iw</item>
+        <item>iw_IL</item>
+        <item>hi</item>
+        <item>hi_IN</item>
+        <item>hu</item>
+        <item>hu_HU</item>
+        <item>is</item>
+        <item>is_IS</item>
+        <item>ig</item>
+        <item>ig_NG</item>
+        <item>smn</item>
+        <item>smn_FI</item>
+        <item>in</item>
+        <item>in_ID</item>
+        <item>ga</item>
+        <item>ga_IE</item>
+        <item>it</item>
+        <item>it_IT</item>
+        <item>it_SM</item>
+        <item>it_CH</item>
+        <item>ja</item>
+        <item>ja_JP</item>
+        <item>dyo</item>
+        <item>dyo_SN</item>
+        <item>kea</item>
+        <item>kea_CV</item>
+        <item>kab</item>
+        <item>kab_DZ</item>
+        <item>kkj</item>
+        <item>kkj_CM</item>
+        <item>kl</item>
+        <item>kl_GL</item>
+        <item>kln</item>
+        <item>kln_KE</item>
+        <item>kam</item>
+        <item>kam_KE</item>
+        <item>kn</item>
+        <item>kn_IN</item>
+        <item>ks</item>
+        <item>ks_IN</item>
+        <item>kk</item>
+        <item>kk_KZ</item>
+        <item>km</item>
+        <item>km_KH</item>
+        <item>ki</item>
+        <item>ki_KE</item>
+        <item>rw</item>
+        <item>rw_RW</item>
+        <item>kok</item>
+        <item>kok_IN</item>
+        <item>ko</item>
+        <item>ko_KP</item>
+        <item>ko_KR</item>
+        <item>khq</item>
+        <item>khq_ML</item>
+        <item>ses</item>
+        <item>ses_ML</item>
+        <item>nmg</item>
+        <item>nmg_CM</item>
+        <item>ky</item>
+        <item>ky_KG</item>
+        <item>lkt</item>
+        <item>lkt_US</item>
+        <item>lag</item>
+        <item>lag_TZ</item>
+        <item>lo</item>
+        <item>lo_LA</item>
+        <item>lv</item>
+        <item>lv_LV</item>
+        <item>ln</item>
+        <item>ln_AO</item>
+        <item>ln_CF</item>
+        <item>ln_CD</item>
+        <item>ln_CG</item>
+        <item>lt</item>
+        <item>lt_LT</item>
+        <item>dsb</item>
+        <item>dsb_DE</item>
+        <item>lu</item>
+        <item>lu_CD</item>
+        <item>luo</item>
+        <item>luo_KE</item>
+        <item>lb</item>
+        <item>lb_LU</item>
+        <item>luy</item>
+        <item>luy_KE</item>
+        <item>mk</item>
+        <item>mk_MK</item>
+        <item>jmc</item>
+        <item>jmc_TZ</item>
+        <item>mgh</item>
+        <item>mgh_MZ</item>
+        <item>kde</item>
+        <item>kde_TZ</item>
+        <item>mg</item>
+        <item>mg_MG</item>
+        <item>ms</item>
+        <item>ms_BN</item>
+        <item>ms_MY</item>
+        <item>ms_SG</item>
+        <item>ml</item>
+        <item>ml_IN</item>
+        <item>mt</item>
+        <item>mt_MT</item>
+        <item>gv</item>
+        <item>gv_IM</item>
+        <item>mr</item>
+        <item>mr_IN</item>
+        <item>mas</item>
+        <item>mas_KE</item>
+        <item>mas_TZ</item>
+        <item>mzn</item>
+        <item>mzn_IR</item>
+        <item>mer</item>
+        <item>mer_KE</item>
+        <item>mgo</item>
+        <item>mgo_CM</item>
+        <item>mn</item>
+        <item>mn_MN</item>
+        <item>mfe</item>
+        <item>mfe_MU</item>
+        <item>mua</item>
+        <item>mua_CM</item>
+        <item>naq</item>
+        <item>naq_NA</item>
+        <item>ne</item>
+        <item>ne_IN</item>
+        <item>ne_NP</item>
+        <item>nnh</item>
+        <item>nnh_CM</item>
+        <item>jgo</item>
+        <item>jgo_CM</item>
+        <item>nd</item>
+        <item>nd_ZW</item>
+        <item>lrc</item>
+        <item>lrc_IR</item>
+        <item>lrc_IQ</item>
+        <item>se</item>
+        <item>se_FI</item>
+        <item>se_NO</item>
+        <item>se_SE</item>
+        <item>nb</item>
+        <item>nb_NO</item>
+        <item>nb_SJ</item>
+        <item>nn</item>
+        <item>nn_NO</item>
+        <item>nus</item>
+        <item>nus_SS</item>
+        <item>nyn</item>
+        <item>nyn_UG</item>
+        <item>or</item>
+        <item>or_IN</item>
+        <item>om</item>
+        <item>om_ET</item>
+        <item>om_KE</item>
+        <item>os</item>
+        <item>os_GE</item>
+        <item>os_RU</item>
+        <item>ps</item>
+        <item>ps_AF</item>
+        <item>fa</item>
+        <item>fa_AF</item>
+        <item>fa_IR</item>
+        <item>pl</item>
+        <item>pl_PL</item>
+        <item>pl_SP</item>
+        <item>pt</item>
+        <item>pt_AO</item>
+        <item>pt_BR</item>
+        <item>pt_CV</item>
+        <item>pt_GW</item>
+        <item>pt_MO</item>
+        <item>pt_MZ</item>
+        <item>pt_PT</item>
+        <item>pt_ST</item>
+        <item>pt_TL</item>
+        <item>pa</item>
+        <item>pa__#Arab</item>
+        <item>pa_PK_#Arab</item>
+        <item>pa__#Guru</item>
+        <item>pa_IN_#Guru</item>
+        <item>qu</item>
+        <item>qu_BO</item>
+        <item>qu_EC</item>
+        <item>qu_PE</item>
+        <item>ro</item>
+        <item>ro_MD</item>
+        <item>ro_RO</item>
+        <item>rm</item>
+        <item>rm_CH</item>
+        <item>rof</item>
+        <item>rof_TZ</item>
+        <item>rn</item>
+        <item>rn_BI</item>
+        <item>ru</item>
+        <item>ru_BY</item>
+        <item>ru_KZ</item>
+        <item>ru_KG</item>
+        <item>ru_MD</item>
+        <item>ru_RU</item>
+        <item>ru_UA</item>
+        <item>rwk</item>
+        <item>rwk_TZ</item>
+        <item>sah</item>
+        <item>sah_RU</item>
+        <item>saq</item>
+        <item>saq_KE</item>
+        <item>sg</item>
+        <item>sg_CF</item>
+        <item>sbp</item>
+        <item>sbp_TZ</item>
+        <item>gd</item>
+        <item>gd_GB</item>
+        <item>seh</item>
+        <item>seh_MZ</item>
+        <item>sr</item>
+        <item>sr__#Cyrl</item>
+        <item>sr_BA_#Cyrl</item>
+        <item>sr_XK_#Cyrl</item>
+        <item>sr_ME_#Cyrl</item>
+        <item>sr_RS_#Cyrl</item>
+        <item>sr__#Latn</item>
+        <item>sr_BA_#Latn</item>
+        <item>sr_XK_#Latn</item>
+        <item>sr_ME_#Latn</item>
+        <item>sr_RS_#Latn</item>
+        <item>ksb</item>
+        <item>ksb_TZ</item>
+        <item>sn</item>
+        <item>sn_ZW</item>
+        <item>ii</item>
+        <item>ii_CN</item>
+        <item>si</item>
+        <item>si_LK</item>
+        <item>sk</item>
+        <item>sk_SK</item>
+        <item>sl</item>
+        <item>sl_SI</item>
+        <item>xog</item>
+        <item>xog_UG</item>
+        <item>so</item>
+        <item>so_DJ</item>
+        <item>so_ET</item>
+        <item>so_KE</item>
+        <item>so_SO</item>
+        <item>es</item>
+        <item>es_AR</item>
+        <item>es_BO</item>
+        <item>es_IC</item>
+        <item>es_EA</item>
+        <item>es_CL</item>
+        <item>es_CO</item>
+        <item>es_CR</item>
+        <item>es_CU</item>
+        <item>es_DO</item>
+        <item>es_EC</item>
+        <item>es_SV</item>
+        <item>es_GQ</item>
+        <item>es_GT</item>
+        <item>es_HN</item>
+        <item>es_419</item>
+        <item>es_MX</item>
+        <item>es_NI</item>
+        <item>es_PA</item>
+        <item>es_PY</item>
+        <item>es_PE</item>
+        <item>es_PH</item>
+        <item>es_PR</item>
+        <item>es_ES</item>
+        <item>es_US</item>
+        <item>es_UY</item>
+        <item>es_VE</item>
+        <item>zgh</item>
+        <item>zgh_MA</item>
+        <item>sw</item>
+        <item>sw_CD</item>
+        <item>sw_KE</item>
+        <item>sw_TZ</item>
+        <item>sw_UG</item>
+        <item>sv</item>
+        <item>sv_FI</item>
+        <item>sv_SE</item>
+        <item>sv_AX</item>
+        <item>gsw</item>
+        <item>gsw_FR</item>
+        <item>gsw_LI</item>
+        <item>gsw_CH</item>
+        <item>shi</item>
+        <item>shi__#Latn</item>
+        <item>shi_MA_#Latn</item>
+        <item>shi__#Tfng</item>
+        <item>shi_MA_#Tfng</item>
+        <item>dav</item>
+        <item>dav_KE</item>
+        <item>tg</item>
+        <item>ta</item>
+        <item>ta_IN</item>
+        <item>ta_MY</item>
+        <item>ta_SG</item>
+        <item>ta_LK</item>
+        <item>twq</item>
+        <item>twq_NE</item>
+        <item>te</item>
+        <item>te_IN</item>
+        <item>teo</item>
+        <item>teo_KE</item>
+        <item>teo_UG</item>
+        <item>th</item>
+        <item>th_TH</item>
+        <item>bo</item>
+        <item>bo_CN</item>
+        <item>bo_IN</item>
+        <item>ti</item>
+        <item>ti_ER</item>
+        <item>ti_ET</item>
+        <item>to</item>
+        <item>to_TO</item>
+        <item>tr</item>
+        <item>tr_CY</item>
+        <item>tr_TR</item>
+        <item>tk</item>
+        <item>uk</item>
+        <item>uk_UA</item>
+        <item>hsb</item>
+        <item>hsb_DE</item>
+        <item>ur</item>
+        <item>ur_IN</item>
+        <item>ur_PK</item>
+        <item>ug</item>
+        <item>ug_CN</item>
+        <item>uz</item>
+        <item>uz__#Arab</item>
+        <item>uz_AF_#Arab</item>
+        <item>uz__#Cyrl</item>
+        <item>uz_UZ_#Cyrl</item>
+        <item>uz__#Latn</item>
+        <item>uz_UZ_#Latn</item>
+        <item>vai</item>
+        <item>vai__#Latn</item>
+        <item>vai_LR_#Latn</item>
+        <item>vai__#Vaii</item>
+        <item>vai_LR_#Vaii</item>
+        <item>vi</item>
+        <item>vi_VN</item>
+        <item>vun</item>
+        <item>vun_TZ</item>
+        <item>wae</item>
+        <item>wae_CH</item>
+        <item>cy</item>
+        <item>cy_GB</item>
+        <item>fy</item>
+        <item>fy_NL</item>
+        <item>yav</item>
+        <item>yav_CM</item>
+        <item>ji</item>
+        <item>ji_001</item>
+        <item>yo</item>
+        <item>yo_BJ</item>
+        <item>yo_NG</item>
+        <item>dje</item>
+        <item>dje_NE</item>
+        <item>zu</item>
+        <item>zu_ZA</item>
+    </string-array>
+</resources>

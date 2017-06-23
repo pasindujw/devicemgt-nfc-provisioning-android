@@ -1,0 +1,129 @@
+/*
+ * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "org.wso2.iot.nfcprovisioning"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // DEFAULT_HOST: Hardcode the server host to avoid having the user type it during
+            // sign-in. User can edit this value at sign-in if needed.
+            buildConfigField "String", "DEFAULT_HOST", "\"https://gateway.api.cloud.wso2.com\""
+            // CLOUD_MANAGER: If the App is pointed to cloud use cloud management host to resolve
+            // tenants of user. Otherwise set this to null
+            buildConfigField "String", "CLOUD_MANAGER", "\"https://cloudmgt.cloud.wso2.com/cloudmgt\""
+            // AUTHENTICATOR_IN_USE: Type of authenticator used in wso2 agent app when authenticating
+            // with server. Allowed values by default are OAUTH_AUTHENTICATOR or MUTUAL_SSL_AUTHENTICATOR
+            buildConfigField "String", "AUTHENTICATOR_IN_USE", "\"OAUTH_AUTHENTICATOR\""
+            // USE_REMOTE_CONFIG: Set this to true if the app is configured to get provisioning
+            // values from Firebase remote config.
+            buildConfigField "boolean", "USE_REMOTE_CONFIG", "true"
+            // PUSH_KIOSK_APP: Set this to true if a kiosk app download link
+            // will be sent on NFC bump.
+            buildConfigField "boolean", "PUSH_KIOSK_APP", "true"
+            // APP_PACKAGE: If a modification of the package name is done, this must be
+            // altered
+            buildConfigField "String", "APP_PACKAGE", "\"org.wso2.iot.nfcprovisioning\""
+            // DEBUG_MODE_ENABLED: Make the agent print the debug logs.
+            // Make this false in production.
+            buildConfigField "boolean", "DEBUG_MODE_ENABLED", "false"
+        }
+        staging {
+            // DEFAULT_HOST: Hardcode the server host to avoid having the user type it during
+            // sign-in. User can edit this value at sign-in if needed.
+            buildConfigField "String", "DEFAULT_HOST", "\"https://gateway.api.cloudstaging.wso2.com:8243\""
+            // CLOUD_MANAGER: If the App is pointed to cloud use cloud management host to resolve
+            // tenants of user. Otherwise set this to null
+            buildConfigField "String", "CLOUD_MANAGER", "\"https://cloudmgt.cloudstaging.wso2.com/cloudmgt\""
+            // AUTHENTICATOR_IN_USE: Type of authenticator used in wso2 agent app when authenticating
+            // with server. Allowed values by default are OAUTH_AUTHENTICATOR or MUTUAL_SSL_AUTHENTICATOR
+            buildConfigField "String", "AUTHENTICATOR_IN_USE", "\"OAUTH_AUTHENTICATOR\""
+            // USE_REMOTE_CONFIG: Set this to true if the app is configured to get provisioning
+            // values from Firebase remote config.
+            buildConfigField "boolean", "USE_REMOTE_CONFIG", "true"
+            // PUSH_KIOSK_APP: Set this to true if a kiosk app download link
+            // will be sent on NFC bump.
+            buildConfigField "boolean", "PUSH_KIOSK_APP", "true"
+            // APP_PACKAGE: If a modification of the package name is done, this must be
+            // altered
+            buildConfigField "String", "APP_PACKAGE", "\"org.wso2.iot.nfcprovisioning\""
+            // DEBUG_MODE_ENABLED: Make the agent print the debug logs.
+            // Make this false in production.
+            buildConfigField "boolean", "DEBUG_MODE_ENABLED", "true"
+        }
+        debug {
+            // DEFAULT_HOST: Hardcode the server host to avoid having the user type it during
+            // sign-in. User can edit this value at sign-in if needed.
+            buildConfigField "String", "DEFAULT_HOST", "\"http://192.168.8.151:8280\""
+            // CLOUD_MANAGER: If the App is pointed to cloud use cloud management host to resolve
+            // tenants of user. Otherwise set this to null
+            buildConfigField "String", "CLOUD_MANAGER", "null"
+            // AUTHENTICATOR_IN_USE: Type of authenticator used in wso2 agent app when authenticating
+            // with server. Allowed values by default are OAUTH_AUTHENTICATOR or MUTUAL_SSL_AUTHENTICATOR
+            buildConfigField "String", "AUTHENTICATOR_IN_USE", "\"OAUTH_AUTHENTICATOR\""
+            // USE_REMOTE_CONFIG: Set this to true if the app is configured to get provisioning
+            // values from Firebase remote config.
+            buildConfigField "boolean", "USE_REMOTE_CONFIG", "false"
+            // PUSH_KIOSK_APP: Set this to true if a kiosk app download link
+            // will be sent on NFC bump.
+            buildConfigField "boolean", "PUSH_KIOSK_APP", "false"
+            // APP_PACKAGE: If a modification of the package name is done, this must be
+            // altered
+            buildConfigField "String", "APP_PACKAGE", "\"org.wso2.iot.nfcprovisioning\""
+            // DEBUG_MODE_ENABLED: Make the agent print the debug logs.
+            // Make this false in production.
+            buildConfigField "boolean", "DEBUG_MODE_ENABLED", "true"
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    releaseCompile project(path: ':iDPProxy', configuration: 'release')
+    stagingCompile project(path: ':iDPProxy', configuration: 'staging')
+    debugCompile project(path: ':iDPProxy', configuration: 'debug')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.fasterxml.jackson.core:jackson-core:2.6.0-rc3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0-rc3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.0-rc3'
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.google.firebase:firebase-config:10.2.4'
+    testCompile 'junit:junit:4.12'
+}
+
+apply plugin: 'com.google.gms.google-services'
