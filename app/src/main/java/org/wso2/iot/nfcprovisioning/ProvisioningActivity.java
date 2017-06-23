@@ -169,10 +169,6 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
             Toast.makeText(context, getResources().getString(
                     R.string.toast_remote_config_added),
                     Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, getResources().getString(
-                    R.string.toast_remote_config_no_changes),
-                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -275,6 +271,7 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         if (Constants.AUTHENTICATOR_IN_USE.equals
                 (Constants.OAUTH_AUTHENTICATOR)) {
             if (token == null) {
+                Toast.makeText(context, R.string.error_unable_to_get_token, Toast.LENGTH_SHORT).show();
                 return null;
             }
             props.put(Constants.ANDROID_APP_EXTRA_TOKREN, token);

@@ -104,6 +104,7 @@
     <string name="server_unreachable">Server unreachable</string>
     <string name="network_connectivity_unavailable">Network connectivity unavailable</string>
     <string name="retry">Retry</string>
+    <string name="error_unable_to_get_token">Unable to get access token please re-login</string>
 
     <!-- PREFERENCE VALUES -->
     <string name="pref_title_package_name">Package Name</string>
