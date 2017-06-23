@@ -32,7 +32,7 @@
     <string name="action_sign_in">SIGN IN</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
-    <string name="prompt_organization">Organization (optional)</string>
+    <string name="prompt_organization">Organization</string>
     <string name="prompt_serverIP">Server Address</string>
     <string name="button_ok">OK</string>
     <string name="title_activity_settings">Configurations</string>
@@ -96,7 +96,8 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_username">Please enter username</string>
     <string name="error_password">Please enter password</string>
-    <string name="error_server_ip">Please enter Server IP</string>
+    <string name="error_server_ip">Please enter Server Address</string>
+    <string name="error_organization">Please enter Organization</string>
     <string name="error_network_unavailable">Network connectivity is unavailable. Please check your network connectivity and make sure you are not in power saving mode.</string>
     <string name="msg_need_to_sign_in">Authentication failed. Please sign in again.</string>
     <string name="internal_server_error">Internal server error</string>
