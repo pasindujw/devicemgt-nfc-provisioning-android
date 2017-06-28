@@ -146,7 +146,8 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
         @Override
         public void onClick(View view) {
             if (etServerIP.getText() != null && !etUsername.getText().toString().trim().isEmpty() &&
-                    etDomain.getText() != null && !etDomain.getText().toString().trim().isEmpty() &&
+                    ((Constants.CLOUD_MANAGER != null && !Constants.CLOUD_MANAGER.isEmpty()) ||
+                            etDomain.getText() != null && !etDomain.getText().toString().trim().isEmpty()) &&
                     etUsername.getText() != null && !etUsername.getText().toString().trim().isEmpty() &&
                     etPassword.getText() != null && !etPassword.getText().toString().trim().isEmpty()) {
 
@@ -165,7 +166,8 @@ public class AuthenticationActivity extends AppCompatActivity implements APIAcce
                 if (etServerIP.getText() != null && etServerIP.getText().toString().trim().isEmpty()) {
                     Toast.makeText(context, getResources().getString(R.string.error_server_ip),
                             Toast.LENGTH_LONG).show();
-                } else if (etDomain.getText() != null && etDomain.getText().toString().trim().isEmpty()) {
+                } else if (!(Constants.CLOUD_MANAGER != null && !Constants.CLOUD_MANAGER.isEmpty()) ||
+                        etDomain.getText() != null && etDomain.getText().toString().trim().isEmpty()) {
                     Toast.makeText(context, getResources().getString(R.string.error_organization),
                             Toast.LENGTH_LONG).show();
                 } else if (etUsername.getText() != null && etUsername.getText().toString().trim().isEmpty()) {
