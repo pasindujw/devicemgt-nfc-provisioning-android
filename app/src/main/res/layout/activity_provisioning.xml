@@ -72,4 +72,19 @@
         android:layout_alignParentEnd="true"
         android:textColor="@android:color/darker_gray" />
 
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="33dp"
+        android:checked="true"
+        android:text="ToggleButton"
+        android:textOff="User Authenticating"
+        android:textOn="Device Provisioning"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        />
+
 </RelativeLayout>

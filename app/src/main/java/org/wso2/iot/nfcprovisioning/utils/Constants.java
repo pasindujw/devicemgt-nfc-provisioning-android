@@ -49,7 +49,7 @@ public class Constants {
     public static final String ADMIN_EXTRA_BUNDLE = "admin extras bundle";
     public static final String WIFI_SECURITY_TYPE_NONE = "NONE";
     public static final String CLOUD_MANAGER = BuildConfig.CLOUD_MANAGER;
-
+    public static final String BUMP_SENARIO = BuildConfig.BUMP_SENARIO;
     /**
      * Request codes.
      */
@@ -65,6 +65,7 @@ public class Constants {
         }
 
         public static final String IP = "ip";
+        public static final String USERNAME_FOR_AUTHENTICATION ="";
     }
 
     /**
