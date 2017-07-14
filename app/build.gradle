@@ -53,10 +53,6 @@ android {
             // DEBUG_MODE_ENABLED: Make the agent print the debug logs.
             // Make this false in production.
             buildConfigField "boolean", "DEBUG_MODE_ENABLED", "false"
-            // BUMP_SENARIO: Describe for which occasion the bump is used.
-            // Set this as 'AUTHENTICATION' to bump the kiosk app. Set this to 'null' for COSU Device Bump.
-            buildConfigField "String", "BUMP_SENARIO", "\"AUTHENTICATION\""
-
         }
         staging {
             // DEFAULT_HOST: Hardcode the server host to avoid having the user type it during
@@ -80,9 +76,6 @@ android {
             // DEBUG_MODE_ENABLED: Make the agent print the debug logs.
             // Make this false in production.
             buildConfigField "boolean", "DEBUG_MODE_ENABLED", "true"
-            // BUMP_SENARIO: Describe for which occasion the bump is used.
-            // Set this as 'KIOSKAPP' to bump the kiosk app. Set this to 'null' for COSU Device Bump.
-            buildConfigField "String", "BUMP_SENARIO", "\"AUTHENTICATION\""
         }
         debug {
             // DEFAULT_HOST: Hardcode the server host to avoid having the user type it during
@@ -106,9 +99,6 @@ android {
             // DEBUG_MODE_ENABLED: Make the agent print the debug logs.
             // Make this false in production.
             buildConfigField "boolean", "DEBUG_MODE_ENABLED", "true"
-            // BUMP_SENARIO: Describe for which occasion the bump is used.
-            // Set this as 'KIOSKAPP' to bump the kiosk app. Set this to 'null' for COSU Device Bump.
-            buildConfigField "String", "BUMP_SENARIO", "\"AUTHENTICATION\""
         }
     }
     packagingOptions {

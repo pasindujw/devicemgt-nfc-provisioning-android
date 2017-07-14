@@ -46,10 +46,11 @@ public class Constants {
     public static final long remoteConfigCacheExpiration = 3600;
     public static final String ANDROID_APP_EXTRA_TOKREN = "android.app.extra.token";
     public static final String ANDROID_APP_EXTRA_APPURL = "android.app.extra.appurl";
+    public static final String ANDROID_APP_EXTRA_HOST = "android.app.extra.host";
     public static final String ADMIN_EXTRA_BUNDLE = "admin extras bundle";
     public static final String WIFI_SECURITY_TYPE_NONE = "NONE";
     public static final String CLOUD_MANAGER = BuildConfig.CLOUD_MANAGER;
-    public static final String BUMP_SENARIO = BuildConfig.BUMP_SENARIO;
+    public static final String BUMP_SENARIO = "BUMP_SENARIO";
     /**
      * Request codes.
      */

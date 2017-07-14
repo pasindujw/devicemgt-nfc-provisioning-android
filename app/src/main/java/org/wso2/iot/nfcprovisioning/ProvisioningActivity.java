@@ -28,7 +28,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +59,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
 import org.wso2.iot.nfcprovisioning.utils.Constants.ConfigKey;
 import org.wso2.iot.nfcprovisioning.utils.Constants;
@@ -97,14 +95,21 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
         rippleBackground.startRippleAnimation();
         toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
 
+        if (Constants.BUMP_SENARIO.equals("Device Provisioning")) {
+            toggleButton.setChecked(true);
+        }
+        else if (Constants.BUMP_SENARIO.equals("User Authenticating")) {
+            toggleButton.setChecked(false);
+        }
+
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    Preference.putString(context, Constants.BUMP_SENARIO, "DEVICE_PROVISIONING");
+               if(isChecked) {
+                    Preference.putString(context, Constants.BUMP_SENARIO, "Device Provisioning");
                 }
                 else {
-                    Preference.putString(context, Constants.BUMP_SENARIO, "AUTHENTICATION");
+                    Preference.putString(context, Constants.BUMP_SENARIO, "User Authenticating");
                 }
             }
         });
@@ -302,6 +307,9 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                 props.put(Constants.ANDROID_APP_EXTRA_APPURL, appUrl);
             }
         }
+        if(!Constants.DEFAULT_HOST.equals("")) {
+            props.put(Constants.ANDROID_APP_EXTRA_HOST, Constants.DEFAULT_HOST);
+        }
         if (!props.isEmpty()) {
             StringWriter sw = new StringWriter();
             try {
@@ -336,13 +344,13 @@ public class ProvisioningActivity extends AppCompatActivity implements TokenCall
                     String.valueOf(System.currentTimeMillis()));
         }
 
-
-        if(Constants.BUMP_SENARIO.equals("AUTHENTICATION")) {
+        if(Preference.getString(this,Constants.BUMP_SENARIO).equals("User Authenticating")) {
             SharedPreferences myPrefs = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
             String prefName = myPrefs.getString(Constants.USERNAME, "#");
             String msg = token+"/"+ prefName;
             NdefRecord ndefRecord = NdefRecord.createMime("text/plain", msg.getBytes());
             NdefMessage ndefMessage = new NdefMessage(ndefRecord);
+            Log.d(TAG, "Bumping for user authentication");
             return ndefMessage;
         }
         else {
